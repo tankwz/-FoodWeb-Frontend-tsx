@@ -37,22 +37,23 @@ function MenuItemCard(props: Props) {
                 </div>
               </div>
 
-              {props.menuItem.specialTag && (
-                <i
-                  className="bi bi-star btn btn-success"
-                  style={{
-                    position: 'absolute',
-                    top: '5px',
-                    left: '5px',
-                    padding: '0px 5px',
-                    borderRadius: '3px',
-                    //        outline: 'none !important',
-                    //    cursor: 'pointer',
-                  }}
-                >
-                  &nbsp; {props.menuItem.specialTag}
-                </i>
-              )}
+              {props.menuItem.specialTag &&
+                props.menuItem.specialTag.length > 0 && (
+                  <i
+                    className="bi bi-star btn btn-success"
+                    style={{
+                      position: 'absolute',
+                      top: '5px',
+                      left: '5px',
+                      padding: '0px 5px',
+                      borderRadius: '3px',
+                      //        outline: 'none !important',
+                      //    cursor: 'pointer',
+                    }}
+                  >
+                    &nbsp; {props.menuItem.specialTag}
+                  </i>
+                )}
               <i
                 className="bi bi-cart-plus-fill btn btn-info"
                 style={{

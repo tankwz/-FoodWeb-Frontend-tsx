@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   return (
@@ -7,7 +8,9 @@ function Header() {
         className="ps-4 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-3"
         style={{ backgroundColor: 'rgb(17, 110, 180)' }}
       >
-        <a className="navbar-brand">Food Web</a>
+        <NavLink className="navbar-brand" to="/">
+          Food Web
+        </NavLink>
 
         <button
           className="navbar-toggler"
@@ -23,11 +26,16 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item ">
-              <a className="nav-link" href="#">
-                Home <span className="sr-only">(current)</span>
-              </a>
+              <NavLink className="nav-link" to="/">
+                Home
+              </NavLink>
             </li>
 
+            <li className="nav-item ">
+              <NavLink className="nav-link" to="/ShoppingCart">
+                Cart
+              </NavLink>
+            </li>
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
