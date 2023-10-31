@@ -1,7 +1,13 @@
 import React from 'react';
+import { Footer, Header } from '../Components/Layout';
 
 function App() {
-  return <div className="App">App</div>;
+  return (
+    <div className="text-success ">
+      <Header></Header>
+      <Footer></Footer>
+    </div>
+  );
 }
 
 export default App;
