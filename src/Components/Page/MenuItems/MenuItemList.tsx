@@ -4,6 +4,7 @@ import MenuItemCard from './MenuItemCard';
 import { useGetMenuItemsQuery } from '../../../api/menuItemApi';
 import { useDispatch } from 'react-redux';
 import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
+import { LoaderBig } from './Utility';
 function MenuItemList() {
   //  const [menuItem, setMenuItems] = useState<menuItemModel[]>([]);
   const { data, isLoading, isSuccess, isError, error } =
@@ -25,11 +26,8 @@ function MenuItemList() {
   return (
     <div>
       {isLoading ? (
-        <div className="text-center mt-5">
-          <span className="text-info h3">Loading... </span>
-          <div className="spinner-border text-info" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
+        <div>
+          <LoaderBig></LoaderBig>
         </div>
       ) : !isSuccess ? (
         <div>Error while fetching data...Check console for error details</div>

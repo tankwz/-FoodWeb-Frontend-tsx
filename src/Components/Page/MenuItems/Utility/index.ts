@@ -1,3 +1,4 @@
 import LoaderSmall from './LoaderSmall';
+import LoaderBig from './LoaderBig';
 
-export { LoaderSmall };
+export { LoaderSmall, LoaderBig };
