@@ -13,7 +13,7 @@ const menuItemApi = createApi({
     }),
     getMenuItemById: builder.query({
       query: (id) => ({
-        url: `menuitem${id}`,
+        url: `menuitem/${id}`,
       }),
       providesTags: ['MenuItems'],
     }),

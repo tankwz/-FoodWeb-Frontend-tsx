@@ -12,7 +12,7 @@ function MenuItemList() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(setMenuItem(data.result));
-    } else if (isError) {
+    } else {
       console.log(error);
     }
     // fetch('')
@@ -21,7 +21,7 @@ function MenuItemList() {
     //     console.log(data);
     //     setMenuItems(data.result);
     //   });
-  }, [isSuccess]);
+  }, [isLoading]);
   return (
     <div>
       {isLoading ? (
