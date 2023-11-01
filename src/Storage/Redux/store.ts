@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { menuItemReducers } from './menuItemSlice';
 import { menuItemApi, shoppingCartApi } from '../../api';
+import { shoppingCartReducer } from './shoppingCartSlice';
 
 export const store = configureStore({
   reducer: {
     menuItemStore: menuItemReducers,
+    shoppingCartStore: shoppingCartReducer,
     [menuItemApi.reducerPath]: menuItemApi.reducer,
     [shoppingCartApi.reducerPath]: shoppingCartApi.reducer,
   },
