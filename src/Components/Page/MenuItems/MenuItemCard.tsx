@@ -7,7 +7,7 @@ interface Props {
 
 function MenuItemCard(props: Props) {
   return (
-    <div className="col-sm-6 col-lg-3 col-xxl-2">
+    <div className="col-sm-6 col-lg-4 col-xxl-3">
       <div className="row p-2">
         <div className="col-12 p-1">
           <div className="card shadow border-5 rounded p-2">
@@ -74,10 +74,10 @@ function MenuItemCard(props: Props) {
               </div>
             </div>
             <p className="card-text text-center ">
-              {props.menuItem.description.length > 120
+              {props.menuItem.description.length > 110
                 ? props.menuItem.description.substring(
                     0,
-                    props.menuItem.description.lastIndexOf(' ', 120)
+                    props.menuItem.description.lastIndexOf(' ', 110)
                   ) + '...'
                 : props.menuItem.description}
             </p>

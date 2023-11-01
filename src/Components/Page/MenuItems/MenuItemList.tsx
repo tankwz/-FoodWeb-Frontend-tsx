@@ -1,22 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { menuItemModel } from '../../../Interfaces';
 import MenuItemCard from './MenuItemCard';
+import { useGetMenuItemsQuery } from '../../../api/menuItemApi';
+import { useDispatch } from 'react-redux';
+import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
 function MenuItemList() {
-  const [menuItem, setMenuItems] = useState<menuItemModel[]>([]);
+  //  const [menuItem, setMenuItems] = useState<menuItemModel[]>([]);
+  const { data, isLoading, isSuccess, isError, error } =
+    useGetMenuItemsQuery(null);
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetch('https://localhost:7196/api/MenuItem')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setMenuItems(data.result);
-      });
-  }, []);
+    if (isSuccess) {
+      dispatch(setMenuItem(data.result));
+    } else if (isError) {
+      console.log(error);
+    }
+    // fetch('')
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setMenuItems(data.result);
+    //   });
+  }, [isSuccess]);
   return (
-    <div className="row">
-      {menuItem.length > 0 &&
-        menuItem.map((menuItem, index) => {
-          return <MenuItemCard key={index} menuItem={menuItem} />;
-        })}
+    <div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : !isSuccess ? (
+        <div>Error while fetching data...</div>
+      ) : (
+        <div className="row">
+          {data.result.length > 0 &&
+            data.result.map((menuItem: menuItemModel, index: number) => {
+              return <MenuItemCard key={index} menuItem={menuItem} />;
+            })}
+        </div>
+      )}
     </div>
   );
 }
