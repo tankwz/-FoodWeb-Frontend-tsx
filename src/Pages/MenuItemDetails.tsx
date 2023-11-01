@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from '../api/menuItemApi';
 import { useUpdateCartMutation } from '../api/shoppingCartApi';
-import { LoaderBig, LoaderSmall } from '../Components/Page/MenuItems/Utility';
+import { LoaderBig, LoaderSmall } from '../Components/Page/Utility';
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { isLoading, data, isError, error, isSuccess } =

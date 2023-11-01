@@ -4,7 +4,7 @@ import MenuItemCard from './MenuItemCard';
 import { useGetMenuItemsQuery } from '../../../api/menuItemApi';
 import { useDispatch } from 'react-redux';
 import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
-import { LoaderBig } from './Utility';
+import { LoaderBig } from '../Utility';
 function MenuItemList() {
   //  const [menuItem, setMenuItems] = useState<menuItemModel[]>([]);
   const { data, isLoading, isSuccess, isError, error } =

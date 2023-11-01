@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { menuItemModel } from '../../../Interfaces';
 import { Link } from 'react-router-dom';
 import { useUpdateCartMutation } from '../../../api/shoppingCartApi';
-import { LoaderSmall } from './Utility';
+import { LoaderSmall } from '../Utility';
 
 interface Props {
   menuItem: menuItemModel;
