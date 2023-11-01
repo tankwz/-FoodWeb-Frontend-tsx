@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from '../api/menuItemApi';
 import { useUpdateCartMutation } from '../api/shoppingCartApi';
+import { LoaderBig, LoaderSmall } from '../Components/Page/MenuItems/Utility';
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { isLoading, data, isError, error, isSuccess } =
@@ -45,7 +46,9 @@ function MenuItemDetails() {
   return (
     <div>
       {isLoading ? (
-        <div>Loading...</div>
+        <div>
+          <LoaderBig></LoaderBig>
+        </div>
       ) : isSuccess ? (
         <div className="container">
           <div className="card">
@@ -156,13 +159,18 @@ function MenuItemDetails() {
                       </div>
                     </div>
                     <div className="col-4 ">
-                      <button
-                        type="submit"
-                        className="btn  btn-outline-primary text-white form-control"
-                        onClick={() => handleUpdateCart()}
-                      >
-                        Add To Cart
-                      </button>
+                      {updating ? (
+                        <div className="text-center">
+                          <LoaderSmall></LoaderSmall>
+                        </div>
+                      ) : (
+                        <button
+                          className="btn  btn-outline-primary text-white form-control"
+                          onClick={() => handleUpdateCart()}
+                        >
+                          Add To Cart
+                        </button>
+                      )}
                     </div>
                     <div className="col-4 ">
                       <button
