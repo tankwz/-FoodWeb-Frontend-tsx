@@ -8,13 +8,17 @@ function MenuItemDetails() {
     useGetMenuItemByIdQuery(menuItemId);
   const [count, setCount] = useState(() => 0);
   const [updateCart, result] = useUpdateCartMutation();
-
-  const handleUpdateCart = () => {
-    updateCart({
+  const [updating, setupdating] = useState<boolean>(false);
+  const handleUpdateCart = async () => {
+    setupdating(true);
+    const response = await updateCart({
       userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
       itemId: menuItemId,
       quantity: count,
     });
+    setupdating(false);
+
+    console.log(response);
   };
   // useEffect(() => {
   //   if (isSuccess) {

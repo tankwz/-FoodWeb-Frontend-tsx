@@ -25,7 +25,12 @@ function MenuItemList() {
   return (
     <div>
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="text-center mt-5">
+          <span className="text-info h3">Loading... </span>
+          <div className="spinner-border text-info" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
       ) : !isSuccess ? (
         <div>Error while fetching data...Check console for error details</div>
       ) : (

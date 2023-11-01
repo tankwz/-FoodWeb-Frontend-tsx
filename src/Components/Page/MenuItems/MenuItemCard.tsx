@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { menuItemModel } from '../../../Interfaces';
 import { Link } from 'react-router-dom';
+import { useUpdateCartMutation } from '../../../api/shoppingCartApi';
+import { LoaderSmall } from './Utility';
 
 interface Props {
   menuItem: menuItemModel;
 }
 
 function MenuItemCard(props: Props) {
+  const [addingToCart, setAddingToCart] = useState<boolean>(false);
+  const [updateCart, result] = useUpdateCartMutation();
+
+  const addToCart = async () => {
+    setAddingToCart(true);
+
+    const response = await updateCart({
+      userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+      itemId: props.menuItem.id,
+      quantity: 1,
+    });
+
+    setAddingToCart(false);
+  };
+
   return (
     <div className="col-sm-6 col-lg-4 col-xxl-3">
       <div className="row p-2">
@@ -50,6 +67,7 @@ function MenuItemCard(props: Props) {
                       left: '5px',
                       padding: '0px 5px',
                       borderRadius: '3px',
+
                       //        outline: 'none !important',
                       //    cursor: 'pointer',
                     }}
@@ -57,18 +75,35 @@ function MenuItemCard(props: Props) {
                     &nbsp; {props.menuItem.specialTag}
                   </i>
                 )}
-              <i
-                className="bi bi-cart-plus-fill btn btn-info"
-                style={{
-                  position: 'absolute',
-                  top: '5px',
-                  right: '5px',
-                  padding: '0px 5px',
-                  borderRadius: '3px',
-                  outline: 'none !important',
-                  cursor: 'pointer',
-                }}
-              ></i>
+              {addingToCart ? (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '7px',
+                    right: '7px',
+                    //    padding: '2px 2px',
+                    //  borderRadius: '3px',
+                    pointerEvents: 'none',
+                    outline: 'none !important',
+                  }}
+                >
+                  <LoaderSmall></LoaderSmall>
+                </div>
+              ) : (
+                <i
+                  className="bi bi-cart-plus-fill btn btn-info"
+                  onClick={() => addToCart()}
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    right: '5px',
+                    padding: '0px 5px',
+                    borderRadius: '3px',
+                    outline: 'none !important',
+                    cursor: 'pointer',
+                  }}
+                ></i>
+              )}
 
               <div className="text-center pt-1 pb-0 mb-0">
                 <p className="p-0 m-0 opacity-75 ">
