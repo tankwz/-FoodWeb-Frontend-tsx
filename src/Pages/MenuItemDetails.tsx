@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from '../api/menuItemApi';
-
+import { useUpdateCartMutation } from '../api/shoppingCartApi';
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { isLoading, data, isError, error, isSuccess } =
     useGetMenuItemByIdQuery(menuItemId);
   const [count, setCount] = useState(() => 0);
+  const [updateCart, result] = useUpdateCartMutation();
 
+  const handleUpdateCart = () => {
+    updateCart({
+      userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+      itemId: menuItemId,
+      quantity: count,
+    });
+  };
   // useEffect(() => {
   //   if (isSuccess) {
   //     console.log(data);
@@ -45,7 +53,7 @@ function MenuItemDetails() {
                 <div className="col-12 col-lg-5  text-center">
                   <img
                     className="card-img-top img-fluid rounded"
-                    src={data.result.image}
+                    src={`https://via.placeholder.com/150`} //  src={data.result.image}
                   ></img>
                   {data.result.specialTag &&
                     data.result.specialTag.length > 0 && (
@@ -147,6 +155,7 @@ function MenuItemDetails() {
                       <button
                         type="submit"
                         className="btn  btn-outline-primary text-white form-control"
+                        onClick={() => handleUpdateCart()}
                       >
                         Add To Cart
                       </button>
