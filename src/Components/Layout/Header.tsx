@@ -33,7 +33,7 @@ function Header() {
 
             <li className="nav-item ">
               <NavLink className="nav-link" to="/ShoppingCart">
-                Cart
+                Cart <i className="bi bi-cart"></i>
               </NavLink>
             </li>
             <li className="nav-item dropdown">

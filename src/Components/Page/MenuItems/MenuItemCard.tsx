@@ -1,5 +1,6 @@
 import React from 'react';
 import { menuItemModel } from '../../../Interfaces';
+import { Link } from 'react-router-dom';
 
 interface Props {
   menuItem: menuItemModel;
@@ -13,11 +14,13 @@ function MenuItemCard(props: Props) {
           <div className="card shadow border-5 rounded p-2">
             <div className="row">
               <div className="col-12">
-                <img
-                  src={props.menuItem.image}
-                  className="card-img-top mt-2"
-                  style={{ height: '200px', objectFit: 'cover' }}
-                ></img>
+                <Link to={`/MenuItemDetails/${props.menuItem.id}`}>
+                  <img
+                    src={props.menuItem.image}
+                    className="card-img-top mt-2"
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  ></img>
+                </Link>
               </div>
             </div>
             <div className="card-body pb-0">
@@ -82,9 +85,12 @@ function MenuItemCard(props: Props) {
                 : props.menuItem.description}
             </p>
             <div>
-              <a className="btn btn-secondary form-control bg-gradient">
+              <Link
+                className="btn btn-secondary form-control bg-gradient"
+                to={`/MenuItemDetails/${props.menuItem.id}`}
+              >
                 Detail
-              </a>
+              </Link>
             </div>
           </div>
         </div>

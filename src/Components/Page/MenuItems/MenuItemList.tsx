@@ -27,7 +27,7 @@ function MenuItemList() {
       {isLoading ? (
         <div>Loading...</div>
       ) : !isSuccess ? (
-        <div>Error while fetching data...</div>
+        <div>Error while fetching data...Check console for error details</div>
       ) : (
         <div className="row">
           {data.result.length > 0 &&
