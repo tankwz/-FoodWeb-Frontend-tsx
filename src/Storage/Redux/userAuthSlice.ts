@@ -15,12 +15,12 @@ export const userAuthSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action) => {
-      (state.id = action.payload.id),
-        (state.email = action.payload.email),
-        (state.name = action.payload.name),
-        (state.phoneNumber = action.payload.phoneNumber),
-        (state.address = action.payload.address),
-        (state.role = action.payload.role);
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.address = action.payload.address;
+      state.role = action.payload.role;
     },
   },
 });
