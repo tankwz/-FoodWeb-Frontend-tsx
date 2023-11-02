@@ -20,6 +20,16 @@ function CartItem(props: Props) {
   const [setcartQuantity, result2] = useSetCartQuantityMutation();
   const dispatch = useDispatch();
 
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+  const description = props.cartItem.menuItem.description;
+  const truncatedDescription =
+    description.length > 300
+      ? description.substring(0, description.lastIndexOf(' ', 300)) + '...'
+      : description;
+
   const handleUpdateCart = async (newcount: number) => {
     setupdating(true);
     const response = await updateCart({
@@ -91,30 +101,21 @@ function CartItem(props: Props) {
                 {props.cartItem.menuItem.name}
               </h3>
               <p>
-                {/* <small>
-                                        @if (Model.ListCarts[z].Product.Description.Length > 475)
-                                        {
-                                            <span><p className="m-0 p-0 d-inline">@Html.Raw(Model.ListCarts[z].Product.Description.Substring(3,475))</span>
-
-                                            <div id="extra-des-@Model.ListCarts[z].ProductId" style="display:none;">
-                                            <span className=""  >
-                                                @Html.Raw(Model.ListCarts[z].Product.Description.Substring(475))
-
-                                            </span>
-                                            </div>
-                                            <button style="margin-top: -1rem" className="btn btn-link m-0 p-0" type="button" id="readmorebutton-@Model.ListCarts[z].ProductId" onclick="toggleDescription(@Model.ListCarts[z].ProductId)">Show More</button>
-
-                                            // <a href="#" id="readmorelink-@cart.ProductId" onclick="return toggleDescription(@cart.ProductId)" >ShowMore</a>
-                                            //<span>@Html.Raw(cart.Product.Description.Substring(0, 475))</span>
-                                            // <span style="" id="more-@cart.Product.Id" style="display: none;">@Html.Raw(cart.Product.Description.Substring(475))</span>
-                                            //<a href="#" id="readmorelink-@cart.ProductId" onclick="return toggleDescription(@cart.Product.Id)">Show More</a>
-
-                                        }
-                                        else
-                                        {
-                                            @Html.Raw(Model.ListCarts[z].Product.Description)
-                                        }
-                                    </small> */}
+                {showFullDescription ? description : truncatedDescription}
+                {description.length > 300 && (
+                  <button
+                    className="btn btn-sm link mb-1 ps-1  text-info"
+                    onClick={toggleDescription}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    {showFullDescription ? 'Show Less' : 'Show More'}
+                  </button>
+                )}
               </p>
             </div>
             <div className="col-12">
@@ -153,19 +154,14 @@ function CartItem(props: Props) {
                 <div className="col-3">
                   <div className="row">
                     <div className="col-12">
-                      <span
-                        id="BasePrice-@Model.ListCarts[z].Id"
-                        className="text-decoration-line-through"
-                      >
-                        @Model.ListCarts[z].Product.ListPrice.ToString("c")
-                      </span>
-                      <span id="OrderPrice-@Model.ListCarts[z].Id">
-                        @Model.ListCarts[z].price.ToString("c")
+                      <span className="h5">
+                        Price: ${props.cartItem.menuItem.price}
                       </span>
                     </div>
                     <div className="col-12">
-                      <span>
-                        Total:&nbsp;@Model.ListCarts[z].currentprice.ToString("c")
+                      <span className="h5">
+                        Total: $
+                        {(props.cartItem.menuItem.price * count).toFixed(2)}
                       </span>
                     </div>
                   </div>

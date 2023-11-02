@@ -23,10 +23,10 @@ function CartFooter() {
                 id="TotalBasePrice"
                 className="text-decoration-line-through"
               >
-                $0.00@* @Model.TotalBase.ToString("c") *@
+                $0.00@* @TotalBase.ToString("c") *@
               </h5>
               <h5 style={{ display: 'inline' }} id="TotalOrderPrice">
-                &nbsp;$0.00 @* @Model.OrderHead.OrderTotal.ToString("c") *@
+                &nbsp;$0.00 @OrderHead.OrderTotal.ToString("c") *@
               </h5>
             </div>
             <div className="col-3 ">
