@@ -30,11 +30,8 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div
-          className="collapse navbar-collapse d-flex "
-          id="navbarSupportedContent"
-        >
-          <ul className="navbar-nav mr-auto">
+        <div className="collapse navbar-collapse " id="navbarSupportedContent">
+          <ul className="navbar-nav  w-100">
             <li className="nav-item ">
               <NavLink className="nav-link" to="/">
                 Home
@@ -74,7 +71,7 @@ function Header() {
               </NavLink>
             </li>
 
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown ">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
@@ -99,7 +96,37 @@ function Header() {
                 </a>
               </div>
             </li>
+
+            <div className="ms-auto d-flex ">
+              <li className="nav-item ">
+                <button
+                  className="btn btn-success btn-outlined rounded-pill text-white  "
+                  style={{ border: 'none', height: '40px', width: '100px' }}
+                >
+                  Logout
+                </button>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className=" nav-link text-white text-center "
+                  style={{ border: 'none', height: '40px', width: '100px' }}
+                  to={'/register'}
+                >
+                  Register
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className="btn btn-success btn-outlined rounded-pill text-white ms-0 me-3"
+                  style={{ border: 'none', height: '40px', width: '100px' }}
+                  to={'/Login'}
+                >
+                  Login
+                </NavLink>
+              </li>
+            </div>
           </ul>
+          <div className="d-flex ms-auto"></div>
           {/* <form className="form-inline my-2 my-lg-0">
             <button
               className="btn btn-outline-success my-2 my-sm-0"
