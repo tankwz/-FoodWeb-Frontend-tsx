@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { inputHelper } from '../Helper';
+import { useLoginUserMutation } from '../api/authApi';
+import { apiResponse } from '../Interfaces';
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+  const [userInput, setUserInput] = useState({
+    email: '',
+    password: '',
+  });
+  const handleUserInput = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const tempData = inputHelper(e, userInput);
+    setUserInput(tempData);
+  };
+  const [loginUser] = useLoginUserMutation();
+  const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const response: apiResponse = await loginUser(userInput);
+    if (response.data) {
+      console.log(response);
+    } else if (response.error) {
+      console.log(response);
+    }
+    setLoading(!true);
+  };
+
   return (
     <div className="container">
       <div className="card shadow border-0 my-5">
@@ -12,7 +39,7 @@ function Login() {
         <div className="card-body ">
           <div className="row ">
             <div className="col-12">
-              <form method="post">
+              <form method="post" onSubmit={handleSubmit}>
                 <div className="mt-3 row">
                   {/* !!!IMPORTANT
 
@@ -29,6 +56,9 @@ background-color: #ff000000; Change the background color to transparent !!!!! NE
                       className="form-control  bg-secondary text-white  "
                       placeholder="name@example.com"
                       type="email"
+                      name="email"
+                      value={userInput.email}
+                      onChange={handleUserInput}
                       required
                     />
                     <label className=" ps-4 ">Email</label>
@@ -39,7 +69,10 @@ background-color: #ff000000; Change the background color to transparent !!!!! NE
                     <input
                       className="form-control  bg-secondary text-white  "
                       placeholder="name@example.com"
-                      type={'password'}
+                      name="password"
+                      value={userInput.password}
+                      onChange={handleUserInput}
+                      type="password"
                       required
                     />
                     <label className=" ps-4 ">Password</label>

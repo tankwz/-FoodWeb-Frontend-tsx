@@ -15,18 +15,16 @@ function Register() {
     role: '',
     password: '',
   });
-
-  const [registerUser] = useRegisterUserMutation();
-
-  const showpass = () => {
-    changeShowPassword(!showPassword);
-  };
-
   const handleUserInput = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const tempData = inputHelper(e, userInput);
     setUserInput(tempData);
+  };
+  const [registerUser] = useRegisterUserMutation();
+
+  const showpass = () => {
+    changeShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
