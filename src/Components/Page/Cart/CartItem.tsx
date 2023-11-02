@@ -1,34 +1,68 @@
-import React from 'react';
+import { cartItemModel } from '../../../Interfaces';
+import React, { useEffect, useState } from 'react';
+import { useUpdateCartMutation } from '../../../api/shoppingCartApi';
+interface Props {
+  cartItem: cartItemModel;
+}
 
-function CartItem() {
+function CartItem(props: Props) {
+  const [updating, setupdating] = useState<boolean>(false);
+  const [count, setCount] = useState(() => 0);
+  const [updateCart, result] = useUpdateCartMutation();
+  const handleUpdateCart = async (newcount: number) => {
+    setupdating(true);
+    const response = await updateCart({
+      userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+      itemId: props.cartItem.menuItem.id,
+      quantity: newcount,
+    });
+    setupdating(false);
+
+    console.log(response);
+  };
+  useEffect(() => {
+    if (count > 100) {
+      setCount(100);
+    }
+  });
+  useEffect(() => {
+    setCount(props.cartItem.quantity);
+  }, []);
+  useEffect(() => {
+    handleUpdateCart(count);
+  }, [count]);
+  const setQuantity = (quantity: number) => {
+    let newcount = count + quantity;
+    if (newcount < 0) {
+      setCount(0);
+    } else if (newcount > 100) {
+      setCount(100);
+    } else {
+      setCount(newcount);
+      handleUpdateCart(quantity);
+    }
+  };
+
   return (
     <div>
-      <input asp-for="@Model.ListCarts[z].Id" hidden></input>
-      <input
-        asp-for="@Model.ListCarts[z].selected"
-        hidden
-        type="checkbox"
-        id="selected-@Model.ListCarts[z].Id"
-      ></input>
       <div
         className="row py-2 clickable"
         id="div-@Model.ListCarts[z].Id"
-        style="border:3px solid grey"
+        style={{ border: '3px solid grey' }}
       >
         <div className=" py-2  col-12 col-lg-4  ps-1">
           <img
             className="  border border-1 border-secondary rounded"
-            src="@Model.ListCarts[z].Product.ImageUrl"
-            style="width:100%"
+            //   src={props.cartItem.menuItem.image}
+            style={{ width: '100%' }}
           ></img>
         </div>
         <div className="col-12 col-lg-8 ">
           <div className="row">
             <div className="col-12 ps-1">
-              <H3 className="text-primary text-uppercase">
-                {' '}
-                @Model.ListCarts[z].Product.Title{' '}
-              </H3>
+              <h3 className="text-primary text-uppercase">
+                {props.cartItem.menuItem.name}
+              </h3>
               <p>
                 {/* <small>
                                         @if (Model.ListCarts[z].Product.Description.Length > 475)
@@ -61,14 +95,27 @@ function CartItem() {
                 <div className="col-2 ms-2 p-0 ">
                   <div className="input-group">
                     <button
-                      asp-area="customer"
-                      asp-controller="ShoppingCart"
-                      asp-route-cartid="@Model.ListCarts[z].Id"
-                      asp-action="Less"
-                      className="btn btn-secondary"
+                      className="btn px-3 btn-secondary"
+                      onClick={() => setQuantity(-1)}
                     >
                       -
                     </button>
+                    <input
+                      type="number"
+                      className="form-control px-0 text-center"
+                      value={count}
+                      onChange={(e) => setCount(parseInt(e.target.value))}
+                    ></input>
+
+                    <button
+                      className="btn px-3 btn-secondary"
+                      onClick={() => setQuantity(+1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  {/* <div className="input-group">
+                    <button className="btn btn-secondary">-</button>
                     <input
                       asp-for="@Model.ListCarts[z].count"
                       disabled
@@ -86,7 +133,7 @@ function CartItem() {
                     >
                       +
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="col-3">
                   <div className="row">

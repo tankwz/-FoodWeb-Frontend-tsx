@@ -19,6 +19,6 @@ export const store = configureStore({
   //   getDefaultMiddleWare().concat(menuItemApi.middleware),
 });
 
-export type RootStore = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
 
 export default store;

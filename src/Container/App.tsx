@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Footer, Header } from '../Components/Layout';
-import { Home, MenuItemDetails, NotFound } from '../Pages';
+import { Home, MenuItemDetails, NotFound, ShoppingCart } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
 import { useDispatch } from 'react-redux';
@@ -30,6 +30,10 @@ function App() {
           <Route
             path="/MenuItemDetails/:menuItemId"
             element={<MenuItemDetails></MenuItemDetails>}
+          ></Route>
+          <Route
+            path="/ShoppingCart"
+            element={<ShoppingCart></ShoppingCart>}
           ></Route>
         </Routes>
       </div>
