@@ -1,14 +1,25 @@
 import { cartItemModel } from '../../../Interfaces';
 import React, { useEffect, useState } from 'react';
-import { useUpdateCartMutation } from '../../../api/shoppingCartApi';
+import {
+  useSetCartQuantityMutation,
+  useUpdateCartMutation,
+} from '../../../api/shoppingCartApi';
+import { useDispatch } from 'react-redux';
+import {
+  removeFromCart,
+  updateQuantity,
+} from '../../../Storage/Redux/shoppingCartSlice';
 interface Props {
   cartItem: cartItemModel;
 }
 
 function CartItem(props: Props) {
   const [updating, setupdating] = useState<boolean>(false);
-  const [count, setCount] = useState(() => 0);
+  const [count, setCount] = useState(() => props.cartItem.quantity);
   const [updateCart, result] = useUpdateCartMutation();
+  const [setcartQuantity, result2] = useSetCartQuantityMutation();
+  const dispatch = useDispatch();
+
   const handleUpdateCart = async (newcount: number) => {
     setupdating(true);
     const response = await updateCart({
@@ -16,30 +27,46 @@ function CartItem(props: Props) {
       itemId: props.cartItem.menuItem.id,
       quantity: newcount,
     });
-    setupdating(false);
+    dispatch(removeFromCart({ cartItem: props.cartItem })); //still got removed from store without this line but imma put it here just in case
 
+    setupdating(false);
     console.log(response);
   };
+
   useEffect(() => {
-    if (count > 100) {
-      setCount(100);
-    }
-  });
-  useEffect(() => {
-    setCount(props.cartItem.quantity);
-  }, []);
-  useEffect(() => {
-    handleUpdateCart(count);
+    const updateCartQuantity = async () => {
+      if (count < 1) {
+        setCount(1);
+      }
+      if (count > 100) {
+        setCount(100);
+      }
+      const response = await setcartQuantity({
+        cartItemId: props.cartItem.id,
+        quantity: count,
+      });
+      //  handle the response here if needed
+      dispatch(updateQuantity({ cartItem: props.cartItem, quantity: count }));
+    };
+
+    updateCartQuantity();
   }, [count]);
+  // useEffect(() => {
+  //   if (count == 0) {
+  //     const cartItem = props.cartItems;
+  //     dispatch(removeFromCart({ cartItem, quantity: 0 }));
+  //   }
+  //   handleUpdateCart(count);
+  // }, [count]);
+
   const setQuantity = (quantity: number) => {
     let newcount = count + quantity;
-    if (newcount < 0) {
-      setCount(0);
+    if (newcount < 1) {
+      setCount(1);
     } else if (newcount > 100) {
       setCount(100);
     } else {
       setCount(newcount);
-      handleUpdateCart(quantity);
     }
   };
 
@@ -60,7 +87,7 @@ function CartItem(props: Props) {
         <div className="col-12 col-lg-8 ">
           <div className="row">
             <div className="col-12 ps-1">
-              <h3 className="text-primary text-uppercase">
+              <h3 className="text-info text-uppercase ">
                 {props.cartItem.menuItem.name}
               </h3>
               <p>
@@ -104,7 +131,15 @@ function CartItem(props: Props) {
                       type="number"
                       className="form-control px-0 text-center"
                       value={count}
-                      onChange={(e) => setCount(parseInt(e.target.value))}
+                      onChange={(e) => {
+                        const newValue = parseInt(e.target.value);
+                        if (!isNaN(newValue) && newValue >= 1) {
+                          setCount(newValue);
+                        } else {
+                          // If the input is empty or not a valid number, set it to 1
+                          setCount(1);
+                        }
+                      }}
                     ></input>
 
                     <button
@@ -114,26 +149,6 @@ function CartItem(props: Props) {
                       +
                     </button>
                   </div>
-                  {/* <div className="input-group">
-                    <button className="btn btn-secondary">-</button>
-                    <input
-                      asp-for="@Model.ListCarts[z].count"
-                      disabled
-                      type="number"
-                      className="form-control text-center"
-                    ></input>
-                    <span id="Count-@Model.ListCarts[z].Id" hidden>
-                      {' '}
-                      @Model.ListCarts[z].count{' '}
-                    </span>
-                    <button
-                      asp-action="More"
-                      asp-route-cartid="@Model.ListCarts[z].Id"
-                      className="btn btn-secondary"
-                    >
-                      +
-                    </button>
-                  </div> */}
                 </div>
                 <div className="col-3">
                   <div className="row">
@@ -165,11 +180,8 @@ function CartItem(props: Props) {
                 </div>
                 <div className="col-3 ms-2 p-0">
                   <button
-                    asp-area="Customer"
-                    asp-controller="ShoppingCart"
-                    asp-action="DeleteOne"
-                    asp-route-cartid="@Model.ListCarts[z].Id"
                     className="btn btn-lg btn-danger form-control"
+                    onClick={() => handleUpdateCart(0)}
                   >
                     Delete
                   </button>

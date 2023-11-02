@@ -21,8 +21,19 @@ const shoppingCartApi = createApi({
       }),
       invalidatesTags: ['ShoppingCarts'],
     }),
+    setCartQuantity: builder.mutation({
+      query: ({ cartItemId, quantity }) => ({
+        url: 'ShoppingCart/SetCartQuantity',
+        method: 'POST',
+        params: { cartItemId: cartItemId, quantity: quantity },
+      }),
+    }),
   }),
 });
 
-export const { useGetCartQuery, useUpdateCartMutation } = shoppingCartApi;
+export const {
+  useGetCartQuery,
+  useUpdateCartMutation,
+  useSetCartQuantityMutation,
+} = shoppingCartApi;
 export default shoppingCartApi;

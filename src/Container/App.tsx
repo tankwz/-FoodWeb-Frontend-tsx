@@ -16,7 +16,7 @@ function App() {
       disPatch(setCart(data.result?.cartItems));
       //console.log(data);
 
-      console.log(data.result.cartItems);
+      // console.log(data.result.cartItems);
     }
   }, [data]);
 

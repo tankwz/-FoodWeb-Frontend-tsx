@@ -6,7 +6,7 @@ import { RootState } from '../Storage/Redux/store';
 
 function ShoppingCart() {
   const cartFromStore: cartItemModel[] = useSelector(
-    (state: RootState) => state.shoppingCartStore.cartItem ?? []
+    (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
   if (!cartFromStore) {
     return <div>Empty</div>;

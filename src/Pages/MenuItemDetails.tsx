@@ -7,7 +7,7 @@ function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { isLoading, data, isError, error, isSuccess } =
     useGetMenuItemByIdQuery(menuItemId);
-  const [count, setCount] = useState(() => 0);
+  const [count, setCount] = useState(() => 1);
   const [updateCart, result] = useUpdateCartMutation();
   const [updating, setupdating] = useState<boolean>(false);
   const handleUpdateCart = async () => {
@@ -35,7 +35,7 @@ function MenuItemDetails() {
   });
   const setQuantity = (quantity: number) => {
     let newcount = count + quantity;
-    if (newcount < 0) {
+    if (newcount < 1) {
     } else if (newcount > 100) {
       setCount(100);
     } else {
@@ -127,9 +127,15 @@ function MenuItemDetails() {
                               type="number"
                               className="form-control px-0 text-center"
                               value={count}
-                              onChange={(e) =>
-                                setCount(parseInt(e.target.value))
-                              }
+                              onChange={(e) => {
+                                const newValue = parseInt(e.target.value);
+                                if (!isNaN(newValue) && newValue >= 1) {
+                                  setCount(newValue);
+                                } else {
+                                  // If the input is empty or not a valid number, set it to 1
+                                  setCount(1);
+                                }
+                              }}
                             ></input>
 
                             <button
