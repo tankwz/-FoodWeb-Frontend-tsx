@@ -5,4 +5,5 @@ export default interface userModel {
   phoneNumber?: string;
   address?: string;
   role?: string;
+  exp: number; //for when the token expire
 }

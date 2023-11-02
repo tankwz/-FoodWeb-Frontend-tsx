@@ -8,6 +8,7 @@ const initialState: userModel = {
   phoneNumber: '',
   address: '',
   role: '',
+  exp: 0,
 };
 
 export const userAuthSlice = createSlice({
@@ -21,9 +22,10 @@ export const userAuthSlice = createSlice({
       state.phoneNumber = action.payload.phoneNumber;
       state.address = action.payload.address;
       state.role = action.payload.role;
+      state.exp = action.payload.exp;
     },
   },
 });
 
 export const userAuthReducer = userAuthSlice.reducer;
-export const setUser = userAuthSlice.actions;
+export const { setUser } = userAuthSlice.actions;

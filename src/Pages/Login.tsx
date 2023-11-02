@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { inputHelper } from '../Helper';
 import { useLoginUserMutation } from '../api/authApi';
-import { apiResponse } from '../Interfaces';
+import { apiResponse, userModel } from '../Interfaces';
+import { jwtDecode } from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../Storage/Redux/userAuthSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [loading, setLoading] = useState(false);
+  const naviage = useNavigate();
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
@@ -16,12 +21,23 @@ function Login() {
     setUserInput(tempData);
   };
   const [loginUser] = useLoginUserMutation();
+  const dispatch = useDispatch();
   const handleSubmit = async (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     setLoading(true);
     const response: apiResponse = await loginUser(userInput);
     if (response.data) {
       console.log(response);
+      const { token } = response.data.result;
+      localStorage.setItem('token', token);
+
+      const { id, name, email, role, phoneNumber, address, exp }: userModel =
+        jwtDecode(token);
+
+      //reminder to handle expire token
+
+      dispatch(setUser({ id, name, email, role, phoneNumber, address }));
+      naviage('/');
     } else if (response.error) {
       console.log(response);
     }
