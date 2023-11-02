@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { SD_Roles } from '../Util/SD';
 import { inputHelper } from '../Helper';
+import { useRegisterUserMutation } from '../api/authApi';
+import { apiResponse } from '../Interfaces';
 
 function Register() {
   const [showPassword, changeShowPassword] = useState(false);
@@ -14,6 +16,8 @@ function Register() {
     password: '',
   });
 
+  const [registerUser] = useRegisterUserMutation();
+
   const showpass = () => {
     changeShowPassword(!showPassword);
   };
@@ -23,6 +27,20 @@ function Register() {
   ) => {
     const tempData = inputHelper(e, userInput);
     setUserInput(tempData);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const response: apiResponse = await registerUser(userInput);
+    if (response.data) {
+      console.log(response.data);
+    } else if (response.error) {
+      console.log(response.data);
+    }
+
+    setLoading(!true);
   };
   return (
     <div className="container">
@@ -35,7 +53,7 @@ function Register() {
         <div className="card-body ">
           <div className="row ">
             <div className="col-12">
-              <form method="post">
+              <form method="post" onSubmit={handleSubmit}>
                 <div className="mt-3 row">
                   {/* !!!IMPORTANT
 
@@ -145,7 +163,6 @@ background-color: #ff000000; Change the background color to transparent !!!!! NE
                     </select>
                   </div>
                 </div>
-
                 <div className="col-4 offset-4 mt-3">
                   <button
                     id="registerSubmit"
