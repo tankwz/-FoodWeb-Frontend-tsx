@@ -12,10 +12,10 @@ function Header() {
   return (
     <div>
       <nav
-        className="ps-4 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-3 "
+        className="ps-4 pb-0 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-3 "
         style={{ backgroundColor: 'rgb(17, 110, 180)' }}
       >
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand mb-2" to="/">
           Food Web
         </NavLink>
 
@@ -30,7 +30,10 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-collapse d-flex "
+          id="navbarSupportedContent"
+        >
           <ul className="navbar-nav mr-auto">
             <li className="nav-item ">
               <NavLink className="nav-link" to="/">
@@ -40,11 +43,17 @@ function Header() {
 
             <li className="nav-item">
               <NavLink
-                className="nav-link"
+                className="nav-link "
                 style={{ fontSize: '20px' }}
                 to="/ShoppingCart"
               >
-                <i className="bi bi-cart" style={{ position: 'relative' }}>
+                <i
+                  className="bi bi-cart"
+                  style={{
+                    position: 'relative',
+                    top: '-5px',
+                  }}
+                >
                   {cartFromStore?.length > 0 && (
                     <span
                       style={{
@@ -52,7 +61,7 @@ function Header() {
                         color: 'white',
                         borderRadius: '50%',
                         padding: '1px 5px',
-                        fontSize: '9px',
+                        fontSize: '10px',
                         position: 'absolute',
                         top: '-5px',
                         right: '-7px',
