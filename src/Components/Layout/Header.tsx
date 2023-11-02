@@ -1,11 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { cartItemModel } from '../../Interfaces';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Storage/Redux/store';
+//need a logo
 function Header() {
+  const cartFromStore: cartItemModel[] = useSelector(
+    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  );
+
   return (
     <div>
       <nav
-        className="ps-4 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-3"
+        className="ps-4 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-3 "
         style={{ backgroundColor: 'rgb(17, 110, 180)' }}
       >
         <NavLink className="navbar-brand" to="/">
@@ -31,11 +38,33 @@ function Header() {
               </NavLink>
             </li>
 
-            <li className="nav-item ">
-              <NavLink className="nav-link" to="/ShoppingCart">
-                Cart <i className="bi bi-cart"></i>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                style={{ fontSize: '20px' }}
+                to="/ShoppingCart"
+              >
+                <i className="bi bi-cart" style={{ position: 'relative' }}>
+                  {cartFromStore?.length > 0 && (
+                    <span
+                      style={{
+                        backgroundColor: 'orange',
+                        color: 'white',
+                        borderRadius: '50%',
+                        padding: '1px 5px',
+                        fontSize: '9px',
+                        position: 'absolute',
+                        top: '-5px',
+                        right: '-7px',
+                      }}
+                    >
+                      {cartFromStore.length}
+                    </span>
+                  )}
+                </i>
               </NavLink>
             </li>
+
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"

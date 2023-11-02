@@ -33,7 +33,7 @@ function MenuItemCard(props: Props) {
               <div className="col-12">
                 <Link to={`/MenuItemDetails/${props.menuItem.id}`}>
                   <img
-                    src={`https://via.placeholder.com/150`} //{props.menuItem.image}
+                    src={props.menuItem.image}
                     className="card-img-top mt-2"
                     style={{ height: '200px', objectFit: 'cover' }}
                   ></img>
