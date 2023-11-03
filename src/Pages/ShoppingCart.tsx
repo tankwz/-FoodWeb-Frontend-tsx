@@ -28,7 +28,7 @@ function ShoppingCart() {
             <CartItem key={index} cartItem={item}></CartItem>
           ))}
 
-          <div className="sticky-bottom ">
+          <div className="sticky-bottom mb-5">
             <CartFooter></CartFooter>
           </div>
         </div>

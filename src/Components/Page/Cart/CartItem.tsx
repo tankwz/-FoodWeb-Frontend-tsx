@@ -40,7 +40,6 @@ function CartItem(props: Props) {
       quantity: newcount,
     });
     dispatch(removeFromCart({ cartItem: props.cartItem })); //still got removed from store without this line but imma put it here just in case
-
     setupdating(!true);
   };
 
@@ -87,13 +86,12 @@ function CartItem(props: Props) {
   // Dispatch the action with the payload
   const [borderColor, setBorderColor] = useState('grey'); // Initial border color
   const handleBorder = () => {
-    // Toggle the border color when the div is clicked
-    if (borderColor === 'grey') {
-      setBorderColor('green');
+    if (props.cartItem.selected == false) {
       dispatch(setSelectedItem({ id: props.cartItem.id, selected: true }));
+      setBorderColor('green');
     } else {
-      setBorderColor('grey');
       dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
+      setBorderColor('grey');
     }
   };
 
@@ -190,12 +188,12 @@ function CartItem(props: Props) {
                   </div>
                 </div>
                 <div className="col-3 ms-2 p-0">
-                  <button
+                  {/* <button
                     type="button"
                     className="btn btn-lg btn-primary form-control"
                   >
                     Buy
-                  </button>
+                  </button> */}
                 </div>
                 <div className="col-3 ms-2 p-0">
                   <button

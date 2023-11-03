@@ -26,9 +26,7 @@ function App() {
     state.userStore.id ? state.userStore : emptyUser
   );
   //^ debt => this is bad, it trys to load the state even when there is no user, gotta figure to fix it later
-  const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
-    userData.id
-  );
+
   //expire handle inside tokenCheck()
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -40,10 +38,14 @@ function App() {
     }
   }, []);
 
+  const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
+    userData.id
+  );
+
   useEffect(() => {
     if (isSuccess) {
       disPatch(setCart(data.result?.cartItems));
-      //console.log(data);
+      console.log(data);
 
       // console.log(data.result.cartItems);
     }

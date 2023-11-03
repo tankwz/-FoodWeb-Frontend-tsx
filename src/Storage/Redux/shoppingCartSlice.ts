@@ -11,7 +11,7 @@ export const shoppingCartSlice = createSlice({
   reducers: {
     setCart: (state, action) => {
       // Add the selected property to each cart item
-      state.cartItems = action.payload.map((cartItem: cartItemModel) => ({
+      state.cartItems = action.payload?.map((cartItem: cartItemModel) => ({
         ...cartItem,
         selected: false, // You can set the initial value as needed
       }));
