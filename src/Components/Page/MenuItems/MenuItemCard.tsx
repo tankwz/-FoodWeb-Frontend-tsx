@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { menuItemModel } from '../../../Interfaces';
+import { apiResponse, cartItemModel, menuItemModel } from '../../../Interfaces';
 import { Link } from 'react-router-dom';
 import { useUpdateCartMutation } from '../../../api/shoppingCartApi';
 import { LoaderSmall } from '../Utility';
+import { toastPop } from '../../../Helper';
+import { SD } from '../../../Util/SD';
+import { RootState } from '../../../Storage/Redux/store';
+import { useSelector } from 'react-redux';
 
 interface Props {
   menuItem: menuItemModel;
@@ -11,15 +15,40 @@ interface Props {
 function MenuItemCard(props: Props) {
   const [addingToCart, setAddingToCart] = useState<boolean>(!true);
   const [updateCart, result] = useUpdateCartMutation();
-
+  const cartFromStore: cartItemModel[] = useSelector(
+    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  );
   const addToCart = async () => {
     setAddingToCart(true);
 
-    const response = await updateCart({
-      userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
-      itemId: props.menuItem.id,
-      quantity: 1,
-    });
+    if (props.menuItem.id) {
+      const thisParticularItemInThisSpecificCustomerCart = cartFromStore.find(
+        (item) => item.menuItemId === props.menuItem.id
+      );
+      if (
+        thisParticularItemInThisSpecificCustomerCart?.quantity == undefined ||
+        thisParticularItemInThisSpecificCustomerCart?.quantity + 1 <= 100
+      ) {
+        const response: apiResponse = await updateCart({
+          userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+          itemId: props.menuItem.id,
+          quantity: 1,
+        });
+
+        if (response.data && response.data.isSuccess) {
+          toastPop(`Added ${props.menuItem.name} to cart!`, SD.TOAST_SUCCESS);
+        } else {
+          toastPop('There is an error on the server side', SD.TOAST_ERROR);
+        }
+      } else {
+        toastPop(
+          `You already have ${thisParticularItemInThisSpecificCustomerCart?.quantity!} of ${
+            props.menuItem.name
+          } to cart!, you can't have more than 100 items in cart`,
+          SD.TOAST_WARNING
+        );
+      }
+    }
 
     setAddingToCart(!true);
   };

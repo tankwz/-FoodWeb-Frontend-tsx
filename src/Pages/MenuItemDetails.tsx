@@ -3,6 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from '../api/menuItemApi';
 import { useUpdateCartMutation } from '../api/shoppingCartApi';
 import { LoaderBig, LoaderSmall } from '../Components/Page/Utility';
+import { apiResponse, cartItemModel } from '../Interfaces';
+import { toastPop } from '../Helper';
+import { SD } from '../Util/SD';
+import { useSelector } from 'react-redux';
+import { RootState } from '../Storage/Redux/store';
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { isLoading, data, isError, error, isSuccess } =
@@ -10,16 +15,46 @@ function MenuItemDetails() {
   const [count, setCount] = useState(() => 1);
   const [updateCart, result] = useUpdateCartMutation();
   const [updating, setupdating] = useState<boolean>(!true);
+  const cartFromStore: cartItemModel[] = useSelector(
+    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  );
   const handleUpdateCart = async () => {
     setupdating(true);
-    const response = await updateCart({
-      userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
-      itemId: menuItemId,
-      quantity: count,
-    });
-    setupdating(!true);
-
-    console.log(response);
+    // const specificMenuItemId = menuItemId.toString(); // Convert to a string if necessary
+    //  console.log(cartFromStore );
+    if (menuItemId) {
+      const numericMenuItemId = parseInt(menuItemId, 10) || 0;
+      const thisParticularItemInThisSpecificCustomerCart = cartFromStore.find(
+        (item) => item.menuItemId === numericMenuItemId
+      );
+      console.log(thisParticularItemInThisSpecificCustomerCart?.quantity);
+      if (
+        thisParticularItemInThisSpecificCustomerCart?.quantity == undefined ||
+        thisParticularItemInThisSpecificCustomerCart?.quantity + count <= 100
+      ) {
+        const response: apiResponse = await updateCart({
+          userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+          itemId: menuItemId,
+          quantity: count,
+        });
+        if (response.data && response.data.isSuccess) {
+          toastPop(
+            `Added ${count} ${data.result.name} to cart!`,
+            SD.TOAST_SUCCESS
+          );
+        } else {
+          toastPop('There is an error on the server side', SD.TOAST_ERROR);
+        }
+      } else {
+        toastPop(
+          `You already have ${thisParticularItemInThisSpecificCustomerCart?.quantity!} of ${
+            data.result.name
+          } to cart!, you can't have more than 100 items in cart`,
+          SD.TOAST_WARNING
+        );
+      }
+      setupdating(!true);
+    }
   };
   // useEffect(() => {
   //   if (isSuccess) {

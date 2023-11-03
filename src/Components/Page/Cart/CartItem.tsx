@@ -40,7 +40,6 @@ function CartItem(props: Props) {
     dispatch(removeFromCart({ cartItem: props.cartItem })); //still got removed from store without this line but imma put it here just in case
 
     setupdating(!true);
-    console.log(response);
   };
 
   useEffect(() => {

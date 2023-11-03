@@ -9,12 +9,16 @@ import { store } from './Storage';
 import 'bootstrap/dist/js/bootstrap';
 import './darklybootswatch.css';
 import './index.css';
+//
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+      <ToastContainer></ToastContainer>
       <App />
     </BrowserRouter>
   </Provider>
