@@ -64,21 +64,27 @@ function Header() {
                     top: '-5px',
                   }}
                 >
-                  {cartFromStore?.length > 0 && (
-                    <span
-                      style={{
-                        backgroundColor: 'orange',
-                        color: 'white',
-                        borderRadius: '50%',
-                        padding: '1px 5px',
-                        fontSize: '10px',
-                        position: 'absolute',
-                        top: '-5px',
-                        right: '-7px',
-                      }}
-                    >
-                      {cartFromStore.length}
-                    </span>
+                  {userData.id ? (
+                    <>
+                      {cartFromStore?.length > 0 && (
+                        <span
+                          style={{
+                            backgroundColor: 'orange',
+                            color: 'white',
+                            borderRadius: '50%',
+                            padding: '1px 5px',
+                            fontSize: '10px',
+                            position: 'absolute',
+                            top: '-5px',
+                            right: '-7px',
+                          }}
+                        >
+                          {cartFromStore.length}
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <></>
                   )}
                 </i>
               </NavLink>

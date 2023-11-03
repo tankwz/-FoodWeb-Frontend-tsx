@@ -4,11 +4,12 @@ import {
   useSetCartQuantityMutation,
   useUpdateCartMutation,
 } from '../../../api/shoppingCartApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   removeFromCart,
   updateQuantity,
 } from '../../../Storage/Redux/shoppingCartSlice';
+import { RootState } from '../../../Storage/Redux/store';
 interface Props {
   cartItem: cartItemModel;
 }
@@ -19,7 +20,7 @@ function CartItem(props: Props) {
   const [updateCart, result] = useUpdateCartMutation();
   const [setcartQuantity, result2] = useSetCartQuantityMutation();
   const dispatch = useDispatch();
-
+  const userData = useSelector((state: RootState) => state.userStore);
   const [showFullDescription, setShowFullDescription] = useState(!true);
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
@@ -33,7 +34,7 @@ function CartItem(props: Props) {
   const handleUpdateCart = async (newcount: number) => {
     setupdating(true);
     const response = await updateCart({
-      userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+      userId: userData.id,
       itemId: props.cartItem.menuItem.id,
       quantity: newcount,
     });

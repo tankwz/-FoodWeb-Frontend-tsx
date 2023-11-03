@@ -11,19 +11,24 @@ import {
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCart } from '../Storage/Redux/shoppingCartSlice';
 import { tokenCheck } from '../Util';
 import { jwtDecode } from 'jwt-decode';
 import { userModel } from '../Interfaces';
-import { setUser } from '../Storage/Redux/userAuthSlice';
+import { emptyUser, setUser } from '../Storage/Redux/userAuthSlice';
+import { RootState } from '../Storage/Redux/store';
 
 function App() {
-  const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
-    'ac131858-7e3c-47c6-8627-24bf078cb8b6'
-  );
   const disPatch = useDispatch();
 
+  const userData: userModel = useSelector((state: RootState) =>
+    state.userStore.id ? state.userStore : emptyUser
+  );
+  //^ debt => this is bad, it trys to load the state even when there is no user, gotta figure to fix it later
+  const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
+    userData.id
+  );
   //expire handle inside tokenCheck()
   useEffect(() => {
     const token = localStorage.getItem('token');

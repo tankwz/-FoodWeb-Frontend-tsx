@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from '../api/menuItemApi';
 import { useUpdateCartMutation } from '../api/shoppingCartApi';
 import { LoaderBig, LoaderSmall } from '../Components/Page/Utility';
-import { apiResponse, cartItemModel } from '../Interfaces';
+import { apiResponse, cartItemModel, userModel } from '../Interfaces';
 import { toastPop } from '../Helper';
 import { SD } from '../Util/SD';
 import { useSelector } from 'react-redux';
@@ -15,11 +15,22 @@ function MenuItemDetails() {
   const [count, setCount] = useState(() => 1);
   const [updateCart, result] = useUpdateCartMutation();
   const [updating, setupdating] = useState<boolean>(!true);
+  const nagivate = useNavigate();
+  const userData: userModel = useSelector(
+    (state: RootState) => state.userStore
+  );
   const cartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
   const handleUpdateCart = async () => {
+    if (!userData.id) {
+      nagivate('/login');
+      toastPop('Please login to add item to cart', SD.TOAST_DEFAULT);
+      return;
+    }
+
     setupdating(true);
+
     // const specificMenuItemId = menuItemId.toString(); // Convert to a string if necessary
     //  console.log(cartFromStore );
     if (menuItemId) {
@@ -33,7 +44,7 @@ function MenuItemDetails() {
         thisParticularItemInThisSpecificCustomerCart?.quantity + count <= 100
       ) {
         const response: apiResponse = await updateCart({
-          userId: 'ac131858-7e3c-47c6-8627-24bf078cb8b6',
+          userId: userData.id,
           itemId: menuItemId,
           quantity: count,
         });
