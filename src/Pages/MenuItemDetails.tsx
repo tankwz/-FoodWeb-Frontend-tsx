@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetMenuItemByIdQuery } from '../api/menuItemApi';
-import { useUpdateCartMutation } from '../api/shoppingCartApi';
+import {
+  useSetCartQuantityMutation,
+  useUpdateCartMutation,
+} from '../api/shoppingCartApi';
 import { LoaderBig, LoaderSmall } from '../Components/Page/Utility';
 import { apiResponse, cartItemModel, userModel } from '../Interfaces';
 import { toastPop } from '../Helper';
 import { SD } from '../Util/SD';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../Storage/Redux/store';
+import {
+  setSelectedItem,
+  updateQuantity,
+  updateQuantityForWithId,
+} from '../Storage/Redux/shoppingCartSlice';
 function MenuItemDetails() {
   const { menuItemId } = useParams();
   const { isLoading, data, isError, error, isSuccess } =
@@ -15,7 +23,7 @@ function MenuItemDetails() {
   const [count, setCount] = useState(() => 1);
   const [updateCart, result] = useUpdateCartMutation();
   const [updating, setupdating] = useState<boolean>(!true);
-  const nagivate = useNavigate();
+  const navigate = useNavigate();
   const userData: userModel = useSelector(
     (state: RootState) => state.userStore
   );
@@ -24,7 +32,7 @@ function MenuItemDetails() {
   );
   const handleUpdateCart = async () => {
     if (!userData.id) {
-      nagivate('/login');
+      navigate('/login');
       toastPop('Please login to add item to cart', SD.TOAST_DEFAULT);
       return;
     }
@@ -38,7 +46,6 @@ function MenuItemDetails() {
       const thisParticularItemInThisSpecificCustomerCart = cartFromStore.find(
         (item) => item.menuItemId === numericMenuItemId
       );
-      console.log(thisParticularItemInThisSpecificCustomerCart?.quantity);
       if (
         thisParticularItemInThisSpecificCustomerCart?.quantity == undefined ||
         thisParticularItemInThisSpecificCustomerCart?.quantity + count <= 100
@@ -53,6 +60,9 @@ function MenuItemDetails() {
             `Added ${count} ${data.result.name} to cart!`,
             SD.TOAST_SUCCESS
           );
+          setupdating(!true);
+
+          return response;
         } else {
           toastPop('There is an error on the server side', SD.TOAST_ERROR);
         }
@@ -87,6 +97,42 @@ function MenuItemDetails() {
     } else {
       setCount(newcount);
     }
+  };
+  //
+  const dispatch = useDispatch();
+
+  const [setcartQuantity, result2] = useSetCartQuantityMutation();
+  const moveToCheckout = async () => {
+    // if (!userData.id) {
+    //   navigate('/login');
+    //   toastPop('Please login to buy', SD.TOAST_DEFAULT);
+    // } else {
+    //   const cartid = await handleUpdateCart();
+    //   // console.log(cartid?.data?.result);
+
+    //   const response = await setcartQuantity({
+    //     cartItemId: cartid?.data?.result,
+    //     quantity: count,
+    //   });
+
+    //   dispatch(
+    //     updateQuantityForWithId({
+    //       cartItem: cartid?.data?.result,
+    //       quantity: count,
+    //     })
+    //   );
+
+    // dispatch(setSelectedItem({ id: cartid?.data?.result, selected: true }));
+
+    navigate('/ShoppingCart');
+    // if (menuItemId) {
+    //   const numericMenuItemId = parseInt(menuItemId, 10) || 0;
+    //   const thisParticularItemInThisSpecificCustomerCart = cartFromStore.find(
+    //     (item) => item.menuItemId === numericMenuItemId
+    //   );
+    // }
+    //
+    //    }
   };
 
   return (
@@ -210,28 +256,33 @@ function MenuItemDetails() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-4 ">
-                      {updating ? (
-                        <div className="text-center">
-                          <LoaderSmall></LoaderSmall>
+                    {updating ? (
+                      <div className="text-center col-8">
+                        <LoaderSmall></LoaderSmall>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="col-4 ">
+                          <button
+                            className="btn  btn-outline-primary text-white form-control"
+                            onClick={() => handleUpdateCart()}
+                          >
+                            Add To Cart
+                          </button>
                         </div>
-                      ) : (
-                        <button
-                          className="btn  btn-outline-primary text-white form-control"
-                          onClick={() => handleUpdateCart()}
-                        >
-                          Add To Cart
-                        </button>
-                      )}
-                    </div>
-                    <div className="col-4 ">
-                      <button
-                        type="submit"
-                        className="btn btn-primary form-control"
-                      >
-                        Buy
-                      </button>
-                    </div>
+
+                        <div className="col-4 ">
+                          <button
+                            className="btn btn-primary form-control"
+                            onClick={() => {
+                              moveToCheckout();
+                            }}
+                          >
+                            Go To Cart
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

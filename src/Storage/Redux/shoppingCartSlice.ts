@@ -24,6 +24,14 @@ export const shoppingCartSlice = createSlice({
         return item;
       });
     },
+    updateQuantityForWithId: (state, action) => {
+      state.cartItems = state.cartItems?.map((item) => {
+        if (item.id === action.payload.id) {
+          item.quantity = action.payload.quantity;
+        }
+        return item;
+      });
+    },
     removeFromCart: (state, action) => {
       state.cartItems = state.cartItems?.filter((item) => {
         if (item.id === action.payload.cartItem.id) {
@@ -44,6 +52,11 @@ export const shoppingCartSlice = createSlice({
   },
 });
 
-export const { setCart, updateQuantity, removeFromCart, setSelectedItem } =
-  shoppingCartSlice.actions;
+export const {
+  setCart,
+  updateQuantity,
+  removeFromCart,
+  setSelectedItem,
+  updateQuantityForWithId,
+} = shoppingCartSlice.actions;
 export const shoppingCartReducer = shoppingCartSlice.reducer;
