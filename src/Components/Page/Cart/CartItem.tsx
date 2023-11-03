@@ -86,7 +86,7 @@ function CartItem(props: Props) {
   // Dispatch the action with the payload
   const [borderColor, setBorderColor] = useState('grey'); // Initial border color
   const handleBorder = () => {
-    if (props.cartItem.selected == false) {
+    if (props.cartItem.selected == !true) {
       dispatch(setSelectedItem({ id: props.cartItem.id, selected: true }));
       setBorderColor('green');
     } else {
@@ -94,6 +94,15 @@ function CartItem(props: Props) {
       setBorderColor('grey');
     }
   };
+
+  const setBorder = () => {
+    props.cartItem.selected == true
+      ? setBorderColor('green')
+      : setBorderColor('grey');
+  };
+  useEffect(() => {
+    setBorder();
+  }, []);
 
   return (
     <div>

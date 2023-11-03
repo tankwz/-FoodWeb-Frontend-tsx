@@ -5,9 +5,11 @@ import ShoppingCart from './ShoppingCart';
 import Login from './Login';
 import Register from './Register';
 import AccessDenied from './AccessDenied';
-import CheckOut from './CheckOut';
+import Checkout from './Checkout';
+import EditCheckout from './EditCheckout';
 export {
-  CheckOut,
+  EditCheckout,
+  Checkout,
   AccessDenied,
   Home,
   ShoppingCart,

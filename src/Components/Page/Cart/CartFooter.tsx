@@ -3,6 +3,7 @@ import { cartItemModel } from '../../../Interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../Storage/Redux/store';
 import { setSelectedItem } from '../../../Storage/Redux/shoppingCartSlice';
+import { useNavigate } from 'react-router-dom';
 
 function CartFooter() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -23,6 +24,7 @@ function CartFooter() {
     setTotal(Number(total1.toFixed(2)));
     console.log(total);
   };
+  const nagivate = useNavigate();
   useEffect(() => {
     cal();
   });
@@ -68,10 +70,10 @@ function CartFooter() {
             </div>
             <div className="col-3 ">
               <button
-                type="submit"
                 className={`btn btn-primary mt-2 form-control py-2 ${
                   total > 0 ? '' : 'disabled '
                 }`}
+                onClick={() => nagivate('/Checkout')}
               >
                 <h4 className={`m-0 p-0`}>Buy</h4>
               </button>
