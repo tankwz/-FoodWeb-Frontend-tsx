@@ -14,7 +14,7 @@ function tokenCheck() {
       return !true;
     } else {
       //  valid
-      console.log('still valid.');
+      console.log('token still valid.');
       return true;
     }
   } else {

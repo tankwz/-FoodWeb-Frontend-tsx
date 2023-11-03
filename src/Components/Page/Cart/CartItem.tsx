@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   removeFromCart,
   updateQuantity,
+  setSelectedItem,
 } from '../../../Storage/Redux/shoppingCartSlice';
 import { RootState } from '../../../Storage/Redux/store';
 interface Props {
@@ -80,27 +81,49 @@ function CartItem(props: Props) {
     }
   };
 
+  //set select border
+  // Import the action creator from your Redux slice
+
+  // Dispatch the action with the payload
+  const [borderColor, setBorderColor] = useState('grey'); // Initial border color
+  const handleBorder = () => {
+    // Toggle the border color when the div is clicked
+    if (borderColor === 'grey') {
+      setBorderColor('green');
+      dispatch(setSelectedItem({ id: props.cartItem.id, selected: true }));
+    } else {
+      setBorderColor('grey');
+      dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
+    }
+  };
+
   return (
     <div>
       <div
-        className="row py-2 clickable"
-        id="div-@Model.ListCarts[z].Id"
-        style={{ border: '3px solid grey' }}
+        className="row py-2  mt-2"
+        style={{ border: `3px solid ${borderColor}` }}
       >
         <div className=" py-2  col-12 col-lg-4  ps-1">
           <img
             className="  border border-1 border-secondary rounded"
-            //   src={props.cartItem.menuItem.image}
-            style={{ width: '100%' }}
+            src={props.cartItem.menuItem.image}
+            //  className="card-img-top mt-2  border border-1 border-secondary rounded"
+            style={{ width: '350px', height: '250px', objectFit: 'cover' }}
+            // style={{ width: '100%' }}
+            onClick={handleBorder}
           ></img>
         </div>
-        <div className="col-12 col-lg-8 ">
+        <div className="col-12 col-lg-8    ">
           <div className="row">
             <div className="col-12 ps-1">
-              <h3 className="text-info text-uppercase ">
+              <h3
+                className="text-info text-uppercase
+               "
+                onClick={handleBorder}
+              >
                 {props.cartItem.menuItem.name}
               </h3>
-              <p>
+              <p onClick={handleBorder}>
                 {showFullDescription ? description : truncatedDescription}
                 {description.length > 300 && (
                   <button
@@ -184,6 +207,10 @@ function CartItem(props: Props) {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="  row w-100 d-flex   h-25 " onClick={handleBorder}>
+            {/* debt => gotta stretch this so the click event work properly somehow */}
+            <div className="col flex-grow-1 mb-auto"></div>
           </div>
         </div>
       </div>

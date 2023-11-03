@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CartFooter, CartItem } from '../Components/Page/Cart';
 import { useSelector } from 'react-redux';
 import { cartItemModel } from '../Interfaces';
@@ -9,6 +9,7 @@ function ShoppingCart() {
   const cartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
+
   if (!cartFromStore) {
     return <div>Empty</div>;
   }

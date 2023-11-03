@@ -60,7 +60,7 @@ function MenuItemDetails() {
         toastPop(
           `You already have ${thisParticularItemInThisSpecificCustomerCart?.quantity!} of ${
             data.result.name
-          } to cart!, you can't have more than 100 items in cart`,
+          } in cart!, you can't have more than 100 items in cart`,
           SD.TOAST_WARNING
         );
       }

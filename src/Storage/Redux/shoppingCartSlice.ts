@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { shoppingCartItemModel } from '../../Interfaces';
+import { cartItemModel, shoppingCartItemModel } from '../../Interfaces';
 
 const initialState: shoppingCartItemModel = {
   cartItems: [],
@@ -10,7 +10,11 @@ export const shoppingCartSlice = createSlice({
   initialState: initialState,
   reducers: {
     setCart: (state, action) => {
-      state.cartItems = action.payload;
+      // Add the selected property to each cart item
+      state.cartItems = action.payload.map((cartItem: cartItemModel) => ({
+        ...cartItem,
+        selected: false, // You can set the initial value as needed
+      }));
     },
     updateQuantity: (state, action) => {
       state.cartItems = state.cartItems?.map((item) => {
@@ -28,9 +32,18 @@ export const shoppingCartSlice = createSlice({
         return item;
       });
     },
+    setSelectedItem: (state, action) => {
+      state.cartItems = state.cartItems ?? [];
+      const cartItem = state.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
+      if (cartItem) {
+        cartItem.selected = action.payload.selected;
+      }
+    },
   },
 });
 
-export const { setCart, updateQuantity, removeFromCart } =
+export const { setCart, updateQuantity, removeFromCart, setSelectedItem } =
   shoppingCartSlice.actions;
 export const shoppingCartReducer = shoppingCartSlice.reducer;

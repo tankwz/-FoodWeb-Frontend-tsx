@@ -5,4 +5,5 @@ export default interface cartItemModel {
   menuItemId: number;
   menuItem: menuItemModel;
   quantity: number;
+  selected: boolean;
 }
