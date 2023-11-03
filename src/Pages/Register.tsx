@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SD_Roles } from '../Util/SD';
+import { SD } from '../Util/SD';
 import { inputHelper } from '../Helper';
 import { useRegisterUserMutation } from '../api/authApi';
 import { apiResponse } from '../Interfaces';
@@ -156,8 +156,8 @@ background-color: #ff000000; Change the background color to transparent !!!!! NE
                       <option value="">
                         --Select Role(for testing purpose only)--
                       </option>
-                      <option value={`${SD_Roles.CUSTOMER}`}>Customer</option>
-                      <option value={`${SD_Roles.ADMIN}`}>Admin</option>
+                      <option value={`${SD.ROLE_CUSTOMER}`}>Customer</option>
+                      <option value={`${SD.ROLE_ADMIN}`}>Admin</option>
                     </select>
                   </div>
                 </div>

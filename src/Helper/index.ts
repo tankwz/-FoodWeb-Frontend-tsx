@@ -1,3 +1,4 @@
 import inputHelper from './inputHelper';
+import toastPop from './toastPop';
 
-export { inputHelper };
+export { toastPop, inputHelper };
