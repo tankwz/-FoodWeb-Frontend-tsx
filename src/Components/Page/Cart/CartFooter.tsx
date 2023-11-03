@@ -26,6 +26,8 @@ function CartFooter() {
   };
   const nagivate = useNavigate();
   useEffect(() => {
+    console.log('render');
+
     cal();
   });
 

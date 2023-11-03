@@ -12,18 +12,18 @@ function ShoppingCart() {
   const userData: userModel = useSelector((state: RootState) =>
     state.userStore.id ? state.userStore : emptyUser
   );
-  const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
-    userData.id
-  );
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(setCart(data.result?.cartItems));
-      console.log(data);
+  // const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
+  //   userData.id
+  // );
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     dispatch(setCart(data.result?.cartItems));
+  //     console.log(data);
 
-      // console.log(data.result.cartItems);
-    }
-  }, [data]);
+  //     // console.log(data.result.cartItems);
+  //   }
+  // }, [data]);
   const cartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
