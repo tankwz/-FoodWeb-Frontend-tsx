@@ -9,7 +9,7 @@ function MenuItemDetails() {
     useGetMenuItemByIdQuery(menuItemId);
   const [count, setCount] = useState(() => 1);
   const [updateCart, result] = useUpdateCartMutation();
-  const [updating, setupdating] = useState<boolean>(false);
+  const [updating, setupdating] = useState<boolean>(!true);
   const handleUpdateCart = async () => {
     setupdating(true);
     const response = await updateCart({
@@ -17,7 +17,7 @@ function MenuItemDetails() {
       itemId: menuItemId,
       quantity: count,
     });
-    setupdating(false);
+    setupdating(!true);
 
     console.log(response);
   };

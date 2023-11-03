@@ -5,8 +5,8 @@ import { useRegisterUserMutation } from '../api/authApi';
 import { apiResponse } from '../Interfaces';
 
 function Register() {
-  const [showPassword, changeShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [showPassword, changeShowPassword] = useState(!true);
+  const [loading, setLoading] = useState(!true);
   const [userInput, setUserInput] = useState({
     email: '',
     name: '',

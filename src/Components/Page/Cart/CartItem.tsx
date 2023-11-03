@@ -14,13 +14,13 @@ interface Props {
 }
 
 function CartItem(props: Props) {
-  const [updating, setupdating] = useState<boolean>(false);
+  const [updating, setupdating] = useState<boolean>(!true);
   const [count, setCount] = useState(() => props.cartItem.quantity);
   const [updateCart, result] = useUpdateCartMutation();
   const [setcartQuantity, result2] = useSetCartQuantityMutation();
   const dispatch = useDispatch();
 
-  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(!true);
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
@@ -39,7 +39,7 @@ function CartItem(props: Props) {
     });
     dispatch(removeFromCart({ cartItem: props.cartItem })); //still got removed from store without this line but imma put it here just in case
 
-    setupdating(false);
+    setupdating(!true);
     console.log(response);
   };
 

@@ -5,7 +5,7 @@ function LoaderBig({ type = 'info' }) {
     <div>
       <div className="text-center mt-5">
         <span
-          className="text-info h1
+          className="text-info h1 mt-5
         "
         >
           Loading...{' '}

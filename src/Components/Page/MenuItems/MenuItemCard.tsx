@@ -9,7 +9,7 @@ interface Props {
 }
 
 function MenuItemCard(props: Props) {
-  const [addingToCart, setAddingToCart] = useState<boolean>(false);
+  const [addingToCart, setAddingToCart] = useState<boolean>(!true);
   const [updateCart, result] = useUpdateCartMutation();
 
   const addToCart = async () => {
@@ -21,7 +21,7 @@ function MenuItemCard(props: Props) {
       quantity: 1,
     });
 
-    setAddingToCart(false);
+    setAddingToCart(!true);
   };
 
   return (

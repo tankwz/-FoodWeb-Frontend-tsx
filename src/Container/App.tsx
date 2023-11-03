@@ -13,15 +13,25 @@ import { useGetCartQuery } from '../api/shoppingCartApi';
 import { useDispatch } from 'react-redux';
 import { setCart } from '../Storage/Redux/shoppingCartSlice';
 import { tokenCheck } from '../Util';
+import { jwtDecode } from 'jwt-decode';
+import { userModel } from '../Interfaces';
+import { setUser } from '../Storage/Redux/userAuthSlice';
 
 function App() {
   const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
     'ac131858-7e3c-47c6-8627-24bf078cb8b6'
   );
   const disPatch = useDispatch();
+
   //expire handle inside tokenCheck()
   useEffect(() => {
-    console.log(tokenCheck());
+    const token = localStorage.getItem('token');
+
+    if (tokenCheck()) {
+      const { id, name, email, role, phoneNumber, address, exp }: userModel =
+        jwtDecode(token!);
+      disPatch(setUser({ id, name, email, role, phoneNumber, address, exp }));
+    }
   }, []);
 
   useEffect(() => {
