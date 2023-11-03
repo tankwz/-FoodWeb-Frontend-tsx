@@ -43,6 +43,7 @@ function CartFooter() {
   // const handleSelectAllChange = () => {
   //   setSelectAllChecked(!selectAllChecked);
   // };
+  //debt => gotta make a select all functional somehow
   return (
     <div>
       <div className="row">

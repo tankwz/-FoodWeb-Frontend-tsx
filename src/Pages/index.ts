@@ -5,7 +5,9 @@ import ShoppingCart from './ShoppingCart';
 import Login from './Login';
 import Register from './Register';
 import AccessDenied from './AccessDenied';
+import CheckOut from './CheckOut';
 export {
+  CheckOut,
   AccessDenied,
   Home,
   ShoppingCart,

@@ -8,6 +8,7 @@ import {
   Register,
   ShoppingCart,
   AccessDenied,
+  CheckOut,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -66,6 +67,7 @@ function App() {
             path="/ShoppingCart"
             element={<ShoppingCart></ShoppingCart>}
           ></Route>
+          <Route path="/CheckOut" element={<CheckOut></CheckOut>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
           <Route
