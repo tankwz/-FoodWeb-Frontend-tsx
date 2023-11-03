@@ -1,7 +1,7 @@
 export enum SD {
   //for role
-  ROLE_ADMIN = 'admin',
-  ROLE_CUSTOMER = 'customer',
+  ROLE_ADMIN = 'Admin',
+  ROLE_CUSTOMER = 'Customer',
   ///
   //'info' | 'success' | 'warning' | 'error' | 'default'; for toast
   TOAST_INFO = 'info',

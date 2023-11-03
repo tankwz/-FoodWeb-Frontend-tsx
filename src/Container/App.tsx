@@ -7,6 +7,7 @@ import {
   NotFound,
   Register,
   ShoppingCart,
+  AccessDenied,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -60,6 +61,10 @@ function App() {
           ></Route>
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/register" element={<Register></Register>}></Route>
+          <Route
+            path="/accessDenied"
+            element={<AccessDenied></AccessDenied>}
+          ></Route>
         </Routes>
       </div>
       <Footer></Footer>

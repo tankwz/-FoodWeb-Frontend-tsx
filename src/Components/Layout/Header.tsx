@@ -115,8 +115,7 @@ function Header() {
                 <>
                   <li className="nav-item">
                     <NavLink
-                      className="btn btn-link  text-white"
-                      style={{ border: 'none', height: '40px', width: '100px' }}
+                      className="btn btn-link  text-white border-0 "
                       to={'/'}
                     >
                       Hi {userData.name} !
