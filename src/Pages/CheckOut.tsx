@@ -109,7 +109,7 @@ function CheckOut() {
     if (response) {
       if (response.data?.result.status === SD_Status.Status_Pending) {
         toastPop('Order Placed Successfully', SD.TOAST_SUCCESS);
-        navigate(`order/orderDetails/${response.data.result.orderHeadId}`);
+        navigate(`/order/orderDetails/${response.data.result.orderHeadId}`);
       }
     } else {
       toastPop('OOPS! Something gone wrong, please try again', SD.TOAST_ERROR); //wrong
