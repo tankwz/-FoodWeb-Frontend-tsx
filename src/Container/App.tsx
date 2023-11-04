@@ -10,6 +10,7 @@ import {
   AccessDenied,
   Checkout,
   EditCheckout,
+  OrderDetails,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -79,6 +80,10 @@ function App() {
           <Route
             path="/accessDenied"
             element={<AccessDenied></AccessDenied>}
+          ></Route>
+          <Route
+            path="/Order/OrderDetails/:id?"
+            element={<OrderDetails></OrderDetails>}
           ></Route>
         </Routes>
       </div>

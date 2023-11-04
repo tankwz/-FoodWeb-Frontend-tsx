@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from '../HOC';
 import { apiResponse, cartItemModel, userModel } from '../Interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Storage/Redux/store';
 import { useNavigate } from 'react-router-dom';
 import { toastPop } from '../Helper';
-import { SD } from '../Util/SD';
+import { SD, SD_Status } from '../Util/SD';
 import { CheckoutItems, ShippingDetails } from '../Components/Page/Checkout';
 import { useNewOrderMutation } from '../api/orderApi';
+import { LoaderBig } from '../Components/Page/Utility';
 
 function CheckOut() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -24,7 +25,7 @@ function CheckOut() {
 
   useEffect(() => {
     if (!hasSelectedItem()) {
-      toastPop("Error, can't find any selected item in cart", SD.TOAST_WARNING);
+      toastPop('Please select item from cart', SD.TOAST_DEFAULT);
       navigate('/');
     }
   }, []);
@@ -57,9 +58,11 @@ function CheckOut() {
     const formattedYear = estimatedArrivalTime.getFullYear();
     return `${formattedHours}:${formattedMinutes} - ${formattedDay}/${formattedMonth}/${formattedYear} `;
   };
+  const [isLoading, setIsLoading] = useState(!true);
 
   const [newOrder] = useNewOrderMutation();
   const handleNewOrder = async () => {
+    setIsLoading(true);
     let total = 0;
     let itemCount = 0;
     const orderDetailsDTO: any = [];
@@ -77,7 +80,7 @@ function CheckOut() {
     });
 
     const itemCountConst = itemCount;
-    console.log(itemCountConst);
+    //   console.log(itemCountConst);
 
     // console.log({
     //   pickupName: userData.pickupName,
@@ -100,7 +103,17 @@ function CheckOut() {
       status: '',
       orderDetailsDTO,
     });
-    console.log(response);
+    // console.log(response);
+    setIsLoading(!true);
+
+    if (response) {
+      if (response.data?.result.status === SD_Status.Status_Pending) {
+        toastPop('Order Placed Successfully', SD.TOAST_SUCCESS);
+        navigate(`order/orderDetails/${response.data.result.orderHeadId}`);
+      }
+    } else {
+      toastPop('OOPS! Something gone wrong, please try again', SD.TOAST_ERROR); //wrong
+    }
 
     // -  "pickupName": "string",
     // -  "pickupPhoneNumber": "string",
@@ -122,27 +135,53 @@ function CheckOut() {
         <div className="card-header bg-gradient p-3 h2 text-info">
           Order Summary
         </div>
-        <ShippingDetails userData={userData}></ShippingDetails>
-        <div className="card-body">
-          <CheckoutItems cartItem={selectedCartItems}></CheckoutItems>
-        </div>
-        <div className="card-footer">
-          <div className="row">
-            <div className="col-12 col-md-9 align-items-center d-flex">
-              <p className="m-0 text-info" style={{ fontSize: '14px' }}>
-                Estimate arrival time: {formatEstimatedArrivalTime()}
-              </p>
+
+        {isLoading ? (
+          <>
+            {' '}
+            <div className="card-body mb-5">
+              <LoaderBig></LoaderBig>
             </div>
-            <div className="col-12 col-md-3">
-              <button
-                className="btn btn-primary form-control"
-                onClick={handleNewOrder}
-              >
-                Place Order
-              </button>
+            <div className="card-footer">
+              <div className="row">
+                <div className="col-12 col-md-9 align-items-center d-flex">
+                  <p className="m-0 text-info" style={{ fontSize: '14px' }}>
+                    Estimate arrival time: {formatEstimatedArrivalTime()}
+                  </p>
+                </div>
+                <div className="col-12 col-md-3">
+                  <button className="btn btn-primary form-control" disabled>
+                    Place Order
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          <>
+            <ShippingDetails userData={userData}></ShippingDetails>
+            <div className="card-body">
+              <CheckoutItems cartItem={selectedCartItems}></CheckoutItems>
+            </div>
+            <div className="card-footer">
+              <div className="row">
+                <div className="col-12 col-md-9 align-items-center d-flex">
+                  <p className="m-0 text-info" style={{ fontSize: '14px' }}>
+                    Estimate arrival time: {formatEstimatedArrivalTime()}
+                  </p>
+                </div>
+                <div className="col-12 col-md-3">
+                  <button
+                    className="btn btn-primary form-control"
+                    onClick={handleNewOrder}
+                  >
+                    Place Order
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

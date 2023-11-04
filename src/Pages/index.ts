@@ -7,7 +7,9 @@ import Register from './Register';
 import AccessDenied from './AccessDenied';
 import Checkout from './Checkout';
 import EditCheckout from './EditCheckout';
+import OrderDetails from './Order/OrderDetails';
 export {
+  OrderDetails,
   EditCheckout,
   Checkout,
   AccessDenied,
