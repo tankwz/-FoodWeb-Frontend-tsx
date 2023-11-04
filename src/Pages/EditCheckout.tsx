@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { inputHelper } from '../Helper';
+import { useLocation } from 'react-router-dom';
 
 function EditCheckout() {
+  const location = useLocation();
+
+  console.log(location.state);
+  const [userInput, setUserInput] = useState({
+    name: location.state.name,
+    phoneNumber: location.state.phoneNumber,
+    email: location.state.email,
+    address: location.state.address,
+  });
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const Tempdata = inputHelper(e, userInput);
+    setUserInput(Tempdata);
+  };
   return (
     <div>
-      <div>
+      <div className="container">
         <form method="post">
           <div className="card">
             <div className="card-header bg-gradient p-3 h2 text-info">
-              Edit Shipping Details
+              Edit Pickup Details
             </div>
             <div className="card-body">
               <div className="row">
@@ -20,95 +35,80 @@ function EditCheckout() {
                       <div className="form-group row">
                         <div className="col-3">
                           <label
-                            asp-for="@Model.Name"
                             className="col-form-label "
-                          ></label>
-                        </div>
-                        <div className="col-8 d-flex align-items-center">
-                          <input
-                            asp-for="@Model.Name"
-                            className="form-control py-1 bg-secondary text-white"
-                          ></input>
-                          <span asp-validation-for="Name"></span>
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <div className="col-3">
-                          <label
-                            asp-for="@Model.PhoneNumber"
-                            className="col-form-label "
+                            htmlFor="pickupName"
                           >
-                            Phone
+                            Pickup Name
                           </label>
                         </div>
                         <div className="col-8 d-flex align-items-center">
                           <input
-                            asp-for="@Model.PhoneNumber"
+                            //formco        asp-for="@Model.Name"
+                            name="name"
+                            onChange={handleUserInput}
+                            id="pickupName"
+                            value={userInput.name}
                             className="form-control py-1 bg-secondary text-white"
                           ></input>
-                          <span asp-validation-for="PhoneNumber"></span>
                         </div>
                       </div>
                       <div className="form-group row">
                         <div className="col-3">
                           <label
-                            asp-for="@Model.StreetAddress"
                             className="col-form-label "
-                          ></label>
-                        </div>
-                        <div className="col-8 d-flex align-items-center">
-                          <input
-                            asp-for="@Model.StreetAddress"
-                            className="form-control py-1 bg-secondary text-white"
-                          ></input>
-                          <span asp-validation-for="StreetAddress"></span>
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <div className="col-3">
-                          <label
-                            asp-for="@Model.City"
-                            className="col-form-label "
-                          ></label>
-                        </div>
-                        <div className="col-8 d-flex align-items-center">
-                          <input
-                            asp-for="@Model.City"
-                            className="form-control py-1 bg-secondary text-white"
-                          ></input>
-                          <span asp-validation-for="City"></span>
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <div className="col-3">
-                          <label
-                            asp-for="@Model.State"
-                            className="col-form-label "
-                          ></label>
-                        </div>
-                        <div className="col-8 d-flex align-items-center">
-                          <input
-                            asp-for="@Model.State"
-                            className="form-control py-1 bg-secondary text-white"
-                          ></input>
-                          <span asp-validation-for="State"></span>
-                        </div>
-                      </div>
-                      <div className="form-group row">
-                        <div className="col-3">
-                          <label
-                            asp-for="@Model.PostalCode"
-                            className="col-form-label "
+                            htmlFor="pickupPhoneNumber"
                           >
-                            Postal Code
+                            Pickup Phone Number
                           </label>
                         </div>
                         <div className="col-8 d-flex align-items-center">
                           <input
-                            asp-for="@Model.PostalCode"
+                            //formcontrol here  asp-for="@Model.PhoneNumber"
+                            name="phoneNumber"
+                            onChange={handleUserInput}
+                            id="pickupPhoneNumber"
+                            value={userInput.phoneNumber}
+                            className="form-control py-1 bg-secondary text-white"
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col-3">
+                          <label
+                            htmlFor="pickupEmail"
+                            className="col-form-label "
+                          >
+                            Pickup Email
+                          </label>
+                        </div>
+                        <div className="col-8 d-flex align-items-center">
+                          <input
+                            name="email"
+                            onChange={handleUserInput}
+                            id="pickupEmail"
+                            value={userInput.email}
                             className="form-control py-1 bg-secondary text-white"
                           ></input>
                           <span asp-validation-for="PostalCode"></span>
+                        </div>
+                      </div>
+                      <div className="form-group row">
+                        <div className="col-3">
+                          <label
+                            className="col-form-label "
+                            htmlFor="pickupAddress"
+                          >
+                            Pickup Address
+                          </label>
+                        </div>
+                        <div className="col-8 d-flex align-items-center">
+                          <input
+                            name="address"
+                            value={userInput.address}
+                            onChange={handleUserInput}
+                            id="pickupAddress"
+                            className="form-control py-1 bg-secondary text-white"
+                          ></input>
                         </div>
                       </div>
                     </div>

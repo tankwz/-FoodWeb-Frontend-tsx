@@ -13,7 +13,8 @@ export const shoppingCartSlice = createSlice({
       // Add the selected property to each cart item
       state.cartItems = action.payload?.map((cartItem: cartItemModel) => ({
         ...cartItem,
-        selected: false, // You can set the initial value as needed
+        selected: !true, //
+        //debt => could implement local storage so the selected item wont reset when we reset the page in checkout
       }));
     },
     updateQuantity: (state, action) => {

@@ -48,7 +48,7 @@ function Register() {
         SD.TOAST_SUCCESS
       );
 
-      console.log('gonna implement auto login at some point');
+      console.log('gonna implement auto login at some point'); //debt => auto login when done register
       nagivate('/login');
       console.log(response.data);
     } else if (response.error) {

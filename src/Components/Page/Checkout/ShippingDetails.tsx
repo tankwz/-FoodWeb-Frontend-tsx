@@ -1,5 +1,6 @@
 import React from 'react';
 import { userModel } from '../../../Interfaces';
+import { Link } from 'react-router-dom';
 interface Props {
   userData: userModel;
 }
@@ -29,14 +30,13 @@ function ShippingDetails(props: Props) {
                   <span className="ms-auto">
                     {props.userData.email}, {props.userData.address}{' '}
                   </span>
-                  <a
-                    asp-area="customer"
-                    asp-controller="ShoppingCart"
-                    asp-action="ShippingDetails"
+                  <Link
+                    to={'/editcheckout'}
+                    state={props.userData}
                     className="ps-2 m-0"
                   >
                     <h5 className="m-0">Change</h5>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
