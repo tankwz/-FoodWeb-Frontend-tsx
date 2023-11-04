@@ -14,7 +14,7 @@ function MenuItemList() {
     if (isSuccess) {
       dispatch(setMenuItem(data.result));
     } else {
-      console.log(error);
+      // console.log(error);
     }
     // fetch('')
     //   .then((res) => res.json())

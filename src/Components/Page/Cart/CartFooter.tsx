@@ -22,11 +22,11 @@ function CartFooter() {
     }, 0);
     //const totalRounded = Number(total.toFixed(2));
     setTotal(Number(total1.toFixed(2)));
-    console.log(total);
+    //console.log(total);
   };
   const nagivate = useNavigate();
   useEffect(() => {
-    console.log('render');
+    //  console.log('render');
 
     cal();
   });

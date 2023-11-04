@@ -47,7 +47,7 @@ function App() {
   useEffect(() => {
     if (isSuccess) {
       disPatch(setCart(data.result?.cartItems));
-      console.log(data);
+      // console.log(data);
 
       // console.log(data.result.cartItems);
     }

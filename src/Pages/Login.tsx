@@ -28,7 +28,7 @@ function Login() {
     setLoading(true);
     const response: apiResponse = await loginUser(userInput);
     if (response.data) {
-      console.log(response);
+      // console.log(response);
       const { token } = response.data.result;
       localStorage.setItem('token', token);
 

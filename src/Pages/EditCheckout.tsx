@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { inputHelper } from '../Helper';
+import { inputHelper, toastPop } from '../Helper';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserPick } from '../Storage/Redux/userAuthSlice';
@@ -7,7 +7,7 @@ import { setUserPick } from '../Storage/Redux/userAuthSlice';
 function EditCheckout() {
   const location = useLocation();
 
-  console.log(location.state);
+  //console.log(location.state);
   const [userInput, setUserInput] = useState({
     name: location.state.name,
     phoneNumber: location.state.phoneNumber,
@@ -30,6 +30,7 @@ function EditCheckout() {
         address: userInput.address,
       })
     );
+    toastPop('Successfully changed shipping details');
     navigate('/checkout');
   };
   return (

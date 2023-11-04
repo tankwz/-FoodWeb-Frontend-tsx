@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { auth } from '../HOC';
-import { cartItemModel, userModel } from '../Interfaces';
+import { apiResponse, cartItemModel, userModel } from '../Interfaces';
 import { useSelector } from 'react-redux';
 import { RootState } from '../Storage/Redux/store';
 import { useNavigate } from 'react-router-dom';
 import { toastPop } from '../Helper';
 import { SD } from '../Util/SD';
 import { CheckoutItems, ShippingDetails } from '../Components/Page/Checkout';
+import { useNewOrderMutation } from '../api/orderApi';
 
 function CheckOut() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -29,7 +30,7 @@ function CheckOut() {
   }, []);
 
   const getSelectedCartItems = () => {
-    return cartFromStore.filter((item) => item.selected);
+    return cartFromStore.filter((item) => item.selected); //debt => here can you local storage for selected item
   };
 
   const selectedCartItems = getSelectedCartItems();
@@ -37,7 +38,6 @@ function CheckOut() {
   const formatEstimatedArrivalTime = () => {
     const now = new Date();
     const estimatedArrivalTime = new Date(now.getTime() + 15 * 60 * 1000); // Add 15 minutes in milliseconds
-
     const formattedHours = String(estimatedArrivalTime.getHours()).padStart(
       2,
       '0'
@@ -55,8 +55,65 @@ function CheckOut() {
       '0'
     ); // Months are zero-based, so add 1
     const formattedYear = estimatedArrivalTime.getFullYear();
-
     return `${formattedHours}:${formattedMinutes} - ${formattedDay}/${formattedMonth}/${formattedYear} `;
+  };
+
+  const [newOrder] = useNewOrderMutation();
+  const handleNewOrder = async () => {
+    let total = 0;
+    let itemCount = 0;
+    const orderDetailsDTO: any = [];
+    //    console.log(selectedCartItems);
+
+    selectedCartItems.forEach((item: cartItemModel) => {
+      const tempOrderDetail: any = {};
+      tempOrderDetail['menuItemId'] = item.menuItemId;
+      tempOrderDetail['itemName'] = item.menuItem.name;
+      tempOrderDetail['quantity'] = item.quantity;
+      tempOrderDetail['price'] = item.menuItem?.price;
+      orderDetailsDTO.push(tempOrderDetail);
+      total += item.quantity! * item.menuItem?.price!;
+      itemCount += item.quantity!;
+    });
+
+    const itemCountConst = itemCount;
+    console.log(itemCountConst);
+
+    // console.log({
+    //   pickupName: userData.pickupName,
+    //   pickupPhoneNumber: userData.phoneNumber,
+    //   pickupAddress: userData.address,
+    //   appUserId: userData.id,
+    //   orderTotal: total,
+    //   totalItems: itemCount,
+    //   status: '',
+    //   orderDetailsDTO,
+    // });
+
+    const response: apiResponse = await newOrder({
+      pickupName: userData.pickupName,
+      pickupPhoneNumber: userData.phoneNumber,
+      pickupAddress: userData.address,
+      appUserId: userData.id,
+      orderTotal: total,
+      totalItems: itemCountConst,
+      status: '',
+      orderDetailsDTO,
+    });
+    console.log(response);
+
+    // -  "pickupName": "string",
+    // -  "pickupPhoneNumber": "string",
+    // -  "pickupAddress": "string",
+    // -  "appUserId": "string",
+    // -  "orderTotal": 0,
+    // -  "status": "string",
+    // -  "totalItems": 0,
+    //-   "orderDetailsDTO": [{
+    //-       "menuItemId": 0,
+    //-       "itemName": "string",
+    //-       "quantity": 0,
+    //-       "price": 0 } ]
   };
 
   return (
@@ -77,7 +134,10 @@ function CheckOut() {
               </p>
             </div>
             <div className="col-12 col-md-3">
-              <button className="btn btn-primary form-control">
+              <button
+                className="btn btn-primary form-control"
+                onClick={handleNewOrder}
+              >
                 Place Order
               </button>
             </div>
