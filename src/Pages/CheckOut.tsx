@@ -61,31 +61,29 @@ function CheckOut() {
 
   return (
     <div className="container ">
-      <form method="post">
-        <div className="card">
-          <div className="card-header bg-gradient p-3 h2 text-info">
-            Order Summary
-          </div>
-          <ShippingDetails userData={userData}></ShippingDetails>
-          <div className="card-body">
-            <CheckoutItems cartItem={selectedCartItems}></CheckoutItems>
-          </div>
-          <div className="card-footer">
-            <div className="row">
-              <div className="col-12 col-md-9 align-items-center d-flex">
-                <p className="m-0 text-info" style={{ fontSize: '14px' }}>
-                  Estimate arrival time: {formatEstimatedArrivalTime()}
-                </p>
-              </div>
-              <div className="col-12 col-md-3">
-                <button className="btn btn-primary form-control" type="submit">
-                  Place Order
-                </button>
-              </div>
+      <div className="card">
+        <div className="card-header bg-gradient p-3 h2 text-info">
+          Order Summary
+        </div>
+        <ShippingDetails userData={userData}></ShippingDetails>
+        <div className="card-body">
+          <CheckoutItems cartItem={selectedCartItems}></CheckoutItems>
+        </div>
+        <div className="card-footer">
+          <div className="row">
+            <div className="col-12 col-md-9 align-items-center d-flex">
+              <p className="m-0 text-info" style={{ fontSize: '14px' }}>
+                Estimate arrival time: {formatEstimatedArrivalTime()}
+              </p>
+            </div>
+            <div className="col-12 col-md-3">
+              <button className="btn btn-primary form-control">
+                Place Order
+              </button>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

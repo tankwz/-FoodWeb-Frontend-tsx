@@ -10,3 +10,11 @@ export enum SD {
   TOAST_ERROR = 'error',
   TOAST_DEFAULT = 'default',
 }
+
+export enum SD_Status {
+  Status_Pending = 'Pending',
+  Status_Confirmed = 'Confirmed',
+  Status_Ready = 'Ready',
+  Status_Completed = 'Completed',
+  Status_Cancelled = 'Cancelled',
+}

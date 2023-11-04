@@ -26,7 +26,7 @@ function EditCheckout() {
       setUserPick({
         pickupName: userInput.name,
         phoneNumber: userInput.phoneNumber,
-        email: userInput.email,
+        email: userInput.email, //debt well, this one should be remove later since i changed the api to not let the user change email in the order
         address: userInput.address,
       })
     );

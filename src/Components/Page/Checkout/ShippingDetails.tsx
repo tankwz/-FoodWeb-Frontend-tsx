@@ -35,7 +35,7 @@ function ShippingDetails(props: Props) {
                   <Link
                     to={'/editcheckout'}
                     state={props.userData}
-                    className="ps-2 m-0"
+                    className="ps-2 m-0 text-info"
                   >
                     <h5 className="m-0">Change</h5>
                   </Link>
