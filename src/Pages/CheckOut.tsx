@@ -9,6 +9,7 @@ import { SD, SD_Status } from '../Util/SD';
 import { CheckoutItems, ShippingDetails } from '../Components/Page/Checkout';
 import { useNewOrderMutation } from '../api/orderApi';
 import { LoaderBig } from '../Components/Page/Utility';
+import { timeCalculation } from '../Util';
 
 function CheckOut() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -36,28 +37,8 @@ function CheckOut() {
 
   const selectedCartItems = getSelectedCartItems();
 
-  const formatEstimatedArrivalTime = () => {
-    const now = new Date();
-    const estimatedArrivalTime = new Date(now.getTime() + 15 * 60 * 1000); // Add 15 minutes in milliseconds
-    const formattedHours = String(estimatedArrivalTime.getHours()).padStart(
-      2,
-      '0'
-    );
-    const formattedMinutes = String(estimatedArrivalTime.getMinutes()).padStart(
-      2,
-      '0'
-    );
-    const formattedDay = String(estimatedArrivalTime.getDate()).padStart(
-      2,
-      '0'
-    );
-    const formattedMonth = String(estimatedArrivalTime.getMonth() + 1).padStart(
-      2,
-      '0'
-    ); // Months are zero-based, so add 1
-    const formattedYear = estimatedArrivalTime.getFullYear();
-    return `${formattedHours}:${formattedMinutes} - ${formattedDay}/${formattedMonth}/${formattedYear} `;
-  };
+  const now = new Date();
+
   const [isLoading, setIsLoading] = useState(!true);
 
   const [newOrder] = useNewOrderMutation();
@@ -142,20 +123,6 @@ function CheckOut() {
             <div className="card-body mb-5">
               <LoaderBig></LoaderBig>
             </div>
-            <div className="card-footer">
-              <div className="row">
-                <div className="col-12 col-md-9 align-items-center d-flex">
-                  <p className="m-0 text-info" style={{ fontSize: '14px' }}>
-                    Estimate arrival time: {formatEstimatedArrivalTime()}
-                  </p>
-                </div>
-                <div className="col-12 col-md-3">
-                  <button className="btn btn-primary form-control" disabled>
-                    Place Order
-                  </button>
-                </div>
-              </div>
-            </div>
           </>
         ) : (
           <>
@@ -163,25 +130,25 @@ function CheckOut() {
             <div className="card-body">
               <CheckoutItems cartItem={selectedCartItems}></CheckoutItems>
             </div>
-            <div className="card-footer">
-              <div className="row">
-                <div className="col-12 col-md-9 align-items-center d-flex">
-                  <p className="m-0 text-info" style={{ fontSize: '14px' }}>
-                    Estimate arrival time: {formatEstimatedArrivalTime()}
-                  </p>
-                </div>
-                <div className="col-12 col-md-3">
-                  <button
-                    className="btn btn-primary form-control"
-                    onClick={handleNewOrder}
-                  >
-                    Place Order
-                  </button>
-                </div>
-              </div>
-            </div>
           </>
         )}
+        <div className="card-footer">
+          <div className="row">
+            <div className="col-12 col-md-9 align-items-center d-flex">
+              <p className="m-0 text-info" style={{ fontSize: '14px' }}>
+                Estimate arrival time: {timeCalculation(now)}
+              </p>
+            </div>
+            <div className="col-12 col-md-3">
+              <button
+                className="btn btn-primary form-control"
+                onClick={handleNewOrder}
+              >
+                Place Order
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

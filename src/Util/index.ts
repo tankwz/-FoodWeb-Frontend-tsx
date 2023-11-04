@@ -1,2 +1,3 @@
 import tokenCheck from './tokenCheck';
-export { tokenCheck };
+import timeCalculation from './timeCalculation';
+export { timeCalculation, tokenCheck };
