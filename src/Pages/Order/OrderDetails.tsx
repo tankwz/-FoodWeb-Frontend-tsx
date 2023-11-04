@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useGetOrderByOrderIdQuery } from '../../api/orderApi';
 import { LoaderBig } from '../../Components/Page/Utility';
 import { OrderDetailsCustomerInfo } from '../../Components/Page/Order';
+import { timeCalculation } from '../../Util';
 
 function OrderDetails() {
   const { id } = useParams();
@@ -22,7 +23,7 @@ function OrderDetails() {
     //   totalItems: data.result.totalItems,
     //   orderDetails: data.result.orderDetails,
     // };
-    // console.log(data.result);
+    //console.log(data.result);
   }
 
   return (
@@ -40,20 +41,31 @@ function OrderDetails() {
                       <h3 className="mb-1 text-info">Order Details {id}</h3>
                     </div>
                     <div className="col-4">
-                      <OrderDetailsCustomerInfo
-                        orderItem={data.result}
-                      ></OrderDetailsCustomerInfo>
+                      <div className="row">
+                        <div className="col-12 ">
+                          <i className="bi bi-calendar"></i>{' '}
+                          <span>
+                            &nbsp;
+                            {timeCalculation(new Date(data.result.orderDate!))}
+                          </span>
+                        </div>
+                        <div className="col-12">
+                          <small className="" style={{ opacity: 0.7 }}>
+                            Order ID: {data.result.orderHeadId}
+                          </small>
+                        </div>
+                      </div>
                     </div>
                     <div className="col-8">
                       <div className="row d-flex">
                         <div className="col ms-auto">
                           <button className="btn btn-success form-control text-center py-2">
-                            Approve
+                            Confirm
                           </button>
                         </div>
                         <div className="col">
                           <button className="btn btn-primary form-control text-center py-2">
-                            Process
+                            Ready
                           </button>
                         </div>
                         <div className="col">
@@ -69,134 +81,14 @@ function OrderDetails() {
                             Cancel
                           </button>
                         </div>
-                        <div className="col">
-                          <button className="btn btn-danger form-control text-center py-2">
-                            Refund
-                          </button>
-                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="card-body">
-                  <div className="row">
-                    <div className="col-4">
-                      <h5 className="text-info">
-                        <i className="bi bi-person-circle"></i> Customer
-                      </h5>
-                      <span className="d-block">
-                        <span className="fw-bold">Name:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.Name
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">E-mail:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.AppUser.Email{' '}
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">Phone Number:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.PhoneNumber
-                        </span>
-                      </span>
-                      <a
-                        href="#"
-                        className="btn btn-sm btn-link bg-secondary link-info text-decoration-none"
-                      >
-                        View User Profile
-                      </a>
-                    </div>
-                    <div className="col-4">
-                      <h5 className="text-info">
-                        <i className="bi bi-credit-card-fill"></i> Payment Info
-                      </h5>
-                      <span className="d-block">
-                        <span className="fw-bold">Payment Status:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.PaymentStatus
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">Payment Date:</span>
-                        <span className="opacity-75">
-                          {/* @{
-                        if (Model.orderHead.PaymentDate.Year > 2000)
-                        {
-                            @Model.orderHead.PaymentDate
-                        }
-                        else
-                        {
-                            <text>Not yet paid</text>
-                        }
-                    }*/}
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">Payment DueDate:</span>
-                        <span className="opacity-75">
-                          {/* @{
-                                            
-                            if (@Model.orderHead.PaymentDueDate.Year > 2000)
-                        {
-                            @Model.orderHead.PaymentDueDate
-                        }
-                        else
-                        {
-                            <text>Only for Company user</text>
-                        }
-                    
-                    } */}
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">Total:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.OrderTotal.ToString("c"){' '}
-                        </span>
-                      </span>
-                    </div>
-                    <div className="col-4">
-                      <h5 className="text-info">
-                        <i className="bi bi-truck"></i> Shipment Info
-                      </h5>
-                      <span className="d-block">
-                        <span className="fw-bold">Carrier:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.Carrier not yet implemented
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">City:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.AppUser.City @Model.orderHead.State{' '}
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">Address:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.StreetAddress{' '}
-                        </span>
-                      </span>
-                      <span className="d-block">
-                        <span className="fw-bold">Postal Code:</span>
-                        <span className="opacity-75">
-                          {' '}
-                          @Model.orderHead.PostalCode
-                        </span>
-                      </span>
-                    </div>
-                  </div>
+                  <OrderDetailsCustomerInfo
+                    orderItem={data.result}
+                  ></OrderDetailsCustomerInfo>
                   <div className="row"></div>
                   <div className="row mt-3">
                     <div className="col align-self-center ps-3 pe-0">
@@ -209,15 +101,11 @@ function OrderDetails() {
                     </div>
                     <div className="col align-self-center ps-1 pe-0">
                       <p>Processing</p>
-                      <div className="divider py-2 bg-success"></div>
+                      <div className="divider py-2 bg-secondary"></div>
                     </div>
                     <div className="col align-self-center ps-1 pe-0">
                       <p>Shipped</p>
                       <div className="divider py-2 bg-danger"></div>
-                    </div>
-                    <div className="col align-self-center ps-1 pe-2">
-                      <p>Refund</p>
-                      <div className="divider py-2 bg-secondary"></div>
                     </div>
                   </div>
                   <div className="row my-4">

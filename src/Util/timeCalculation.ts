@@ -1,5 +1,7 @@
-function timeCalculation(now: Date) {
-  const estimatedArrivalTime = new Date(now.getTime() + 15 * 60 * 1000); // Add 15 minutes in milliseconds
+function timeCalculation(timeToCal: Date, timeToAddInMs?: number) {
+  const estimatedArrivalTime = new Date(
+    timeToCal.getTime() + (timeToAddInMs || 0)
+  );
   const formattedHours = String(estimatedArrivalTime.getHours()).padStart(
     2,
     '0'

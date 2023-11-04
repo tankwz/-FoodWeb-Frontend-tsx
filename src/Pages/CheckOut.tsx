@@ -136,7 +136,7 @@ function CheckOut() {
           <div className="row">
             <div className="col-12 col-md-9 align-items-center d-flex">
               <p className="m-0 text-info" style={{ fontSize: '14px' }}>
-                Estimate arrival time: {timeCalculation(now)}
+                Estimate arrival time: {timeCalculation(now, 15 * 60 * 1000)}
               </p>
             </div>
             <div className="col-12 col-md-3">
