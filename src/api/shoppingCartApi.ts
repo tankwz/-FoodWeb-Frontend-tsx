@@ -21,12 +21,20 @@ const shoppingCartApi = createApi({
       }),
       invalidatesTags: ['ShoppingCarts'],
     }),
+    updateCartNoReset: builder.mutation({
+      query: ({ userId, itemId, quantity }) => ({
+        url: 'ShoppingCart',
+        method: 'POST',
+        params: { userId: userId, itemId: itemId, quantity: quantity },
+      }),
+    }),
     setCartQuantity: builder.mutation({
       query: ({ cartItemId, quantity }) => ({
         url: 'ShoppingCart/SetCartQuantity',
         method: 'POST',
         params: { cartItemId: cartItemId, quantity: quantity },
       }),
+      //  invalidatesTags: ['ShoppingCarts'],
     }),
   }),
 });
@@ -35,5 +43,6 @@ export const {
   useGetCartQuery,
   useUpdateCartMutation,
   useSetCartQuantityMutation,
+  useUpdateCartNoResetMutation,
 } = shoppingCartApi;
 export default shoppingCartApi;

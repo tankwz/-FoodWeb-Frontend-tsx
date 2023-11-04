@@ -121,6 +121,14 @@ function Header() {
                 <>
                   <li className="nav-item">
                     <NavLink
+                      className="btn       text-white border-0 "
+                      to={'/order/ordersList'}
+                    >
+                      Orders
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
                       className="btn btn-link  text-white border-0 "
                       to={'/'}
                     >

@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { cartItemModel } from '../../../Interfaces';
+import { cartItemModel, shoppingCartItemModel } from '../../../Interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../Storage/Redux/store';
-import { setSelectedItem } from '../../../Storage/Redux/shoppingCartSlice';
+import {
+  setCartTotal,
+  setSelectedItem,
+} from '../../../Storage/Redux/shoppingCartSlice';
 import { useNavigate } from 'react-router-dom';
 
 function CartFooter() {
-  const cartFromStore: cartItemModel[] = useSelector(
-    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  // const cartFromStore: cartItemModel[] = useSelector(
+  //   (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  // );
+
+  const bigCart: shoppingCartItemModel = useSelector(
+    (state: RootState) => state.shoppingCartStore ?? null
   );
 
   const [total, setTotal] = useState(0);
-  const cal = () => {
-    const total1 = cartFromStore.reduce((accumulator, cartItem) => {
-      if (cartItem.selected) {
-        // Multiply the menuItem.price by quantity and add to the accumulator
-        return accumulator + cartItem.menuItem.price * cartItem.quantity;
-      } else {
-        return accumulator;
-      }
-    }, 0);
-    //const totalRounded = Number(total.toFixed(2));
-    setTotal(Number(total1.toFixed(2)));
-    //console.log(total);
-  };
+
   const nagivate = useNavigate();
-  useEffect(() => {
-    //  console.log('render');
-
-    cal();
-  });
-
   // useEffect(() => {
   //   if (selectAllChecked) {
   //     // Select all items
@@ -67,13 +56,14 @@ function CartFooter() {
             </div> */}
             <div className="col-3 d-flex align-items-center pt-3 offset-6">
               <h5 style={{ display: 'inline' }} id="TotalOrderPrice">
-                For Total: $<span className="">{total}</span>
+                For Total: $
+                <span className="">{bigCart.cartTotal?.toFixed(2)}</span>
               </h5>
             </div>
             <div className="col-3 ">
               <button
                 className={`btn btn-primary mt-2 form-control py-2 ${
-                  total > 0 ? '' : 'disabled '
+                  bigCart.cartTotal! > 0 ? '' : 'disabled '
                 }`}
                 onClick={() => nagivate('/Checkout')}
               >

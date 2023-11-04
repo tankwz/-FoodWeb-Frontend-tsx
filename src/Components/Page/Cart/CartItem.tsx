@@ -1,14 +1,17 @@
-import { cartItemModel } from '../../../Interfaces';
+import { cartItemModel, shoppingCartItemModel } from '../../../Interfaces';
 import React, { useEffect, useState } from 'react';
 import {
   useSetCartQuantityMutation,
   useUpdateCartMutation,
+  useUpdateCartNoResetMutation,
 } from '../../../api/shoppingCartApi';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeFromCart,
   updateQuantity,
   setSelectedItem,
+  setCartTotal,
+  setCartTotalNumber,
 } from '../../../Storage/Redux/shoppingCartSlice';
 import { RootState } from '../../../Storage/Redux/store';
 interface Props {
@@ -18,7 +21,7 @@ interface Props {
 function CartItem(props: Props) {
   const [updating, setupdating] = useState<boolean>(!true);
   const [count, setCount] = useState(() => props.cartItem.quantity);
-  const [updateCart, result] = useUpdateCartMutation();
+  const [updateCartNoReset, result] = useUpdateCartNoResetMutation();
   const [setcartQuantity, result2] = useSetCartQuantityMutation();
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userStore);
@@ -34,11 +37,13 @@ function CartItem(props: Props) {
 
   const handleUpdateCart = async (newcount: number) => {
     setupdating(true);
-    const response = await updateCart({
+    const response = await updateCartNoReset({
       userId: userData.id,
       itemId: props.cartItem.menuItem.id,
       quantity: newcount,
     });
+    dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
+    setBorder();
     dispatch(removeFromCart({ cartItem: props.cartItem })); //still got removed from store without this line but imma put it here just in case
     setupdating(!true);
   };
@@ -83,6 +88,28 @@ function CartItem(props: Props) {
   //set select border
   // Import the action creator from your Redux slice
 
+  const cartFromStore: cartItemModel[] = useSelector(
+    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  );
+  const bigCart: shoppingCartItemModel = useSelector(
+    (state: RootState) => state.shoppingCartStore ?? null
+  );
+  const [total, setTotal] = useState(0);
+
+  // const cal = () => {
+  //   const total1 = cartFromStore.reduce((accumulator, cartItem) => {
+  //     if (cartItem.selected) {
+  //       // Multiply the menuItem.price by quantity and add to the accumulator
+  //       return accumulator + cartItem.menuItem.price * cartItem.quantity;
+  //     } else {
+  //       return accumulator;
+  //     }
+  //   }, 0);
+
+  //   dispatch(setCartTotal(total));
+  //   setTotal(Number(total1.toFixed(2)));
+  // };
+
   // Dispatch the action with the payload
   const [borderColor, setBorderColor] = useState('grey'); // Initial border color
   const handleBorder = () => {
@@ -91,6 +118,7 @@ function CartItem(props: Props) {
       setBorderColor('green');
     } else {
       dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
+
       setBorderColor('grey');
     }
   };
@@ -102,7 +130,20 @@ function CartItem(props: Props) {
   };
   useEffect(() => {
     setBorder();
-  }, []);
+
+    const cal = () => {
+      const total1 = cartFromStore.reduce((accumulator, cartItem) => {
+        if (cartItem.selected) {
+          // Multiply the menuItem.price by quantity and add to the accumulator
+          return accumulator + cartItem.menuItem.price * cartItem.quantity;
+        } else {
+          return accumulator;
+        }
+      }, 0);
+      dispatch(setCartTotalNumber(total1));
+    };
+    cal();
+  });
 
   return (
     <div>

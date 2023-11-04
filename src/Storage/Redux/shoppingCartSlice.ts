@@ -3,6 +3,7 @@ import { cartItemModel, shoppingCartItemModel } from '../../Interfaces';
 
 const initialState: shoppingCartItemModel = {
   cartItems: [],
+  cartTotal: 0,
 };
 
 export const shoppingCartSlice = createSlice({
@@ -50,10 +51,18 @@ export const shoppingCartSlice = createSlice({
         cartItem.selected = action.payload.selected;
       }
     },
+    setCartTotal: (state, action) => {
+      state.cartTotal += action.payload;
+    },
+    setCartTotalNumber: (state, action) => {
+      state.cartTotal = action.payload;
+    },
   },
 });
 
 export const {
+  setCartTotalNumber,
+  setCartTotal,
   setCart,
   updateQuantity,
   removeFromCart,

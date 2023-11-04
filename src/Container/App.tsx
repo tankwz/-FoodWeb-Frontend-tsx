@@ -11,6 +11,7 @@ import {
   Checkout,
   EditCheckout,
   OrderDetails,
+  OrdersList,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -44,7 +45,6 @@ function App() {
   const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
     userData.id
   );
-
   useEffect(() => {
     if (isSuccess) {
       disPatch(setCart(data.result?.cartItems));
@@ -53,7 +53,6 @@ function App() {
       // console.log(data.result.cartItems);
     }
   }, [data]);
-
   return (
     <div className=" ">
       <Header></Header>
@@ -84,6 +83,10 @@ function App() {
           <Route
             path="/Order/OrderDetails/:id?"
             element={<OrderDetails></OrderDetails>}
+          ></Route>
+          <Route
+            path="/order/ordersList"
+            element={<OrdersList></OrdersList>}
           ></Route>
         </Routes>
       </div>
