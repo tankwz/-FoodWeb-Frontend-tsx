@@ -1,19 +1,18 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetOrderByOrderIdQuery } from '../../api/orderApi';
 
 function OrderDetails() {
+  const { id } = useParams();
+  const { isLoading, data, isError, error } = useGetOrderByOrderIdQuery(id);
   return (
     <div>
-      @model OrderVM
-      {/* 
-@{
-    var reversedOrderDetail = Model.orderDetail.Reverse().ToList();
-} */}
       <div className="container">
         <div className="card">
           <div className="card-header bg-gradient p-3 ">
             <div className="row">
               <div className="col-12">
-                <h3 className="mb-1 text-info">Order Details</h3>
+                <h3 className="mb-1 text-info">Order Details {id}</h3>
               </div>
               <div className="col-4">
                 <div className="row">
