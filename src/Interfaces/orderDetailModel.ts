@@ -1,6 +1,6 @@
 import menuItemModel from './menuItemModel';
 
-export default interface orderDetail {
+export default interface orderHeaderModel {
   orderDetailId?: number;
   orderHeadId?: number;
   menuItemId?: number;

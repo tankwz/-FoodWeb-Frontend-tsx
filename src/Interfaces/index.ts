@@ -3,11 +3,11 @@ import cartItemModel from './cartItemModel';
 import shoppingCartItemModel from './shoppingCartItemModel';
 import userModel from './userModel';
 import apiResponse from './apiResponse';
-import orderDetail from './orderDetail';
-import orderHeader from './orderHeader';
+import orderDetailModel from './orderDetailModel';
+import orderHeaderModel from './orderHeaderModel';
 export type {
-  orderHeader,
-  orderDetail,
+  orderHeaderModel,
+  orderDetailModel,
   apiResponse,
   userModel,
   menuItemModel,
