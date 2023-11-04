@@ -6,4 +6,5 @@ export default interface userModel {
   address?: string;
   role?: string;
   exp: number; //for when the token expire
+  pickupName?: string; //for when user change pickupName
 }

@@ -24,7 +24,9 @@ function ShippingDetails(props: Props) {
                       <input asp-for="OrderHead.State" hidden></input>
                       <input asp-for="OrderHead.PostalCode" hidden></input> */}
 
-                  <span className="h5 fw-bold">{props.userData.name}</span>
+                  <span className="h5 fw-bold">
+                    {props.userData.pickupName}
+                  </span>
 
                   <span className="h5">&nbsp;{props.userData.phoneNumber}</span>
                   <span className="ms-auto">

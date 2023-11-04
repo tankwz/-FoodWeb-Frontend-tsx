@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { inputHelper } from '../Helper';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserPick } from '../Storage/Redux/userAuthSlice';
 
 function EditCheckout() {
   const location = useLocation();
@@ -16,10 +18,24 @@ function EditCheckout() {
     const Tempdata = inputHelper(e, userInput);
     setUserInput(Tempdata);
   };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleChangeInput = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(
+      setUserPick({
+        pickupName: userInput.name,
+        phoneNumber: userInput.phoneNumber,
+        email: userInput.email,
+        address: userInput.address,
+      })
+    );
+    navigate('/checkout');
+  };
   return (
     <div>
       <div className="container">
-        <form method="post">
+        <form method="post" onSubmit={handleChangeInput}>
           <div className="card">
             <div className="card-header bg-gradient p-3 h2 text-info">
               Edit Pickup Details
@@ -47,6 +63,7 @@ function EditCheckout() {
                             name="name"
                             onChange={handleUserInput}
                             id="pickupName"
+                            required
                             value={userInput.name}
                             className="form-control py-1 bg-secondary text-white"
                           ></input>
@@ -67,6 +84,8 @@ function EditCheckout() {
                             name="phoneNumber"
                             onChange={handleUserInput}
                             id="pickupPhoneNumber"
+                            type="number"
+                            required
                             value={userInput.phoneNumber}
                             className="form-control py-1 bg-secondary text-white"
                           ></input>
@@ -84,6 +103,8 @@ function EditCheckout() {
                         <div className="col-8 d-flex align-items-center">
                           <input
                             name="email"
+                            type="email"
+                            required
                             onChange={handleUserInput}
                             id="pickupEmail"
                             value={userInput.email}
@@ -104,6 +125,7 @@ function EditCheckout() {
                         <div className="col-8 d-flex align-items-center">
                           <input
                             name="address"
+                            required
                             value={userInput.address}
                             onChange={handleUserInput}
                             id="pickupAddress"
@@ -122,12 +144,7 @@ function EditCheckout() {
                   <p className="m-0 text-info" style={{ fontSize: '14px' }}></p>
                 </div>
                 <div className="col-12 col-md-3">
-                  <button
-                    className="btn btn-primary form-control"
-                    type="submit"
-                  >
-                    Edit
-                  </button>
+                  <button className="btn btn-primary form-control">Edit</button>
                 </div>
               </div>
             </div>
