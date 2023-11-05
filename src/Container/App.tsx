@@ -100,7 +100,7 @@ function App() {
             element={<MenuItemsListAdmin></MenuItemsListAdmin>}
           ></Route>
           <Route
-            path="/MenuItemsAdmin/MenuItemUpser/:id"
+            path="/MenuItemsAdmin/MenuItemUpser/:id?"
             element={<MenuItemUpser></MenuItemUpser>}
           ></Route>
         </Routes>
