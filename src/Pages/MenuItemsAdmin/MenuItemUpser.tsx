@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { inputHelper, toastPop } from '../../Helper';
 import { SD } from '../../Util/SD';
 import { LoaderBig } from '../../Components/Page/Utility';
-import { useCreateMenuItemMutation } from '../../api/menuItemApi';
+import {
+  useCreateMenuItemMutation,
+  useGetMenuItemByIdQuery,
+} from '../../api/menuItemApi';
 import { apiResponse } from '../../Interfaces';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const menuItemData = {
   name: '',
@@ -15,6 +18,25 @@ const menuItemData = {
 };
 
 function MenuItemUpser() {
+  //
+  const { id } = useParams();
+  const { data } = useGetMenuItemByIdQuery(id);
+
+  useEffect(() => {
+    if (data && data.result) {
+      const tempData = {
+        name: data.result.name,
+        description: data.result.description,
+        specialTag: data.result.specialTag,
+        category: data.result.category,
+        price: data.result.price,
+      };
+      setUserInput(tempData);
+      setIimageDisplay(data.result.image);
+    }
+  });
+
+  //
   const [isLoading, setIsLoading] = useState(!true);
   const [userInput, setUserInput] = useState(menuItemData);
   const handleMenuItemInput = (
