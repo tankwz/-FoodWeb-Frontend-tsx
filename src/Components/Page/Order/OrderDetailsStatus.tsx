@@ -11,11 +11,10 @@ function OrderDetailsStatus({ status }: any) {
     Confirmed: 2,
     Ready: 3,
     Completed: 4,
-    Cancelled: 0, // For "Cancelled," all dividers will be red.
+    Cancelled: 0,
   };
 
   const bgColor = statusMapping[status] || 0;
-  console.log(bgColor);
 
   return (
     <div className="row mt-3">

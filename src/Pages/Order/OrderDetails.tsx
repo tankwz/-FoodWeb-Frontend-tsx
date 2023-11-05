@@ -92,9 +92,17 @@ function OrderDetails() {
                     </div>
                     <div className="col-8">
                       {userData.role == SD.ROLE_ADMIN ? (
-                        <OrderDetailsHeadAdmin></OrderDetailsHeadAdmin>
+                        <OrderDetailsHeadAdmin
+                          status={data.result.status}
+                          id={data.result.orderHeadId}
+                        ></OrderDetailsHeadAdmin>
                       ) : (
-                        <OrderDetailsHeadCustomer></OrderDetailsHeadCustomer>
+                        <OrderDetailsHeadCustomer
+                          status={data.result.status}
+                          id={data.result.orderHeadId}
+                        >
+                          {' '}
+                        </OrderDetailsHeadCustomer>
                       )}
                     </div>
                   </div>
