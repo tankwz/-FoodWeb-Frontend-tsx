@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Footer, Header } from '../Components/Layout';
 import {
   Home,
@@ -28,7 +28,6 @@ import { RootState } from '../Storage/Redux/store';
 
 function App() {
   const disPatch = useDispatch();
-
   const userData: userModel = useSelector((state: RootState) =>
     state.userStore.id ? state.userStore : emptyUser
   );
@@ -44,9 +43,12 @@ function App() {
       disPatch(setUser({ id, name, email, role, phoneNumber, address, exp }));
     }
   }, []);
-
+  const [doGetCart, setDoGetCart] = useState(true);
   const { data, isLoading, isSuccess, isError, error } = useGetCartQuery(
-    userData.id
+    userData.id,
+    {
+      skip: doGetCart,
+    }
   );
   useEffect(() => {
     if (isSuccess) {
@@ -56,6 +58,9 @@ function App() {
       // console.log(data.result.cartItems);
     }
   }, [data]);
+  useEffect(() => {
+    if (userData.id) setDoGetCart(!true);
+  }, [userData]);
   return (
     <div className=" ">
       <Header></Header>
