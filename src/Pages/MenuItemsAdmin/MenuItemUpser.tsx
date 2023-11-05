@@ -5,6 +5,7 @@ import { LoaderBig } from '../../Components/Page/Utility';
 import {
   useCreateMenuItemMutation,
   useGetMenuItemByIdQuery,
+  useUpdateMenuItemMutation,
 } from '../../api/menuItemApi';
 import { apiResponse } from '../../Interfaces';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -34,7 +35,7 @@ function MenuItemUpser() {
       setUserInput(tempData);
       setIimageDisplay(data.result.image);
     }
-  });
+  }, [data]);
 
   //
   const [isLoading, setIsLoading] = useState(!true);
@@ -80,10 +81,11 @@ function MenuItemUpser() {
   const navigate = useNavigate();
 
   const [createMenuItem] = useCreateMenuItemMutation();
+  const [updateMenuItem] = useUpdateMenuItemMutation();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    if (!imageToDataBase) {
+    if (!imageToDataBase && !id) {
       toastPop('Image not found, please add an image', SD.TOAST_WARNING);
       setIsLoading(!true);
       return;
@@ -94,20 +96,36 @@ function MenuItemUpser() {
     formData.append('SpecialTag', userInput.specialTag);
     formData.append('Category', userInput.category);
     formData.append('Price', userInput.price);
-    formData.append('Image', imageToDataBase);
+    if (imageToDataBase) formData.append('Image', imageToDataBase);
 
-    const response: apiResponse = await createMenuItem(formData);
-    if (response.data?.isSuccess) {
-      toastPop('Successfully upload new item', SD.TOAST_SUCCESS);
-      navigate('/MenuItemsAdmin/MenuItemList');
-      setIsLoading(!true);
+    let response: apiResponse;
+    if (id) {
+      formData.append('id', id);
+      response = await updateMenuItem({ data: formData, id });
+
+      if (response.data?.isSuccess) {
+        toastPop('Successfully edit item', SD.TOAST_SUCCESS);
+
+        navigate('/MenuItemsAdmin/MenuItemList');
+        setIsLoading(!true);
+      } else {
+        toastPop('There were some errors, please try agaim ', SD.TOAST_ERROR);
+        console.log(response);
+      }
     } else {
-      toastPop(
-        'There were some errors uploading, please try agaim ',
-        SD.TOAST_ERROR
-      );
-      console.log(response);
+      response = await createMenuItem(formData);
+
+      if (response.data?.isSuccess) {
+        toastPop('Successfully upload new item', SD.TOAST_SUCCESS);
+
+        navigate('/MenuItemsAdmin/MenuItemList');
+        setIsLoading(!true);
+      } else {
+        toastPop('There were some errors, please try agaim ', SD.TOAST_ERROR);
+        console.log(response);
+      }
     }
+
     setIsLoading(!true);
   };
   return (
