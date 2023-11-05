@@ -8,7 +8,7 @@ function Banner() {
         className="m-auto d-flex align-items-center "
         style={{
           width: '400px',
-          height: '50vh',
+          height: '40vh',
         }}
       >
         <div

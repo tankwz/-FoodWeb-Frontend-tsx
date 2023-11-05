@@ -1,8 +1,8 @@
 .custom-banner {
   background: linear-gradient(to right, #2c536499, #203a4399, #0f202799),
-    url('/src/Assets/img/ImagebypikisuperstaronFreepik.jpg') Top;
+    url('/src/Assets/img/istockphoto-1205192172-1024x1024.jpg') Top;
   background-size: cover;
   width: 100%;
-  height: 40vh;
+  height: 25vh;
   overflow: hidden;
 }
