@@ -8,6 +8,7 @@ import { emptyUser } from '../Storage/Redux/userAuthSlice';
 import { useGetCartQuery } from '../api/shoppingCartApi';
 import { setCart } from '../Storage/Redux/shoppingCartSlice';
 import { Link } from 'react-router-dom';
+import OOPS from './OOPS';
 
 function ShoppingCart() {
   const userData: userModel = useSelector((state: RootState) =>
@@ -31,19 +32,10 @@ function ShoppingCart() {
   if (cartFromStore.length == 0) {
     return (
       <div className="container mt-5">
-        <div className="d-flex align-items-center justify-content-center vh-50">
-          <div className="text-center ">
-            <h1 className="display-1 fw-bold"></h1>
-            <p className="fs-3">
-              <span className="text-info ">Oops!!</span> You don't have any item
-              in cart yet.
-            </p>
-            <p className="lead"></p>
-            <Link to={'/'} className="btn btn-primary">
-              Let's get something to eat!
-            </Link>
-          </div>
-        </div>
+        <OOPS
+          message="you don't have any item in cart yet"
+          backmessage="Let's get something to eat"
+        ></OOPS>
       </div>
     );
   }
