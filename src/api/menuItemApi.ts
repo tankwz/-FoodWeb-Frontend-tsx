@@ -23,6 +23,7 @@ const menuItemApi = createApi({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['MenuItems'],
     }),
     updateMenuItem: builder.mutation({
       query: ({ data, id }) => ({
@@ -30,11 +31,20 @@ const menuItemApi = createApi({
         method: 'PUT',
         body: data,
       }),
+      invalidatesTags: ['MenuItems'],
+    }),
+    deleteMenuItem: builder.mutation({
+      query: (id) => ({
+        url: 'menuitem/' + id,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['MenuItems'],
     }),
   }),
 });
 
 export const {
+  useDeleteMenuItemMutation,
   useCreateMenuItemMutation,
   useUpdateMenuItemMutation,
   useGetMenuItemsQuery,
