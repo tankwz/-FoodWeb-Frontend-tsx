@@ -39,7 +39,7 @@ function CheckoutItems(props: Props) {
                 ))}
                 <li className="list-group-item  bg-secondary text-">
                   <div className="d-flex">
-                    <h6 className="m-0">Total(USD):</h6>
+                    <h6 className="m-0">Total For Items(USD):</h6>
                     <strong className="ms-auto mb-0">
                       ${Number(total.toFixed(2))}
                     </strong>

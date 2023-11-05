@@ -2,14 +2,37 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetOrderByOrderIdQuery } from '../../api/orderApi';
 import { LoaderBig } from '../../Components/Page/Utility';
-import { OrderDetailsCustomerInfo } from '../../Components/Page/Order';
+import {
+  OrderDetailsCustomerInfo,
+  OrderDetailsItems,
+} from '../../Components/Page/Order';
 import { timeCalculation } from '../../Util';
+import { CheckoutItems } from '../../Components/Page/Checkout';
+import { cartItemModel, orderDetailModel } from '../../Interfaces';
 
 function OrderDetails() {
   const { id } = useParams();
   const { isLoading, data, isError, error } = useGetOrderByOrderIdQuery(id);
-  let orderItem;
+  let cartItem: cartItemModel[] = [];
   if (!isLoading && data?.result) {
+    data.result.orderDetails.forEach((item: orderDetailModel) => {
+      const tempOrderDetail: any = {};
+      tempOrderDetail['id'] = item.orderHeadId;
+      tempOrderDetail['menuItemId'] = item.menuItemId;
+      tempOrderDetail['menuItem'] = item.menuItem;
+      tempOrderDetail['quantity'] = item.quantity;
+      tempOrderDetail['selected'] = true;
+      cartItem.push(tempOrderDetail);
+    });
+
+    // cartItem = {
+    //   id: data.result.orderDetails.orderHeadId,
+    //   menuItemId: data.result.orderDetails.menuItemId,
+    //   menuItem: data.result.orderDetails.menuItem,
+    //   quantity: data.result.orderDetails.quantity,
+    //   selected: true,
+    // };
+
     // orderItem = {
     //   orderHeadId: data.result.orderHeadId,
     //   pickupName: data.result.pickupName,
@@ -23,7 +46,6 @@ function OrderDetails() {
     //   totalItems: data.result.totalItems,
     //   orderDetails: data.result.orderDetails,
     // };
-    //console.log(data.result);
   }
 
   return (
@@ -110,66 +132,11 @@ function OrderDetails() {
                   </div>
                   <div className="row my-4">
                     <div className="col-12">
-                      <ul className="list-group">
-                        @foreach (var detail in reversedOrderDetail)
-                        {
-                          <li className="list-group-item">
-                            <div className="d-flex align-items-center row">
-                              <div className="col-8 col-md-6 col-lg-2 pe-0">
-                                <img
-                                  className="border border-1 rounded border-secondary"
-                                  src="@detail.Product.ImageUrl"
-                                  style={{ width: '95%' }}
-                                ></img>
-                              </div>
-
-                              <div className="col-4 col-md-6 col-lg-10 ps-1">
-                                <div className="d-flex align-items-center">
-                                  <h5 className="d-inline m-0">
-                                    {' '}
-                                    @detail.Product.Title
-                                  </h5>
-                                  <small className="align-self-end text-info">
-                                    &nbsp; @detail.Price.ToString("c")
-                                  </small>
-                                  <small className="align-self-end text-info">
-                                    &nbsp; x @detail.Count
-                                  </small>
-                                  <h6 className="d-inline ms-auto">
-                                    {/* @string.Format("{0:C}", detail.Count * detail.Price) a */}
-                                  </h6>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        }
-                        <li className="list-group-item  bg-secondary text-">
-                          <div className="d-flex row">
-                            <div className="col-12 d-flex">
-                              <h6 className="m-0">
-                                Subtotal(To Be Implemented):
-                              </h6>
-                              <span className="ms-auto mb-0">$123.00</span>
-                            </div>
-                            <div className="col-12 d-flex">
-                              <h6 className="m-0">Tax(To Be Implemented):</h6>
-                              <strong className="ms-auto mb-0">$123.00</strong>
-                            </div>
-                            <div className="col-12 d-flex">
-                              <h6 className="m-0">
-                                Discount(To Be Implemented):
-                              </h6>
-                              <strong className="ms-auto mb-0 ">$123.00</strong>
-                            </div>
-                            <div className="col-12 d-flex">
-                              <h6 className="m-0 fw-bold">Total(USD):</h6>
-                              <strong className="ms-auto mb-0 fw-bold">
-                                @Model.orderHead.OrderTotal.ToString("c")
-                              </strong>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
+                      <OrderDetailsItems
+                        cartItem={cartItem}
+                        total={data.result.orderTotal}
+                      ></OrderDetailsItems>
+                      {/* <CheckoutItems cartItem={cartItem}></CheckoutItems> */}
                     </div>
                   </div>
                 </div>

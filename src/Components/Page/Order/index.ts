@@ -1,11 +1,11 @@
 import OrderDetailsHeadAdmin from './OrderDetailsHeadAdmin';
 import OrderDetailsCustomerInfo from './OrderDetailsCustomerInfo';
-import OrderDetailsInfo from './OrderDetailsInfo';
+import OrderDetailsItems from './OrderDetailsItems';
 import OrderListItems from './OrderListItems';
 import OrderDetailsHeadCustomer from './OrderDetailsHeadCustomer';
 export {
   OrderListItems,
-  OrderDetailsInfo,
+  OrderDetailsItems,
   OrderDetailsCustomerInfo,
   OrderDetailsHeadAdmin,
   OrderDetailsHeadCustomer,
