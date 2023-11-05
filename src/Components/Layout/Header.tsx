@@ -26,7 +26,7 @@ function Header() {
   return (
     <div>
       <nav
-        className="ps-4 pb-0 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-3 "
+        className="ps-4 pb-0 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-0 "
         style={{ backgroundColor: 'rgb(17, 110, 180)' }}
       >
         <NavLink className="navbar-brand mb-2" to="/">
