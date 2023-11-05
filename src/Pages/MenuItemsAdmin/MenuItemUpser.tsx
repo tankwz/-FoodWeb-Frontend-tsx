@@ -27,8 +27,9 @@ const menuItemData = {
 
 function MenuItemUpser() {
   //
+
   const { id } = useParams();
-  const { data } = useGetMenuItemByIdQuery(id);
+  const { data } = useGetMenuItemByIdQuery(id, { skip: id === undefined });
 
   useEffect(() => {
     if (data && data.result) {
@@ -185,8 +186,10 @@ function MenuItemUpser() {
                   value={userInput.category}
                   onChange={handleMenuItemInput}
                 >
-                  {Categories.map((item) => (
-                    <option value={item}>{item}</option>
+                  {Categories.map((item, index) => (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
                   ))}
                 </select>
                 <input

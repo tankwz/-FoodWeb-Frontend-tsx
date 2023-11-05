@@ -105,13 +105,13 @@ function App() {
             element={<MenuItemsListAdmin></MenuItemsListAdmin>}
           ></Route>
           <Route
-            path="/MenuItemsAdmin/MenuItemUpser/:id"
+            path="/MenuItemsAdmin/MenuItemUpser/:id?"
             element={<MenuItemUpser></MenuItemUpser>}
           ></Route>
-          <Route
+          {/* <Route
             path="/MenuItemsAdmin/MenuItemUpser"
             element={<MenuItemUpser></MenuItemUpser>}
-          ></Route>
+          ></Route> */}
         </Routes>
       </div>
       <Footer></Footer>
