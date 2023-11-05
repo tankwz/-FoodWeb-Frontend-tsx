@@ -13,7 +13,7 @@ function OrderListItems({ isLoading, orderData }: OrderListProps) {
     <LoaderBig></LoaderBig>
   ) : (
     <div>
-      <div className="table p-5 table-dark  ">
+      <div className="container mt-5   ">
         <h1 className="">Orders List</h1>
         <div className="p-2">
           <div className=" align-middle ">

@@ -13,6 +13,7 @@ import {
   OrderDetails,
   OrdersList,
   OrdersListAdmin,
+  MenuItemsListAdmin,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -92,6 +93,10 @@ function App() {
           <Route
             path="/order/OrdersListAdmin"
             element={<OrdersListAdmin></OrdersListAdmin>}
+          ></Route>
+          <Route
+            path="/MenuItemsAdmin/MenuItemList"
+            element={<MenuItemsListAdmin></MenuItemsListAdmin>}
           ></Route>
         </Routes>
       </div>

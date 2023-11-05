@@ -11,7 +11,11 @@ import OrderDetails from './Order/OrderDetails';
 import OrdersList from './Order/OrdersList';
 import OOPS from './OOPS';
 import OrdersListAdmin from './Order/OrdersListAdmin';
+import MenuItemsListAdmin from './MenuItemsAdmin/MenuItemsListAdmin';
+import MenuItemUpser from './MenuItemsAdmin/MenuItemUpser';
 export {
+  MenuItemUpser,
+  MenuItemsListAdmin,
   OrdersListAdmin,
   OOPS,
   OrdersList,

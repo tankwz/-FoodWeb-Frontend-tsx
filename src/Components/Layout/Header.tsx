@@ -112,9 +112,12 @@ function Header() {
                     </NavLink>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Another action
-                    </a>
+                    <NavLink
+                      className="dropdown-item"
+                      to={'/MenuItemsAdmin/MenuItemList'}
+                    >
+                      Items List
+                    </NavLink>
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
