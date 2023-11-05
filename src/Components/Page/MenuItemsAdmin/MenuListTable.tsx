@@ -11,6 +11,7 @@ import { timeCalculation } from '../../../Util';
 import { statusColor, toastPop } from '../../../Helper';
 import { useDeleteMenuItemMutation } from '../../../api/menuItemApi';
 import { SD } from '../../../Util/SD';
+import { toast } from 'react-toastify';
 
 interface Props {
   menuItems: menuItemModel[];
@@ -23,15 +24,23 @@ function MenuListTable({ menuItems }: Props) {
 
   const handleDelete = async (id: number) => {
     setIsLoading(true);
-    const response: apiResponse = await deleteItem(id);
-    if (response.data?.isSuccess) {
-      toastPop('Delete data sucessfully', SD.TOAST_SUCCESS);
-    } else {
-      toastPop(
-        'There were some errors deleting item, Please try again',
-        SD.TOAST_ERROR
-      );
-    }
+    //const response: apiResponse = await deleteItem(id);
+    //  if (response.data?.isSuccess) {
+    toast.promise(
+      deleteItem(id),
+      {
+        pending: 'Deleting Item, please wait...',
+        success: 'Menu Item deleted successfully',
+        error: 'There were some errors deleting item, Please try again',
+      },
+      { theme: 'dark' }
+    );
+    // } else {
+    //   toastPop(
+    //     'There were some errors deleting item, Please try again',
+    //     SD.TOAST_ERROR
+    //   );
+    // }
     setIsLoading(!true);
   };
 

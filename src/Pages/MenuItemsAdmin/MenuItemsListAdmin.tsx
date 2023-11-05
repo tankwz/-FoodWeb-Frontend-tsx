@@ -21,10 +21,7 @@ function MenuItemsListAdmin() {
   if (!isLoading && data.result.length < 1) {
     return (
       <div className="container mt-5">
-        <OOPS
-          message="You don't have any order yet"
-          backmessage="Let's get order something"
-        ></OOPS>
+        <OOPS message="You don't have item yet" backmessage="Go back"></OOPS>
       </div>
     );
   }

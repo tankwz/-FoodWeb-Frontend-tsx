@@ -29,7 +29,7 @@ function OrdersListAdmin() {
       <div className="container mt-5">
         <OOPS
           message="You don't have any order yet"
-          backmessage="Let's get order something"
+          backmessage="Let's order something"
         ></OOPS>
       </div>
     );
