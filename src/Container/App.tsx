@@ -14,6 +14,7 @@ import {
   OrdersList,
   OrdersListAdmin,
   MenuItemsListAdmin,
+  MenuItemUpser,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -83,7 +84,7 @@ function App() {
             element={<AccessDenied></AccessDenied>}
           ></Route>
           <Route
-            path="/Order/OrderDetails/:id?"
+            path="/Order/OrderDetails/:id"
             element={<OrderDetails></OrderDetails>}
           ></Route>
           <Route
@@ -97,6 +98,10 @@ function App() {
           <Route
             path="/MenuItemsAdmin/MenuItemList"
             element={<MenuItemsListAdmin></MenuItemsListAdmin>}
+          ></Route>
+          <Route
+            path="/MenuItemsAdmin/MenuItemUpser/:id"
+            element={<MenuItemUpser></MenuItemUpser>}
           ></Route>
         </Routes>
       </div>

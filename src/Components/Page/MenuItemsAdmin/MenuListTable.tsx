@@ -56,15 +56,23 @@ function MenuListTable({ menuItems }: Props) {
                       <td className="text-center">
                         <button
                           className="btn btn-info ms-0 me-1"
-                          onClick={() => navigate('#' + menuItems.id)}
+                          onClick={() =>
+                            navigate(
+                              '/MenuItemsAdmin/MenuItemUpser/' + menuItems.id
+                            )
+                          }
                         >
-                          <i className="bi bi-pencil-fill"></i>
+                          <i className="bi bi-pencil-fill"></i> Edit
                         </button>
                         <button
                           className="btn btn-danger ms-1 me-0"
-                          onClick={() => navigate('#' + menuItems.id)}
+                          onClick={() =>
+                            navigate(
+                              '/MenuItemsAdmin/MenuItemUpser/' + menuItems.id
+                            )
+                          }
                         >
-                          <i className="bi bi-trash-fill"></i>
+                          <i className="bi bi-trash-fill"></i> Delete
                         </button>
                       </td>
                     </tr>
