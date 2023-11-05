@@ -104,7 +104,10 @@ function Header() {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <NavLink className="dropdown-item" to={'/order/ordersList'}>
+                    <NavLink
+                      className="dropdown-item"
+                      to={'/order/OrdersListAdmin'}
+                    >
                       All Orders
                     </NavLink>
                   </li>

@@ -10,7 +10,9 @@ import EditCheckout from './EditCheckout';
 import OrderDetails from './Order/OrderDetails';
 import OrdersList from './Order/OrdersList';
 import OOPS from './OOPS';
+import OrdersListAdmin from './Order/OrdersListAdmin';
 export {
+  OrdersListAdmin,
   OOPS,
   OrdersList,
   OrderDetails,

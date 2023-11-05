@@ -152,7 +152,7 @@ function MenuItemDetails() {
                 <div className="col-12 col-lg-5  text-center">
                   <img
                     className="card-img-top img-fluid rounded"
-                    src={`https://via.placeholder.com/150`} //  src={data.result.image}
+                    src={data.result.image}
                   ></img>
                   {data.result.specialTag &&
                     data.result.specialTag.length > 0 && (
@@ -196,7 +196,7 @@ function MenuItemDetails() {
                     </div>
                     <div className="container ">
                       <h4 className="text-info ">Description</h4>
-                      <div className="border border-secondary ps-2 pt-1 mb-0 rounded-1 lh-sm remove-p-margin">
+                      <div className="border border-secondary ps-2 py-2 mb-0 rounded-1 lh-sm remove-p-margin">
                         {data.result.description}
                       </div>
                     </div>

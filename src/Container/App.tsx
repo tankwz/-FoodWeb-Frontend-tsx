@@ -12,6 +12,7 @@ import {
   EditCheckout,
   OrderDetails,
   OrdersList,
+  OrdersListAdmin,
 } from '../Pages';
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
@@ -87,6 +88,10 @@ function App() {
           <Route
             path="/order/ordersList"
             element={<OrdersList></OrdersList>}
+          ></Route>
+          <Route
+            path="/order/OrdersListAdmin"
+            element={<OrdersListAdmin></OrdersListAdmin>}
           ></Route>
         </Routes>
       </div>
