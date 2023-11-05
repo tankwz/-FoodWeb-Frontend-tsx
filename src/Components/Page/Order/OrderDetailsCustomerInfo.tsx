@@ -63,7 +63,10 @@ function OrderDetailsCustomerInfo({ orderItem }: Props) {
 
           <span className="d-block">
             <span className="fw-bold">Total:</span>
-            <span className="opacity-75"> ${orderItem.orderTotal}</span>
+            <span className="opacity-75">
+              {' '}
+              ${orderItem.orderTotal?.toFixed(2)}
+            </span>
           </span>
         </div>
         <div className="col-4">

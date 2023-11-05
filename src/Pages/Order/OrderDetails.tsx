@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetOrderByOrderIdQuery } from '../../api/orderApi';
 import { LoaderBig } from '../../Components/Page/Utility';
 import {
   OrderDetailsCustomerInfo,
+  OrderDetailsHeadAdmin,
+  OrderDetailsHeadCustomer,
   OrderDetailsItems,
+  OrderDetailsStatus,
 } from '../../Components/Page/Order';
 import { timeCalculation } from '../../Util';
 import { CheckoutItems } from '../../Components/Page/Checkout';
 import { cartItemModel, orderDetailModel } from '../../Interfaces';
+import { auth } from '../../HOC';
+import { RootState } from '../../Storage/Redux/store';
+import { useSelector } from 'react-redux';
+import { SD } from '../../Util/SD';
 
 function OrderDetails() {
   const { id } = useParams();
   const { isLoading, data, isError, error } = useGetOrderByOrderIdQuery(id);
+  const userData = useSelector((state: RootState) => state.userStore);
+  const [isUpdating, setIsUpdating] = useState(false);
+  // const userData: userModel = useSelector((state: RootState) => state.userStore
+  // );
+
   let cartItem: cartItemModel[] = [];
   if (!isLoading && data?.result) {
     data.result.orderDetails.forEach((item: orderDetailModel) => {
@@ -79,31 +91,11 @@ function OrderDetails() {
                       </div>
                     </div>
                     <div className="col-8">
-                      <div className="row d-flex">
-                        <div className="col ms-auto">
-                          <button className="btn btn-success form-control text-center py-2">
-                            Confirm
-                          </button>
-                        </div>
-                        <div className="col">
-                          <button className="btn btn-primary form-control text-center py-2">
-                            Ready
-                          </button>
-                        </div>
-                        <div className="col">
-                          <button
-                            className="btn btn-primary form-control text-center py-2"
-                            disabled
-                          >
-                            Ship
-                          </button>
-                        </div>
-                        <div className="col">
-                          <button className="btn btn-danger form-control text-center py-2">
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
+                      {userData.role == SD.ROLE_ADMIN ? (
+                        <OrderDetailsHeadAdmin></OrderDetailsHeadAdmin>
+                      ) : (
+                        <OrderDetailsHeadCustomer></OrderDetailsHeadCustomer>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -112,23 +104,10 @@ function OrderDetails() {
                     orderItem={data.result}
                   ></OrderDetailsCustomerInfo>
                   <div className="row"></div>
-                  <div className="row mt-3">
-                    <div className="col align-self-center ps-3 pe-0">
-                      <p>Pending</p>
-                      <div className="divider py-2 bg-success"></div>
-                    </div>
-                    <div className="col align-self-center ps-1 pe-0">
-                      <p>Approved</p>
-                      <div className="divider py-2 bg-success"></div>
-                    </div>
-                    <div className="col align-self-center ps-1 pe-0">
-                      <p>Processing</p>
-                      <div className="divider py-2 bg-secondary"></div>
-                    </div>
-                    <div className="col align-self-center ps-1 pe-0">
-                      <p>Shipped</p>
-                      <div className="divider py-2 bg-danger"></div>
-                    </div>
+                  <div>
+                    <OrderDetailsStatus
+                      status={data.result.status}
+                    ></OrderDetailsStatus>
                   </div>
                   <div className="row my-4">
                     <div className="col-12">
@@ -149,4 +128,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default auth(OrderDetails);

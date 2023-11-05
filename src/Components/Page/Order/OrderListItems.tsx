@@ -4,9 +4,11 @@ import OrderListProps from './orderListType';
 import { LoaderBig } from '../Utility';
 import { useNavigate } from 'react-router-dom';
 import { timeCalculation } from '../../../Util';
+import { statusColor } from '../../../Helper';
 
 function OrderListItems({ isLoading, orderData }: OrderListProps) {
   const navigate = useNavigate();
+
   return isLoading ? (
     <LoaderBig></LoaderBig>
   ) : (
@@ -28,6 +30,7 @@ function OrderListItems({ isLoading, orderData }: OrderListProps) {
                   <th>Total</th>
                   <th>Items</th>
                   <th>Date</th>
+                  <th>Status</th>
                   <th></th>
                 </tr>
               </thead>
@@ -41,7 +44,15 @@ function OrderListItems({ isLoading, orderData }: OrderListProps) {
                       <td>$ {orderItem.orderTotal!.toFixed(2)}</td>
                       <td>{orderItem.totalItems}</td>
                       <td>{timeCalculation(new Date(orderItem.orderDate!))}</td>
-
+                      <td>
+                        <span
+                          className={`badge py-2 bg-${statusColor(
+                            orderItem.status!
+                          )} form-control text-white`}
+                        >
+                          {orderItem.status}
+                        </span>
+                      </td>
                       <td className="text-center">
                         <button
                           className="btn btn-info"

@@ -31,10 +31,22 @@ const orderApi = createApi({
       }),
       providesTags: ['Orders'],
     }),
+    updateOrderHeader: builder.mutation({
+      query: (orderDetails) => ({
+        url: 'order/' + orderDetails.orderHeadId,
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: orderDetails,
+      }),
+      invalidatesTags: ['Orders'],
+    }),
   }),
 });
 
 export const {
+  useUpdateOrderHeaderMutation,
   useNewOrderMutation,
   useGetOrderByOrderIdQuery,
   useGetOrdersByUserIdQuery,

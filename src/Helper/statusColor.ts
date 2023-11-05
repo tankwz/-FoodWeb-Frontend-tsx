@@ -1,6 +1,6 @@
 import { SD_Status } from '../Util/SD';
 
-const statusColor = (status: SD_Status) => {
+const statusColor = (status: string) => {
   switch (status) {
     case SD_Status.Status_Pending:
       return 'warning';
