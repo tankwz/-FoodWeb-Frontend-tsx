@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-/* for user float label to not change background to white when focus */
+/* for user float label to not change background to white when focus but not working, gotta change it manually in bootstrap file */
 .form-floating > .form-select ~ label::after {
   position: absolute;
   inset: 1rem 0.375rem;
@@ -20,4 +20,27 @@ code {
   content: '';
   background-color: #ff0000fc !important;
   border-radius: var(--bs-border-radius);
+}
+
+.custom-buttons {
+  border: 0;
+  background: transparent;
+  color: #212529 !important;
+  margin: 12px 24px;
+
+  /* border-radius: 20px; */
+}
+
+.custom-buttons.active {
+  border-bottom: 3px solid #198754;
+  color: #198754 !important;
+}
+
+.image-box {
+  transition: 0.2s;
+}
+
+.image-box:hover {
+  box-shadow: 0 0 5px #000;
+  transform: scale(1.05);
 }
