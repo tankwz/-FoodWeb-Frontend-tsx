@@ -132,7 +132,7 @@ function MenuItemUpser() {
     <div className="container ">
       <div className="card ">
         <div className="card-header bg-gradient p-3 h2 text-info">
-          Create Item
+          {id ? 'Update Item' : 'Create Item'}
         </div>
 
         {isLoading ? (
@@ -199,7 +199,7 @@ function MenuItemUpser() {
                     style={{ width: '50%' }}
                     className="btn btn-success mt-5 mb-5"
                   >
-                    Submit
+                    {id ? 'Update ' : 'Create '}
                   </button>
                 </div>
               </div>
