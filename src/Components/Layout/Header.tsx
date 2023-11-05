@@ -4,6 +4,7 @@ import { cartItemModel, userModel } from '../../Interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../Storage/Redux/store';
 import { emptyUser, setUser } from '../../Storage/Redux/userAuthSlice';
+import { SD } from '../../Util/SD';
 //need a logo
 function Header() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -89,44 +90,54 @@ function Header() {
                 </i>
               </NavLink>
             </li>
-
-            <li className="nav-item dropdown ">
-              <a
-                className="nav-link dropdown-toggle"
-                href="/"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Admin Stuff
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
-                  Action
+            {userData.role == SD.ROLE_ADMIN ? (
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Admin Stuff
                 </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </li>
-
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <NavLink className="dropdown-item" to={'/order/ordersList'}>
+                      All Orders
+                    </NavLink>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            ) : (
+              <div></div>
+            )}
             <div className="ms-auto d-flex ">
               {userData.id ? (
                 <>
-                  <li className="nav-item">
-                    <NavLink
-                      className="btn       text-white border-0 "
-                      to={'/order/ordersList'}
-                    >
-                      Orders
-                    </NavLink>
-                  </li>
+                  {userData.role == SD.ROLE_CUSTOMER ? (
+                    <li className="nav-item">
+                      <NavLink
+                        className="btn       text-white border-0 "
+                        to={'/order/ordersList'}
+                      >
+                        Orders
+                      </NavLink>
+                    </li>
+                  ) : (
+                    <div></div>
+                  )}
                   <li className="nav-item">
                     <NavLink
                       className="btn btn-link  text-white border-0 "

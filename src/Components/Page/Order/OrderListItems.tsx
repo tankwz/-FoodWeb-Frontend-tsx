@@ -3,6 +3,7 @@ import { orderHeaderModel } from '../../../Interfaces';
 import OrderListProps from './orderListType';
 import { LoaderBig } from '../Utility';
 import { useNavigate } from 'react-router-dom';
+import { timeCalculation } from '../../../Util';
 
 function OrderListItems({ isLoading, orderData }: OrderListProps) {
   const navigate = useNavigate();
@@ -10,11 +11,56 @@ function OrderListItems({ isLoading, orderData }: OrderListProps) {
     <LoaderBig></LoaderBig>
   ) : (
     <div>
-      {' '}
       <div className="table p-5 table-dark  ">
         <h1 className="">Orders List</h1>
         <div className="p-2">
-          <div className="row border">
+          <div className=" align-middle ">
+            <table
+              id="tblData"
+              className="table table-dark table-bordered table-striped table-hover align-middle "
+              style={{ width: '100%' }}
+            >
+              <thead className="align-middle text-center  border  border-1 border-light   ">
+                <tr className=" ">
+                  <th className="">ID</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Total</th>
+                  <th>Items</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderData.map((orderItem: orderHeaderModel) => {
+                  return (
+                    <tr key={orderItem.orderHeadId}>
+                      <td>{orderItem.orderHeadId}</td>
+                      <td>{orderItem.pickupName}</td>
+                      <td>{orderItem.pickupPhoneNumber}</td>
+                      <td>$ {orderItem.orderTotal!.toFixed(2)}</td>
+                      <td>{orderItem.totalItems}</td>
+                      <td>{timeCalculation(new Date(orderItem.orderDate!))}</td>
+
+                      <td className="text-center">
+                        <button
+                          className="btn btn-info"
+                          onClick={() =>
+                            navigate(
+                              '/order/orderDetails/' + orderItem.orderHeadId
+                            )
+                          }
+                        >
+                          Details
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          {/* <div className="row border">
             <div className="col-1">ID</div>
             <div className="col-3">Name</div>
             <div className="col-2">Phone</div>
@@ -22,33 +68,7 @@ function OrderListItems({ isLoading, orderData }: OrderListProps) {
             <div className="col-1">Items</div>
             <div className="col-2">Date</div>
             <div className="col-2"></div>
-          </div>
-          {orderData.map((orderItem: orderHeaderModel) => {
-            return (
-              <div className="row border" key={orderItem.orderHeadId}>
-                <div className="col-1">{orderItem.orderHeadId}</div>
-                <div className="col-3">{orderItem.pickupName}</div>
-                <div className="col-2">{orderItem.pickupPhoneNumber}</div>
-                <div className="col-1">
-                  $ {orderItem.orderTotal!.toFixed(2)}
-                </div>
-                <div className="col-1"> {orderItem.totalItems}</div>
-                <div className="col-2">
-                  {new Date(orderItem.orderDate!).toLocaleDateString()}
-                </div>
-                <div className="col-2">
-                  <button
-                    className="btn btn-info"
-                    onClick={() =>
-                      navigate('/order/orderDetails/' + orderItem.orderHeadId)
-                    }
-                  >
-                    Details
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          </div> */}
         </div>
       </div>
     </div>

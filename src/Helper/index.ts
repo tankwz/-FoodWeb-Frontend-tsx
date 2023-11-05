@@ -1,4 +1,5 @@
 import inputHelper from './inputHelper';
 import toastPop from './toastPop';
+import statusColor from './statusColor';
 
-export { toastPop, inputHelper };
+export { statusColor, toastPop, inputHelper };
