@@ -18,3 +18,11 @@ export enum SD_Status {
   Status_Completed = 'Completed',
   Status_Cancelled = 'Cancelled',
 }
+
+export enum SD_Categories {
+  Bread_Sandwich = 'Bread Sandwich',
+  Pancakes = 'Pancakes',
+  Noodle = 'Noodle',
+  Spring_Rolls = 'Spring Rolls',
+  Rice_Dish = 'Rice Dish',
+}

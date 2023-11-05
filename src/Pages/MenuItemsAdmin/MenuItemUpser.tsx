@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { inputHelper, toastPop } from '../../Helper';
-import { SD } from '../../Util/SD';
+import { SD, SD_Categories } from '../../Util/SD';
 import { LoaderBig } from '../../Components/Page/Utility';
 import {
   useCreateMenuItemMutation,
@@ -10,11 +10,18 @@ import {
 import { apiResponse } from '../../Interfaces';
 import { useNavigate, useParams } from 'react-router-dom';
 
+const Categories = [
+  SD_Categories.Bread_Sandwich,
+  SD_Categories.Pancakes,
+  SD_Categories.Noodle,
+  SD_Categories.Spring_Rolls,
+  SD_Categories.Rice_Dish,
+];
 const menuItemData = {
   name: '',
   description: '',
   specialTag: '',
-  category: '',
+  category: Categories[0],
   price: '',
 };
 
@@ -93,7 +100,7 @@ function MenuItemUpser() {
     const formData = new FormData();
     formData.append('Name', userInput.name);
     formData.append('Description', userInput.description);
-    formData.append('SpecialTag', userInput.specialTag);
+    formData.append('SpecialTag', userInput.specialTag ?? '');
     formData.append('Category', userInput.category);
     formData.append('Price', userInput.price);
     if (imageToDataBase) formData.append('Image', imageToDataBase);
@@ -171,14 +178,17 @@ function MenuItemUpser() {
                   value={userInput.specialTag}
                   onChange={handleMenuItemInput}
                 />
-                <input
-                  type="text"
-                  className="form-control  bg-secondary text-white mt-3"
-                  placeholder="Enter Category"
+                <select
+                  className="form-control form-select bg-secondary text-white mt-3"
+                  placeholder="Select Category"
                   name="category"
                   value={userInput.category}
                   onChange={handleMenuItemInput}
-                />
+                >
+                  {Categories.map((item) => (
+                    <option value={item}>{item}</option>
+                  ))}
+                </select>
                 <input
                   type="number"
                   className="form-control  bg-secondary text-white mt-3"
