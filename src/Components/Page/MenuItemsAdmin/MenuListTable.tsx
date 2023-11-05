@@ -21,7 +21,10 @@ function MenuListTable({ menuItems }: Props) {
             <h1 className="">Items List</h1>
           </div>
           <div className="col-5 text-end ">
-            <button className="btn btn-info py-2 px-3 fw-bold me-4">
+            <button
+              className="btn btn-info py-2 px-3 fw-bold me-4"
+              onClick={() => navigate('/MenuItemsAdmin/MenuItemUpser/')}
+            >
               Add New Item
             </button>
           </div>
