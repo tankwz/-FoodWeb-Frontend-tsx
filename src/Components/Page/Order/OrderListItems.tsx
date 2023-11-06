@@ -5,12 +5,18 @@ import { LoaderBig } from '../Utility';
 import { useNavigate } from 'react-router-dom';
 import { timeCalculation } from '../../../Util';
 import { statusColor } from '../../../Helper';
+import { OOPS } from '../../../Pages';
 
 function OrderListItems({ isLoading, orderData }: OrderListProps) {
   const navigate = useNavigate();
 
-  return isLoading ? (
-    <LoaderBig></LoaderBig>
+  return !isLoading && orderData.length < 1 ? (
+    <div className="container mt-5">
+      <OOPS
+        message="There is no order match your search"
+        backmessage="Go Home"
+      ></OOPS>
+    </div>
   ) : (
     <div>
       <div className="container mt-2   ">
