@@ -19,6 +19,14 @@ const filterOption = [
   SD_Status.Status_Cancelled,
 ];
 function OrdersList() {
+  //
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [page, setPage] = useState({
+    pageNumber: 1,
+    pageSize: 5,
+  });
+
+  //
   const userId = useSelector((state: RootState) => state.userStore.id);
   const [filters, setFilters] = useState({ searchData: '', status: '' });
   const [orderData, setOrderData] = useState([]);
@@ -33,7 +41,9 @@ function OrdersList() {
 
   useEffect(() => {
     if (data) {
-      setOrderData(data.result);
+      setOrderData(data.apiReponse.result);
+      const { TotalRecords } = JSON.parse(data.totalRecords);
+      setTotalRecords(TotalRecords);
     }
   }, [data]);
 
@@ -92,7 +102,7 @@ function OrdersList() {
           </div>
           <OrderListItems
             isLoading={isLoading}
-            orderData={data.result}
+            orderData={orderData}
           ></OrderListItems>
         </>
       )}

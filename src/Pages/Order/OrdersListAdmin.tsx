@@ -18,14 +18,23 @@ const filterOption = [
   SD_Status.Status_Cancelled,
 ];
 function OrdersListAdmin() {
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [page, setPage] = useState({
+    pageNumber: 1,
+    pageSize: 10,
+  });
+
   //const userId = useSelector((state: RootState) => state.userStore.id);
   const [filters, setFilters] = useState({ searchData: '', status: '' });
   const [orderData, setOrderData] = useState([]);
+  const [currentPageSize, setCurrentPageSize] = useState(page.pageSize);
   const { data, isLoading, isSuccess, isError, error } =
     useGetOrdersByUserIdQuery({
       ...(filters && {
         searchString: filters.searchData,
         status: filters.status,
+        page: page.pageNumber,
+        size: page.pageSize,
       }),
     });
 
@@ -50,9 +59,24 @@ function OrdersListAdmin() {
 
   useEffect(() => {
     if (data) {
-      setOrderData(data.result);
+      setOrderData(data.apiReponse.result);
+      const { ForTotal } = JSON.parse(data.totalRecords);
+      const a = JSON.parse(data.totalRecords);
+
+      console.log(a);
+
+      setTotalRecords(ForTotal);
     }
   }, [data]);
+
+  const getPageDetails = () => {
+    const dataStartNumber = (page.pageNumber - 1) * page.pageSize + 1;
+    const dataEndNumber = page.pageNumber * page.pageSize;
+
+    return `${dataStartNumber} - ${
+      dataEndNumber < totalRecords ? dataEndNumber : totalRecords
+    } of ${totalRecords}`;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -61,6 +85,13 @@ function OrdersListAdmin() {
     setFilters(temp);
   };
 
+  const handleChangePage = (direction: string) => {
+    if (direction === '-1') {
+      setPage({ pageSize: 10, pageNumber: page.pageNumber - 1 });
+    } else if (direction === '+1') {
+      setPage({ pageSize: 10, pageNumber: page.pageNumber + 1 });
+    }
+  };
   // useEffect(() => {
   //   if (isSuccess) {
   //     disPatch(setCart(data.result?.cartItems));
@@ -82,7 +113,7 @@ function OrdersListAdmin() {
           {' '}
           <div className="row mt-4">
             <div className=" offset-1 col-4 d-flex align-item-center justify-content-between  ">
-              <h1 className="">Admin Orders List</h1>
+              <h1 className="">Admin Orders List </h1>
             </div>
 
             <div className="offset-1 col-3">
@@ -124,6 +155,23 @@ function OrdersListAdmin() {
             isLoading={isLoading}
             orderData={orderData}
           ></OrderListItems>
+          <div className="d-flex mx-5 justify-content-end align-content-between ">
+            <button
+              className="btn btn-outline-info px-3 mx-2"
+              disabled={page.pageNumber === 1}
+              onClick={() => handleChangePage('-1')}
+            >
+              <i className="bi bi-chevron-left"></i>
+            </button>
+            <div className="mx-2">{getPageDetails()}</div>
+            <button
+              className="btn  btn-outline-info px-3 mx-2"
+              disabled={page.pageNumber * page.pageSize >= totalRecords}
+              onClick={() => handleChangePage('+1')}
+            >
+              <i className="bi bi-chevron-right"></i>
+            </button>
+          </div>
         </>
       )}
     </div>

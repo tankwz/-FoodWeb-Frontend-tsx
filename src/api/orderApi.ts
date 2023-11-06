@@ -23,14 +23,23 @@ const orderApi = createApi({
       invalidatesTags: ['Orders'],
     }),
     getOrdersByUserId: builder.query({
-      query: ({ userId, searchString, status }) => ({
+      query: ({ userId, searchString, status, page, size }) => ({
         url: 'order',
         params: {
           ...(userId && { userId }),
           ...(searchString && { searchString }),
           ...(status && { status }),
+          ...(page && { page }),
+          ...(size && { size }),
         },
       }),
+      transformResponse(apiReponse: { result: any }, meta: any) {
+        return {
+          apiReponse,
+          totalRecords: meta.response.headers.get('x-orderfilterpage'),
+        };
+        //x-orderfilterpage 	{"CurrentPage":1,"HowManyRecords":10,"ForTotal":48}
+      },
       providesTags: ['Orders'],
     }),
     getOrderByOrderId: builder.query({
