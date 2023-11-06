@@ -7,6 +7,16 @@ import { LoaderBig } from '../../Components/Page/Utility';
 import { orderHeaderModel } from '../../Interfaces';
 import { OrderListItems } from '../../Components/Page/Order';
 import OOPS from '../OOPS';
+import { SD_Status } from '../../Util/SD';
+
+const filterOption = [
+  'All',
+  SD_Status.Status_Pending,
+  SD_Status.Status_Confirmed,
+  SD_Status.Status_Ready,
+  SD_Status.Status_Completed,
+  SD_Status.Status_Cancelled,
+];
 
 function OrdersList() {
   const userId = useSelector((state: RootState) => state.userStore.id);
@@ -40,6 +50,11 @@ function OrdersList() {
         <LoaderBig></LoaderBig>
       ) : (
         <>
+          <div className="row mt-3">
+            <div className=" offset-1 col-5 d-flex align-item-center justify-content-between  ">
+              <h1 className="">Orders List</h1>
+            </div>
+          </div>
           <OrderListItems
             isLoading={isLoading}
             orderData={data.result}
