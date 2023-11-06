@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth, authAdmin } from '../../HOC';
 import { UseSelector, useSelector } from 'react-redux/es/hooks/useSelector';
 import { RootState } from '../../Storage/Redux/store';
@@ -23,6 +23,32 @@ function OrdersListAdmin() {
     useGetOrdersByUserIdQuery('');
 
   const [filters, setFilters] = useState({ searchData: '', status: '' });
+  const [orderData, setOrderData] = useState([]);
+
+  const handleFilter = () => {
+    const temp = data.result.filter((orderData: orderHeaderModel) => {
+      if (
+        (orderData.pickupName &&
+          orderData.pickupName
+            .toLowerCase()
+            .includes(filters.searchData.toLowerCase())) ||
+        (orderData.pickupPhoneNumber &&
+          orderData.pickupPhoneNumber.includes(filters.searchData))
+      ) {
+        return orderData;
+      }
+    });
+    const result = temp.filter((orderData: orderHeaderModel) =>
+      filters.status !== '' ? orderData.status === filters.status : orderData
+    );
+    setOrderData(result);
+  };
+
+  useEffect(() => {
+    if (data) {
+      setOrderData(data.result);
+    }
+  }, [data]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -87,14 +113,17 @@ function OrdersListAdmin() {
               </select>
             </div>
             <div className="col-1 mt-3">
-              <button className="btn btn-outline-info text-white ">
+              <button
+                className="btn btn-outline-info text-white "
+                onClick={handleFilter}
+              >
                 Filter
               </button>
             </div>
           </div>
           <OrderListItems
             isLoading={isLoading}
-            orderData={data.result}
+            orderData={orderData}
           ></OrderListItems>
         </>
       )}
