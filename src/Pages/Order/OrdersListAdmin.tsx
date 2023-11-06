@@ -85,11 +85,16 @@ function OrdersListAdmin() {
     setFilters(temp);
   };
 
-  const handleChangePage = (direction: string) => {
+  const handleChangePage = (direction: string, pageSize: number) => {
     if (direction === '-1') {
-      setPage({ pageSize: 10, pageNumber: page.pageNumber - 1 });
+      setPage({ pageSize: pageSize, pageNumber: page.pageNumber - 1 });
     } else if (direction === '+1') {
-      setPage({ pageSize: 10, pageNumber: page.pageNumber + 1 });
+      setPage({ pageSize: pageSize, pageNumber: page.pageNumber + 1 });
+    } else if (direction === 'change') {
+      setPage({
+        pageSize: pageSize ? pageSize : 10,
+        pageNumber: 1,
+      });
     }
   };
   // useEffect(() => {
@@ -156,10 +161,30 @@ function OrdersListAdmin() {
             orderData={orderData}
           ></OrderListItems>
           <div className="d-flex mx-5 justify-content-end align-content-between ">
+            <div>
+              <div>Rows per page:</div>
+
+              <select
+                name=""
+                className="form selected mx-2"
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  handleChangePage('change', Number(e.target.value));
+                  setCurrentPageSize(Number(e.target.value));
+                }}
+                value={currentPageSize}
+                id=""
+              >
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+                <option>25</option>
+                <option>30</option>
+              </select>
+            </div>
             <button
               className="btn btn-outline-info px-3 mx-2"
               disabled={page.pageNumber === 1}
-              onClick={() => handleChangePage('-1')}
+              onClick={() => handleChangePage('-1', currentPageSize)}
             >
               <i className="bi bi-chevron-left"></i>
             </button>
@@ -167,7 +192,7 @@ function OrdersListAdmin() {
             <button
               className="btn  btn-outline-info px-3 mx-2"
               disabled={page.pageNumber * page.pageSize >= totalRecords}
-              onClick={() => handleChangePage('+1')}
+              onClick={() => handleChangePage('+1', currentPageSize)}
             >
               <i className="bi bi-chevron-right"></i>
             </button>
