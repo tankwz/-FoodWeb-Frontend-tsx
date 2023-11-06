@@ -26,14 +26,17 @@ function ShoppingCart() {
   //     // console.log(data.result.cartItems);
   //   }
   // }, [data]);
+
   const cartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
-  if (cartFromStore.length == 0) {
+  //  console.log(cartFromStore);
+
+  if (cartFromStore.length === 0) {
     return (
       <div className="container mt-5">
         <OOPS
-          message="you don't have any item in cart yet"
+          message="You don't have any item in cart yet, or data is loading"
           backmessage="Let's get something to eat"
         ></OOPS>
       </div>

@@ -19,7 +19,7 @@ import {
 import { Routes, Route } from 'react-router-dom';
 import { useGetCartQuery } from '../api/shoppingCartApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCart } from '../Storage/Redux/shoppingCartSlice';
+import { setCart, setSelectedItem } from '../Storage/Redux/shoppingCartSlice';
 import { tokenCheck } from '../Util';
 import { jwtDecode } from 'jwt-decode';
 import { userModel } from '../Interfaces';
@@ -61,6 +61,7 @@ function App() {
   useEffect(() => {
     if (userData.id) setDoGetCart(!true);
   }, [userData]);
+
   return (
     <div className=" ">
       <Header></Header>

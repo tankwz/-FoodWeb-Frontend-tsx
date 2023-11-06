@@ -8,7 +8,7 @@ interface Props {
 }
 
 function OrderDetailsCustomerInfo({ orderItem }: Props) {
-  console.log(orderItem);
+  // console.log(orderItem);
 
   return (
     <>

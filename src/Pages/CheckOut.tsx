@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../HOC';
 import { apiResponse, cartItemModel, userModel } from '../Interfaces';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../Storage/Redux/store';
 import { useNavigate } from 'react-router-dom';
 import { toastPop } from '../Helper';
@@ -10,6 +10,7 @@ import { CheckoutItems, ShippingDetails } from '../Components/Page/Checkout';
 import { useNewOrderMutation } from '../api/orderApi';
 import { LoaderBig } from '../Components/Page/Utility';
 import { timeCalculation } from '../Util';
+import { setSelectedItem } from '../Storage/Redux/shoppingCartSlice';
 
 function CheckOut() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -19,6 +20,16 @@ function CheckOut() {
     (state: RootState) => state.userStore
   );
 
+  // const disPatch = useDispatch();
+  // useEffect(() => {
+  //   const selectedItems = JSON.parse(
+  //     localStorage.getItem('selectedItems') || '[]'
+  //   );
+
+  //   selectedItems.forEach((itemId: number) => {
+  //     disPatch(setSelectedItem({ id: itemId, selected: true }));
+  //   });
+  // }, []);
   const navigate = useNavigate();
   const hasSelectedItem = () => {
     return cartFromStore.some((item) => item.selected);
@@ -47,7 +58,6 @@ function CheckOut() {
     let total = 0;
     let itemCount = 0;
     const orderDetailsDTO: any = [];
-    //    console.log(selectedCartItems);
 
     selectedCartItems.forEach((item: cartItemModel) => {
       const tempOrderDetail: any = {};

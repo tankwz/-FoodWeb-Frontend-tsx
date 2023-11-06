@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setMenuItem } from '../../../Storage/Redux/menuItemSlice';
 import { LoaderBig } from '../Utility';
 import { RootState } from '../../../Storage/Redux/store';
+import { OOPS } from '../../../Pages';
 var unorm = require('unorm');
 function MenuItemList() {
   const [menuItem, setMenuItems] = useState<menuItemModel[]>([]);
@@ -108,7 +109,12 @@ function MenuItemList() {
           <LoaderBig></LoaderBig>
         </div>
       ) : !isSuccess ? (
-        <div>Error while fetching data...Check console for error details</div>
+        <OOPS
+          message={
+            'Error while fetching data...Check console for error details'
+          }
+          backmessage="Home"
+        ></OOPS>
       ) : (
         <div className="row ">
           <div className="my-3 ">

@@ -34,7 +34,15 @@ function CartItem(props: Props) {
     description.length > 300
       ? description.substring(0, description.lastIndexOf(' ', 300)) + '...'
       : description;
+  useEffect(() => {
+    const selectedItems = JSON.parse(
+      localStorage.getItem('selectedItems') || '[]'
+    );
 
+    selectedItems.forEach((itemId: number) => {
+      dispatch(setSelectedItem({ id: itemId, selected: true }));
+    });
+  }, []);
   const handleUpdateCart = async (newcount: number) => {
     setupdating(true);
     const response = await updateCartNoReset({
@@ -42,9 +50,21 @@ function CartItem(props: Props) {
       itemId: props.cartItem.menuItem.id,
       quantity: newcount,
     });
+
+    if (!newcount) {
+      // If newcount is 0 (indicating deletion), remove the item from localStorage
+      let selectedItems = JSON.parse(
+        localStorage.getItem('selectedItems') || '[]'
+      );
+      selectedItems = selectedItems.filter(
+        (itemId: number) => itemId !== props.cartItem.id
+      );
+      localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+    }
+
     dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
     setBorder();
-    dispatch(removeFromCart({ cartItem: props.cartItem })); //still got removed from store without this line but imma put it here just in case
+    dispatch(removeFromCart({ cartItem: props.cartItem }));
     setupdating(!true);
   };
 
@@ -113,14 +133,28 @@ function CartItem(props: Props) {
   // Dispatch the action with the payload
   const [borderColor, setBorderColor] = useState('grey'); // Initial border color
   const handleBorder = () => {
-    if (props.cartItem.selected == !true) {
-      dispatch(setSelectedItem({ id: props.cartItem.id, selected: true }));
+    let selectedItems = JSON.parse(
+      localStorage.getItem('selectedItems') || '[]'
+    );
+    const isItemSelected = selectedItems.includes(props.cartItem.id);
+
+    const newSelectedState = !props.cartItem.selected;
+
+    if (newSelectedState) {
+      selectedItems.push(props.cartItem.id);
       setBorderColor('green');
     } else {
-      dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
-
+      selectedItems = selectedItems.filter(
+        (itemId: number) => itemId !== props.cartItem.id
+      );
       setBorderColor('grey');
     }
+
+    localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+
+    dispatch(
+      setSelectedItem({ id: props.cartItem.id, selected: newSelectedState })
+    );
   };
 
   const setBorder = () => {
