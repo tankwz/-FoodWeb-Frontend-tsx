@@ -202,13 +202,21 @@ background-color: #ff000000; Change the background color to transparent !!!!! NE
                             value={userInput.role}
                             onChange={handleUserInput}
                           >
-                            <option value="">
-                              --Select Role(for testing purpose only)--
-                            </option>
+                            <option value="">--Select Role--</option>
                             <option value={`${SD.ROLE_CUSTOMER}`}>
                               Customer
                             </option>
-                            <option value={`${SD.ROLE_ADMIN}`}>Admin</option>
+                            <option
+                              className="text-warning"
+                              value={`${SD.ROLE_ADMIN}`}
+                            >
+                              Admin
+                              <span className=" ">
+                                : Has full permissions, for testing purposes.
+                                Please don't delete any product or data that you
+                                didn't add
+                              </span>
+                            </option>
                           </select>
                         </div>
                       </div>

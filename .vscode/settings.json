@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/f60993e9-c68a-4593-bdad-1a90c262cee6/resourceGroups/react-dotnet/providers/Microsoft.Web/sites/TanFood",
+  "appService.deploySubpath": "."
+}

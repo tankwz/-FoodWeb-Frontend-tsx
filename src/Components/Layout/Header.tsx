@@ -123,7 +123,7 @@ function Header() {
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
-                      Something else here
+                      User Management (not yet implemented)
                     </a>
                   </li>
                 </ul>
