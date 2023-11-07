@@ -12,7 +12,7 @@ import { LoaderBig } from '../Components/Page/Utility';
 import { timeCalculation } from '../Util';
 import { setSelectedItem } from '../Storage/Redux/shoppingCartSlice';
 
-function CheckOut() {
+function Checkout() {
   const cartFromStore: cartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
   );
@@ -164,4 +164,4 @@ function CheckOut() {
   );
 }
 
-export default auth(CheckOut);
+export default auth(Checkout);
