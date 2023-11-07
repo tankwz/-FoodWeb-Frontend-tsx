@@ -5,8 +5,11 @@
 /node_modules
 /.pnp
 .pnp.js
+
 /src/darklybootswatch.css
 
+/Pages
+/index.css
 # testing
 /coverage
 

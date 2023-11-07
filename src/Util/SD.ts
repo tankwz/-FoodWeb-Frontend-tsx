@@ -22,7 +22,7 @@ export enum SD_Status {
 export enum SD_Categories {
   Bread_Sandwich = 'Bread Sandwich',
   Pancakes = 'Pancakes',
-  Noodle = 'Noodle',
+  Noodle = 'Noodled',
   Spring_Rolls = 'Spring Rolls',
   Rice_Dish = 'Rice Dish',
 }
