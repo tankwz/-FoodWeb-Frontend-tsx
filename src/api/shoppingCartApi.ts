@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const shoppingCartApi = createApi({
   reducerPath: 'shoppingCartApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://localhost:7196/api/',
+    baseUrl: 'https://tankwzfoodwebapiz.azurewebsites.net/api/',
     prepareHeaders: (headers: Headers, api) => {
       const token = localStorage.getItem('token');
       token && headers.append('Authorization', 'Bearer ' + token);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { inputHelper } from '../Helper';
+import { inputHelper, toastPop } from '../Helper';
 import { useLoginUserMutation } from '../api/authApi';
 import { apiResponse, userModel } from '../Interfaces';
 import { jwtDecode } from 'jwt-decode';
@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../Storage/Redux/userAuthSlice';
 import { useNavigate } from 'react-router-dom';
 import { LoaderBig } from '../Components/Page/Utility';
+import { SD } from '../Util/SD';
 
 function Login() {
   const [loading, setLoading] = useState(!true);
@@ -40,7 +41,10 @@ function Login() {
       dispatch(setUser({ id, name, email, role, phoneNumber, address, exp }));
       naviage('/');
     } else if (response.error) {
-      console.log(response);
+      toastPop(response.error.data.errorMessages[0], SD.TOAST_ERROR);
+      // console.log('here');
+
+      // console.log(response.error.data.errorMessages);
     }
     setLoading(!true);
   };

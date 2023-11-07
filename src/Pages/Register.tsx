@@ -37,6 +37,25 @@ function Register() {
       toastPop('Passwords do not match. Please check again.', SD.TOAST_WARNING);
       setLoading(!true);
       return;
+    } else if (
+      userInput.password.length < 6 ||
+      userInput.password.length > 100
+    ) {
+      toastPop(
+        'The Password must be at least 6 and at max 100 characters long. Please try again.',
+        SD.TOAST_WARNING
+      );
+      setLoading(!true);
+      return;
+    }
+    const uppercaseRegex = /.*[A-Z]/;
+    if (!uppercaseRegex.test(userInput.password)) {
+      toastPop(
+        'Password must have at least one uppercase letter.',
+        SD.TOAST_WARNING
+      );
+      setLoading(!true);
+      return;
     }
 
     const userToRegister = { ...userInput };
