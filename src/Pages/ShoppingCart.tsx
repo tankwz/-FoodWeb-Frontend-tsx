@@ -43,7 +43,7 @@ function ShoppingCart() {
     );
   }
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="card border-1 shadow">
         <div className="card-header bg-gradient ms-0 py-4">
           <div className="row">

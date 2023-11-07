@@ -54,7 +54,10 @@ function CartFooter() {
                 Select All
               </label> }
             </div> */}
-            <div className="col-3 d-flex align-items-center pt-3 offset-6">
+            <div className="col-3 d-flex align-items-center  ">
+              <small className="text-info">*Press in to select item</small>
+            </div>
+            <div className="col-3 d-flex align-items-center pt-3 offset-3">
               <h5 style={{ display: 'inline' }} id="TotalOrderPrice">
                 For Total: $
                 <span className="">{bigCart.cartTotal?.toFixed(2)}</span>

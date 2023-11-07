@@ -190,7 +190,7 @@ function CartItem(props: Props) {
             className="  border border-1 border-secondary rounded"
             src={props.cartItem.menuItem.image}
             //  className="card-img-top mt-2  border border-1 border-secondary rounded"
-            style={{ width: '350px', height: '250px', objectFit: 'cover' }}
+            style={{ width: '410px', height: '250px', objectFit: 'cover' }}
             // style={{ width: '100%' }}
             onClick={handleBorder}
           ></img>
