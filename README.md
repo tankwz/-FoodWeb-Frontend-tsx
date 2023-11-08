@@ -17,6 +17,4 @@ Pages (for everyone):
 
 Pages (login customer user):
 
-[[/ShoppingCart](https://main.d245fjjr2entuj.amplifyapp.com/ShoppingCart)]
-
-[[/Checkout](https://main.d245fjjr2entuj.amplifyapp.com/Checkout)] (you need to select an item from the shopping cart by clicking on the description or image first)
+[[/ShoppingCart](https://main.d245fjjr2entuj.amplifyapp.com/ShoppingCart)] [[/Checkout](https://main.d245fjjr2entuj.amplifyapp.com/Checkout)] (you need to select an item from the shopping cart by clicking on the description or image first)
