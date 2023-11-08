@@ -1,47 +1,20 @@
-#use https://bootswatch.com/darkly/
-# Getting Started with Create React App
+Hi, this is a readme for my food ordering website using react and typescript
+This website is a personal product i made to practice and learning react concept with the instruction from Mr.Bhrugen aka https://www.dotnetmastery.com/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Live website link: https://main.d245fjjr2entuj.amplifyapp.com/
 
-## Available Scripts
+There only 2 type of user (for now) and you can register as admin user with full permission (please don't delete any data that you didn't add)
 
-In the project directory, you can run:
+Pages (for everyone):
 
-### `npm start`
+[[/Login](https://main.d245fjjr2entuj.amplifyapp.com/login)]
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[[/Register](https://main.d245fjjr2entuj.amplifyapp.com/register)]
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+[[/Home](https://main.d245fjjr2entuj.amplifyapp.com/)]
 
-### `npm test`
+[[/FoodDetails](https://main.d245fjjr2entuj.amplifyapp.com/MenuItemDetails/2)]
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Pages (login customer user):
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[[/ShoppingCart](https://main.d245fjjr2entuj.amplifyapp.com/ShoppingCart)] [[/Checkout](https://main.d245fjjr2entuj.amplifyapp.com/Checkout)] (you need to select an item from the shopping cart by clicking on the description or image first)
