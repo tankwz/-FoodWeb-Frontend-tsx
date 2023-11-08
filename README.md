@@ -36,3 +36,5 @@ Admin users can access and perform all customer user tasks. Additionally, they c
 [[/Order Details](https://main.d245fjjr2entuj.amplifyapp.com/order/orderDetails/)] Order Details page, you need to access this page from [[/All Orders](https://main.d245fjjr2entuj.amplifyapp.com/order/OrdersListAdmin)] page so it has an id to process, if the user is admin, they can update the order status right here with Confirm, Ready, Completed or Cancel button
 
 [[/Menu Item List](https://main.d245fjjr2entuj.amplifyapp.com/MenuItemsAdmin/MenuItemList)] This is where admin users can add/update/delete menu items. Since I purposely let you register as an admin user for testing purposes, please don't mess up my preset data. thank you
+
+[[/Menu Item Upsert](https://main.d245fjjr2entuj.amplifyapp.com/MenuItemsAdmin/MenuItemList)] This is the upsert page you access from [[/Menu Item List](https://main.d245fjjr2entuj.amplifyapp.com/MenuItemsAdmin/MenuItemList)] to update or if not if will be an insert page, i combined Update and Insert logic depend whether there is an id present on the route
