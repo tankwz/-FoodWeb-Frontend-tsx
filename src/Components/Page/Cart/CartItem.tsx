@@ -185,17 +185,17 @@ function CartItem(props: Props) {
         className="row py-2  mt-2"
         style={{ border: `3px solid ${borderColor}` }}
       >
-        <div className=" py-2  col-12 col-lg-4  ps-1">
+        <div className=" py-2  col-12 col-xxl-4  col-xl-4 col-lg-5  ps-1">
           <img
             className="  border border-1 border-secondary rounded"
             src={props.cartItem.menuItem.image}
             //  className="card-img-top mt-2  border border-1 border-secondary rounded"
-            style={{ width: '410px', height: '250px', objectFit: 'cover' }}
+            style={{ width: '350px', height: '250px', objectFit: 'cover' }}
             // style={{ width: '100%' }}
             onClick={handleBorder}
           ></img>
         </div>
-        <div className="col-12 col-lg-8    ">
+        <div className="col-12   col-xxl-8      col-xl-8 col-lg-7  ">
           <div className="row">
             <div className="col-12 ps-1">
               <h3

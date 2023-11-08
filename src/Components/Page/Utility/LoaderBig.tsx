@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LoaderBig({ type = 'info' }) {
+function LoaderBig({ type = 'info', message = '' }) {
   return (
     <div>
       <div className="text-center mt-5">
@@ -8,7 +8,7 @@ function LoaderBig({ type = 'info' }) {
           className="text-info h1 mt-5
         "
         >
-          Loading...{' '}
+          Loading... {message}
         </span>
         <div
           className={`spinner-border  text-${type}`}

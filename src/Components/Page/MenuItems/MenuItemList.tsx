@@ -106,7 +106,10 @@ function MenuItemList() {
     <div>
       {isLoading ? (
         <div>
-          <LoaderBig></LoaderBig>
+          <LoaderBig
+            message="First load will take a bit since the server is hibernated, please be patient
+"
+          ></LoaderBig>
         </div>
       ) : !isSuccess ? (
         <OOPS
