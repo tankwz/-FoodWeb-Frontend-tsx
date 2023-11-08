@@ -6,4 +6,8 @@ Live website link: https://main.d245fjjr2entuj.amplifyapp.com/
 Table of content:
 There only 2 type of user (for now) and you can register as admin user with full permission (please don't delete any data that you didn't add)
 Pages:
-[[/H](https://main.d245fjjr2entuj.amplifyapp.com/)](Home/
+[[/Home](https://main.d245fjjr2entuj.amplifyapp.com/)]
+
+[[/FoodDetails](https://main.d245fjjr2entuj.amplifyapp.com/MenuItemDetails/2)]
+
+
