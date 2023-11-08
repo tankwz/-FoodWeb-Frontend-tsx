@@ -9,6 +9,7 @@ Pages:
 
 
 [[/Home](https://main.d245fjjr2entuj.amplifyapp.com/)]
+
 [[/FoodDetails](https://main.d245fjjr2entuj.amplifyapp.com/MenuItemDetails/2)]
 
 
