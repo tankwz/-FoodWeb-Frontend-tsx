@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../Storage/Redux/store';
 import { emptyUser, setUser } from '../../Storage/Redux/userAuthSlice';
 import { SD } from '../../Util/SD';
+let logo = require('../../Assets/img/iconnobg.ico');
+//import logo from './logo.svg';
 //need a logo
 function Header() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -28,10 +30,11 @@ function Header() {
   return (
     <div>
       <nav
-        className="ps-4 pb-0 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-0 "
+        className="ps-2  pb-0 navbar navbar-expand-sm navbar-toggleable-sm navbar-dark  border-bottom box-shadow mb-0 "
         style={{ backgroundColor: 'rgb(17, 110, 180)' }}
       >
-        <NavLink className="navbar-brand mb-2" to="/">
+        <NavLink className="navbar-brand text-center " to="/">
+          <img src={logo} style={{ width: '40px' }} className="  mb-1 me-1" />
           Food Web
         </NavLink>
 
