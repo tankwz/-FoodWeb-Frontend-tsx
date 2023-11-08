@@ -121,7 +121,7 @@ function Checkout() {
   };
 
   return (
-    <div className="container ">
+    <div className="container  ">
       <div className="card">
         <div className="card-header bg-gradient p-3 h2 text-info">
           Order Summary
