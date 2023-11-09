@@ -63,8 +63,6 @@ function OrdersListAdmin() {
       const { ForTotal } = JSON.parse(data.totalRecords);
       const a = JSON.parse(data.totalRecords);
 
-      console.log(a);
-
       setTotalRecords(ForTotal);
     }
   }, [data]);
@@ -161,7 +159,7 @@ function OrdersListAdmin() {
             orderData={orderData}
           ></OrderListItems>
           <div
-            className="d-flex mx-5 justify-content-end text-center align-items-center  "
+            className="d-flex mx-5 justify-content-end text-center align-items-center pe-4 "
             style={{ height: '50px' }}
           >
             <div className=" me-3">Rows per page:</div>

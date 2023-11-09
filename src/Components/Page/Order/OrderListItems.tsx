@@ -20,7 +20,7 @@ function OrderListItems({ isLoading, orderData }: OrderListProps) {
   ) : (
     <div>
       <div className="container mt-2   ">
-        <div className="p-2">
+        <div className="px-2 pt-2 pb-0">
           <div className=" align-middle ">
             <table
               id="tblData"
