@@ -8,7 +8,7 @@ function LoaderBig({ type = 'info', message = '' }) {
           className="text-info h1 mt-5
         "
         >
-          Loading... {message}
+          Loading...
         </span>
         <div
           className={`spinner-border  text-${type}`}
@@ -17,6 +17,7 @@ function LoaderBig({ type = 'info', message = '' }) {
         >
           <span className="visually-hidden">Loading...</span>
         </div>
+        <div className="h3 text-info">{message}</div>
       </div>
     </div>
   );
