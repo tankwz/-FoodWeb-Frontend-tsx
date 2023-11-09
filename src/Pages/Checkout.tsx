@@ -11,6 +11,7 @@ import { useNewOrderMutation } from '../api/orderApi';
 import { LoaderBig } from '../Components/Page/Utility';
 import { timeCalculation } from '../Util';
 import { setSelectedItem } from '../Storage/Redux/shoppingCartSlice';
+import { useUpdateCartMutation } from '../api/shoppingCartApi';
 
 function Checkout() {
   const cartFromStore: cartItemModel[] = useSelector(
@@ -51,6 +52,37 @@ function Checkout() {
   const now = new Date();
 
   const [isLoading, setIsLoading] = useState(!true);
+  const [updateCart] = useUpdateCartMutation();
+  const removeItem = async (newcount: 0) => {
+    try {
+      const updatePromises = selectedCartItems.map(async (item) => {
+        await updateCart({
+          userId: userData.id,
+          itemId: item.menuItem.id,
+          quantity: newcount,
+        });
+      });
+      console.log('done ');
+
+      await Promise.all(updatePromises);
+    } catch (error) {
+      console.error('Error updating cart items:', error);
+    }
+
+    // if (!newcount) {
+    //   // If newcount is 0 (indicating deletion), remove the item from localStorage
+    //   let selectedItems = JSON.parse(
+    //     localStorage.getItem('selectedItems') || '[]'
+    //   );
+    //   selectedItems = selectedItems.filter(
+    //     (itemId: number) => itemId !== props.cartItem.id
+    //   );
+    //   localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+    // }
+
+    // dispatch(setSelectedItem({ id: props.cartItem.id, selected: !true }));
+    // dispatch(removeFromCart({ cartItem: props.cartItem }));
+  };
 
   const [newOrder] = useNewOrderMutation();
   const handleNewOrder = async () => {
@@ -83,6 +115,7 @@ function Checkout() {
     //   status: '',
     //   orderDetailsDTO,
     // });
+    // const [updateCart, result] = useUpdateCartMutation();
 
     const response: apiResponse = await newOrder({
       pickupName: userData.pickupName,
@@ -99,6 +132,9 @@ function Checkout() {
 
     if (response) {
       if (response.data?.result.status === SD_Status.Status_Pending) {
+        removeItem(0);
+        localStorage.removeItem('selectedItems');
+
         toastPop('Order Placed Successfully', SD.TOAST_SUCCESS);
         navigate(`/order/orderDetails/${response.data.result.orderHeadId}`);
       }
