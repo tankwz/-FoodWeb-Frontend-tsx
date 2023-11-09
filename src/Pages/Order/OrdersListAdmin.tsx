@@ -160,13 +160,15 @@ function OrdersListAdmin() {
             isLoading={isLoading}
             orderData={orderData}
           ></OrderListItems>
-          <div className="d-flex mx-5 justify-content-end align-content-between ">
-            <div>
-              <div>Rows per page:</div>
-
+          <div
+            className="d-flex mx-5 justify-content-end text-center align-items-center  "
+            style={{ height: '50px' }}
+          >
+            <div className=" me-3">Rows per page:</div>
+            <div className="me-5">
               <select
                 name=""
-                className="form selected mx-2"
+                className="   form-select bg-secondary text-white  text-white"
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   handleChangePage('change', Number(e.target.value));
                   setCurrentPageSize(Number(e.target.value));
@@ -181,6 +183,7 @@ function OrdersListAdmin() {
                 <option>30</option>
               </select>
             </div>
+
             <button
               className="btn btn-outline-info px-3 mx-2"
               disabled={page.pageNumber === 1}
@@ -190,7 +193,7 @@ function OrdersListAdmin() {
             </button>
             <div className="mx-2">{getPageDetails()}</div>
             <button
-              className="btn  btn-outline-info px-3 mx-2"
+              className="btn  btn-outline-info px-3 ms-2 me-5"
               disabled={page.pageNumber * page.pageSize >= totalRecords}
               onClick={() => handleChangePage('+1', currentPageSize)}
             >
