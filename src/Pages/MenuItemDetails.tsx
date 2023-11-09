@@ -143,8 +143,8 @@ function MenuItemDetails() {
         </div>
       ) : isSuccess ? (
         <div className="container">
-          <div className="card">
-            <div className="card-header text-center">
+          <div className="card border-1 mt-4 shadow">
+            <div className="card-header bg-gradient ms-0 py-4 text-center">
               <h3 className="my-0">{data.result?.name}</h3>
             </div>
             <div className="card-body">

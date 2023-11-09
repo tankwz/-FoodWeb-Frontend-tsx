@@ -87,9 +87,15 @@ function MenuItemCard(props: Props) {
             </div>
             <div className="card-body pb-0">
               <div>
-                <p className="card-title text-center bg-secondary border border-info rounded-1 text-uppercase py-1 ">
-                  {props.menuItem.name}
-                </p>
+                <Link
+                  to={`/MenuItemDetails/${props.menuItem.id}`}
+                  className="text-white text-decoration-none "
+                >
+                  <p className="card-title text-center bg-secondary border border-info rounded-1 text-uppercase py-1 ">
+                    {props.menuItem.name}
+                  </p>
+                </Link>
+
                 <div className="row text-center">
                   <div className="col">
                     <h4
