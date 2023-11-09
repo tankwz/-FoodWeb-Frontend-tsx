@@ -1,7 +1,7 @@
 function timeCalculation(timeToCal: Date, timeToAddInMs?: number) {
   const estimatedArrivalTime = new Date(
-    timeToCal.getTime() + (timeToAddInMs || 0)
-  );
+    timeToCal.getTime() + 7 * 60 * 60 * 1000 + (timeToAddInMs || 0)
+  ); //^amazon has different timezone
   const formattedHours = String(estimatedArrivalTime.getHours()).padStart(
     2,
     '0'
