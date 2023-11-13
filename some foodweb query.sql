@@ -14,7 +14,7 @@ FROM orderhead h
 JOIN orderdetails dt ON dt.orderheadid = h.orderheadid
 GROUP BY h.orderheadid, h.ordertotal,  h.PickupName;
 
---sec3 sql zoo
+--sec2 sql zoom select from world
 --3
 select name, GDP/population as percapitaGDP
 from world
@@ -54,3 +54,75 @@ SELECT name, capital
 FROM world
 WHERE LENGTH(name) = LENGTH(capital) 
 --12
+SELECT name, capital
+from world
+where left(name,1) = left(capital,1) AND name <> capital
+--13
+SELECT name
+FROM world
+WHERE name LIKE '%[aeiou]%'
+  AND name NOT LIKE '% %';
+--sec3 sql zoom select from nobel
+--1
+SELECT yr, subject, winner
+  FROM nobel
+ WHERE yr = 1950
+--2
+SELECT winner
+  FROM nobel
+ WHERE yr = 1962
+   AND subject = 'literature'
+--3
+select yr, subject 
+from nobel 
+where winner = 'Albert Einstein'
+--4
+select winner
+from nobel
+where subject = 'peace' and yr >= 2000
+--5
+select * 
+from nobel 
+where subject = 'literature' and yr <= 1989 and  1980 <= yr
+--6
+SELECT * FROM nobel
+
+  where winner IN ('Theodore Roosevelt',
+                  'Thomas Woodrow Wilson',
+                  'Jimmy Carter','Barack Obama')
+--7
+select winner 
+from nobel 
+where winner like 'John%'
+--8
+select yr, subject, winner 
+from nobel
+where (subject = 'physics' and yr = 1980) 
+OR (subject = 'chemistry' and yr = 1984)
+--9
+select yr, subject, winner 
+from nobel
+where yr = 1980 and (subject != 'chemistry' and subject !=  'medicine')
+--10
+select yr, subject, winner 
+from nobel
+where (subject = 'Medicine' and yr <1910) or
+(subject = 'Literature' and yr >= 2004)
+--11
+select * 
+from nobel 
+where winner = 'PETER GRÜNBERG'
+--12
+select * 
+from nobel 
+where winner = "EUGENE O'NEILL"
+--13
+select winner, yr, subject
+from nobel
+where winner like 'Sir%'
+order by yr desc, winner
+--14
+SELECT winner, subject
+  FROM nobel
+ WHERE yr=1984
+ ORDER BY subject IN ('physics','chemistry') asc, subject,winner
