@@ -126,3 +126,87 @@ SELECT winner, subject
   FROM nobel
  WHERE yr=1984
  ORDER BY subject IN ('physics','chemistry') asc, subject,winner
+--sec3 sql zoom select from select
+--1
+SELECT name FROM world
+  WHERE population >
+     (SELECT population FROM world
+      WHERE name='Russia')
+--2
+select name 
+from world
+where continent = 'Europe' 
+and gdp/population > 
+(select gdp/population 
+from world 
+where name = 'United Kingdom')
+--3
+select name, continent 
+from world
+where continent in 
+(select continent 
+from world 
+where name = 'Argentina ' 
+or name = 'Australia')
+--4
+select name, population
+from world 
+where population 
+between 
+(select population 
+from world 
+where name = 'United Kingdom') 
+and 
+(select population 
+from world 
+where name = 'Germany')
+and name not in ('United Kingdom', 'Germany')
+--5
+select name, 
+CONCAT(ROUND
+  (population/
+    (select population
+        from world
+          where name = 'Germany')
+          *100), '%') as percentage
+from world 
+where continent = 'Europe'
+--6
+select name
+from world
+where gdp >= 
+(select max(gdp) 
+from world 
+where continent = 'Europe') 
+and name not in 
+(select name 
+from world 
+where continent = 'Europe')
+--7
+SELECT continent, name, area
+FROM world x
+  WHERE area >= ALL
+    (SELECT area FROM world y
+        WHERE y.continent=x.continent
+          AND population>0)
+--8
+select continent, name
+from world
+group by continent
+order by name asc
+--9
+SELECT continent
+FROM world
+GROUP BY continent
+HAVING MAX(population) <= 25000000;
+--10
+select c.name, c.continent
+from world c
+where c.population >
+3* (         SELECT
+            MAX(n.population)
+        FROM
+            world n
+        WHERE
+            n.continent = c.continent
+            AND n.name <> c.name )
