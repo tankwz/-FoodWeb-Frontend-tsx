@@ -1,3 +1,5 @@
+dead 
+
 Hi, this is a readme for my food ordering website using React and TypeScript.
 
 This website is a personal project I made to practice and learn React concepts with instructions from [Mr. Bhrugen](https://www.dotnetmastery.com/).
